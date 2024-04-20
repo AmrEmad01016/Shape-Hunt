@@ -19,12 +19,13 @@ void Sign::draw() const
 
 dumbel::dumbel(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
+
 	point handleRef = ref;
-	point RcircleRef = { ref.x + config.dumbelShape.handleWdth / 2 + config.dumbelShape.circleRad, ref.y };
-	point LcircleRef = { ref.x - config.dumbelShape.handleWdth / 2 - config.dumbelShape.circleRad, ref.y };
-	handle = new Rect(pGame, handleRef, config.dumbelShape.handleHeight, config.dumbelShape.handleWdth);
-	Rcircle = new circle(pGame, RcircleRef, config.dumbelShape.circleRad);
-	Lcircle = new circle(pGame, LcircleRef, config.dumbelShape.circleRad);
+	point RcircleRef = { ref.x + 6*unitlen / 2 + 3*unitlen, ref.y };
+	point LcircleRef = { ref.x - 6*unitlen / 2 - 3*unitlen, ref.y };
+	handle = new Rect(pGame, handleRef, 2*unitlen, 6*unitlen);
+	Rcircle = new circle(pGame, RcircleRef, 3*unitlen);
+	Lcircle = new circle(pGame, LcircleRef, 3*unitlen);
 }
 
 void dumbel::draw() const
@@ -37,15 +38,14 @@ void dumbel::draw() const
 
 car::car(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
-	int Ulen = config.compositeshape.unitlen;
 	point lwrBodyRef = ref,
-		uprBodyRef = { ref.x - Ulen * 3, ref.y - Ulen * 4 },
-		FwheelRef = { ref.x + Ulen * 3, ref.y + Ulen * 2 },
-		BwheelRef = { ref.x - Ulen * 3, ref.y + Ulen * 2 };
-	lwrBody = new Rect(pGame, lwrBodyRef, Ulen * 4, Ulen * 12);
-	lwrBody = new Rect(pGame, lwrBodyRef, Ulen * 4, Ulen * 6);
-	frontWheel = new circle(pGame, FwheelRef, Ulen);
-	backWheel = new circle(pGame, BwheelRef, Ulen);
+		uprBodyRef = { ref.x - unitlen * 3, ref.y - unitlen * 4 },
+		FwheelRef = { ref.x + unitlen * 3, ref.y + unitlen * 2 },
+		BwheelRef = { ref.x - unitlen * 3, ref.y + unitlen * 2 };
+	lwrBody = new Rect(pGame, lwrBodyRef, unitlen * 4, unitlen * 12);
+	lwrBody = new Rect(pGame, lwrBodyRef, unitlen * 4, unitlen * 6);
+	frontWheel = new circle(pGame, FwheelRef, unitlen);
+	backWheel = new circle(pGame, BwheelRef, unitlen);
 
 
 }
@@ -61,16 +61,15 @@ void car::draw() const
 
 house::house(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
-	int u = config.compositeshape.unitlen; //half Mbuild side length
 	point MbuildRef = ref,
-		RbuildRef = { ref.x + 2 * u, ref.y + 2 * u },
-		LbuildRef = { ref.x - 2 * u, ref.y + 2 * u },
-		topRef = { ref.x, ref.y - u - (sqrt(3) / 6) * u };
+		RbuildRef = { ref.x + 2 * unitlen, ref.y + 2 * unitlen },
+		LbuildRef = { ref.x - 2 * unitlen, ref.y + 2 * unitlen },
+		topRef = { ref.x, ref.y - unitlen - (sqrt(3) / 6) * unitlen };
 
-	Mbuild = new Rect(pGame, MbuildRef, 2 * u, 2 * u);
-	Rbuild = new Rect(pGame, RbuildRef, 4 * u, 2 * u);
-	Lbuild = new Rect(pGame, LbuildRef, 4 * u, 2 * u);
-	top = new EquiTri(pGame, topRef, 6 * u);
+	Mbuild = new Rect(pGame, MbuildRef, 2 * unitlen, 2 * unitlen);
+	Rbuild = new Rect(pGame, RbuildRef, 4 * unitlen, 2 * unitlen);
+	Lbuild = new Rect(pGame, LbuildRef, 4 * unitlen, 2 * unitlen);
+	top = new EquiTri(pGame, topRef, 6 * unitlen);
 
 }
 
@@ -85,16 +84,15 @@ void house::draw() const
 
 key::key(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
-	int u = config.compositeshape.unitlen; //small tooth length
 	point squareRef = ref,
-		mainRef = { ref.x + 9 * u, ref.y },
-		BtoothRef = { ref.x + (27 / 2) * u, ref.y + 2 * u },
-		StoothRef = { ref.x + (23 / 2) * u, ref.y + (3 / 2) * u };
+		mainRef = { ref.x + 9 * unitlen, ref.y },
+		BtoothRef = { ref.x + (27 / 2) * unitlen, ref.y + 2 * unitlen },
+		StoothRef = { ref.x + (23 / 2) * unitlen, ref.y + (3 / 2) * unitlen };
 
-	square = new Rect(pGame, squareRef, 8 * u, 8 * u);
-	main = new Rect(pGame, squareRef, 22 * u, 2 * u);
-	Btooth = new Rect(pGame, squareRef, 2 * u, u);
-	Stooth = new Rect(pGame, squareRef, u, u);
+	square = new Rect(pGame, squareRef, 8 * unitlen, 8 * unitlen);
+	main = new Rect(pGame, squareRef, 22 * unitlen, 2 * unitlen);
+	Btooth = new Rect(pGame, squareRef, 2 * unitlen, unitlen);
+	Stooth = new Rect(pGame, squareRef, unitlen, unitlen);
 
 }
 
@@ -109,15 +107,14 @@ void key::draw() const
 
 tree::tree(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
-	int u = config.compositeshape.unitlen; //root width
 	point rootRef = ref,
-		tri1Ref = { ref.x ,ref.y - u - (sqrt(3) / 6) * u },
-		tri2Ref = { ref.x ,ref.y - 2 * u - (sqrt(3) / 6) * u },
-		tri3Ref = { ref.x ,ref.y - 3 * u - (sqrt(3) / 6) * u };
-	root = new Rect(pGame, rootRef, 2 * u, u);
-	tri1 = new EquiTri(pGame, tri1Ref, (3/2) * u);
-	tri2 = new EquiTri(pGame, tri2Ref, (3 / 2) * u);
-	tri3 = new EquiTri(pGame, tri3Ref, (3 / 2) * u);
+		tri1Ref = { ref.x ,ref.y - unitlen - (sqrt(3) / 6) * unitlen },
+		tri2Ref = { ref.x ,ref.y - 2 * unitlen - (sqrt(3) / 6) * unitlen },
+		tri3Ref = { ref.x ,ref.y - 3 * unitlen - (sqrt(3) / 6) * unitlen };
+	root = new Rect(pGame, rootRef, 2 * unitlen, unitlen);
+	tri1 = new EquiTri(pGame, tri1Ref, (3/2) * unitlen);
+	tri2 = new EquiTri(pGame, tri2Ref, (3 / 2) * unitlen);
+	tri3 = new EquiTri(pGame, tri3Ref, (3 / 2) * unitlen);
 
 
 
@@ -134,11 +131,10 @@ void tree::draw() const
 
 arrow::arrow(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
-	int u = config.compositeshape.unitlen; //root width
 	point tailRef = ref,
-		headRef = { ref.x ,ref.y - u - (sqrt(3) / 6) * u };
-	tail = new Rect(pGame, tailRef, 2 * u, u);
-	head = new EquiTri(pGame, headRef, (3 / 2) * u);
+		headRef = { ref.x ,ref.y - unitlen - (sqrt(3) / 6) * unitlen };
+	tail = new Rect(pGame, tailRef, 2 * unitlen, unitlen);
+	head = new EquiTri(pGame, headRef, (3 / 2) * unitlen);
 	
 
 }
