@@ -47,6 +47,12 @@ struct
 		int circleRad = 30;
 	}dumbelShape;
 
+	struct {
+		int unitlen = 10;
+	}compositeshape;
+
+	
+
 }config;
 
 

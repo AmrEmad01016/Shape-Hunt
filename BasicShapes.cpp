@@ -47,14 +47,14 @@ void circle::draw() const
 ////////////////////////////////////////////////////  class triangle  ///////////////////////////////////////
 //TODO: Add implementation for class triangle here
 
-EqiTri::EqiTri(game* r_pGame, point ref, int r_sidelen):shape(r_pGame, ref)
+EquiTri::EquiTri(game* r_pGame, point ref, int r_sidelen):shape(r_pGame, ref)
 {
 	pGame = r_pGame;
 	sidelen = r_sidelen;
 
 }
 
-void EqiTri::draw() const
+void EquiTri::draw() const
 {
 	window* pW = pGame->getWind();	//get interface window
 	pW->SetPen(config.penColor, config.penWidth);
