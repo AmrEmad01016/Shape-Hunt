@@ -26,6 +26,14 @@ void Rect::draw() const
 	pW->DrawRectangle(upperLeft.x, upperLeft.y, lowerBottom.x, lowerBottom.y, FILLED);
 }
 
+void Rect::rotate()
+{
+	int t;
+	hght = t;
+	hght = wdth;
+	wdth = t;
+}
+
 ////////////////////////////////////////////////////  class circle  ///////////////////////////////////////
 //TODO: Add implementation for class circle here
 circle::circle(game* r_pGame, point ref, int r):shape(r_pGame,ref)

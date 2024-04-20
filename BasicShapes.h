@@ -19,6 +19,8 @@ class Rect:public shape
 public:
 	Rect(game* r_pGame, point ref, int r_hght, int r_wdth);
 	virtual void draw() const;
+	void rotate();
+
 
 
 };
@@ -42,6 +44,7 @@ class EquiTri :public shape
 public:
 	EquiTri(game* r_pGame, point ref, int r_sidelen);
 	virtual void draw() const;
+	void rotate();
 
 
 };

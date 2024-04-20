@@ -17,6 +17,7 @@ void Sign::draw() const
 	top->draw();
 }
 
+
 dumbel::dumbel(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
 
