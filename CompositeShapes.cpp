@@ -25,7 +25,7 @@ dumbel::dumbel(game* r_pGame, point ref) :shape(r_pGame, ref)
 	handle = new Rect(pGame, handleRef, config.dumbelShape.handleHeight, config.dumbelShape.handleWdth);
 	Rcircle = new circle(pGame, RcircleRef, config.dumbelShape.circleRad);
 	Lcircle = new circle(pGame, LcircleRef, config.dumbelShape.circleRad);
-
+	//this is a comment
 }
 
 void dumbel::draw() const
