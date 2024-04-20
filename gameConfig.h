@@ -37,19 +37,7 @@ struct
 
 	////-----  Sign Shape Confoguration ---------////
 	// For the Sign shape, define width and height of both rectangles
-	struct {
-		int baseWdth = 20, baseHeight = 80;
-		int topWdth = 100, topHeight = 50;
-	}sighShape;
-
-	struct {
-		int handleWdth = 60, handleHeight = 20;
-		int circleRad = 30;
-	}dumbelShape;
-
-	struct {
-		int unitlen = 10;
-	}compositeshape;
+	
 
 	
 

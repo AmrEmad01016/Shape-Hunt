@@ -31,11 +31,14 @@ protected:
     game* pGame;        //pointer to game object
 	color fillColor;	//shape fill color
 	color borderColor;	//shape border color
-	int unitlen;    //all dimensions of shapes are calculated related to that unit length
+	int unitlen = 10;    //all dimensions of shapes are calculated related to that unit length
 public:
     shape(game* r_pGame, point ref);
     virtual void draw() const=0;//for a shape to draw itself on the screen
 	void setRefPoint(point p);
+	void resizeUp();
+	void resizeDown();
+
 								  
 							  
 	//-- The following functions should be supported by the shape class
