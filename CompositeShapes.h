@@ -28,6 +28,7 @@ class Sign :public shape
 	int angle;
 public:
 	Sign(game* r_pGame, point ref);
+	~Sign();
 	virtual void draw() const;
 	void rotate();
 
