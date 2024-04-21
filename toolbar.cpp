@@ -6,6 +6,7 @@
 ////////////////////////////////////////////////////  class toolbar   //////////////////////////////////////////////
 toolbar::toolbar(game* pG)
 {	
+	
 	height = config.toolBarHeight;
 	width = config.windWidth;
 	this->pGame = pG;
@@ -18,8 +19,9 @@ toolbar::toolbar(game* pG)
 	toolbarItemImages[ITM_TREE] = "images\\toolbarItems\\TREE.jpg";
 	toolbarItemImages[ITM_HOUSE] = "images\\toolbarItems\\HOUSE.jpg";
 	toolbarItemImages[ITM_KEY] = "images\\toolbarItems\\KEY.jpg";
+	toolbarItemImages[ITM_DUMPLE] = "images\\toolbarItems\\DUMPLE.jpg";
+	toolbarItemImages[ITM_ARROW] = "images\\toolbarItems\\ARROW.jpg";
 	toolbarItemImages[ITM_SAVE] = "images\\toolbarItems\\SAVE.jpg";
-	toolbarItemImages[ITM_TRAFFIC] = "images\\toolbarItems\\TRAFFIC.jpg";
 	toolbarItemImages[ITM_INCREASE] = "images\\toolbarItems\\INCREASE.jpg";
 	toolbarItemImages[ITM_DECREASE] = "images\\toolbarItems\\DECREASE.jpg";
 	toolbarItemImages[ITM_HINT] = "images\\toolbarItems\\HINT.jpg";
@@ -28,9 +30,7 @@ toolbar::toolbar(game* pG)
 	toolbarItemImages[ITM_ROTATE] = "images\\toolbarItems\\ROTATE.jpg";
 	toolbarItemImages[ITM_DELETE] = "images\\toolbarItems\\DELETE.jpg";
 	toolbarItemImages[ITM_EXIT] = "images\\toolbarItems\\EXIT.jpg";
-	toolbarItemImages[ITM_LIVES] = "images\\toolbarItems\\LIVES.jpg";
-	toolbarItemImages[ITM_LEVEL1] = "images\\toolbarItems\\LEVEL1.jpg";
-	toolbarItemImages[ITM_SCORE] = "images\\toolbarItems\\SCORE.jpg";
+
 	//TODO: Prepare image for each toolbar item and add it to the list
 
 	//Draw toolbar item one image at a time

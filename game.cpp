@@ -78,8 +78,11 @@ operation* game::createRequiredOperation(toolbarItem clickedItem)
 	case ITM_KEY:
 		op = new addKey(this);
 		break;
-	case ITM_TRAFFIC:
-		op = new addTraffic(this);
+	case ITM_ARROW:
+		op = new addArrow(this);
+		break;
+	case ITM_DUMPLE:
+		op = new addDumple(this);
 		break;
 
 	case ITM_SAVE:
@@ -155,6 +158,14 @@ string game::getSrting() const
 			Label += Key;
 		printMessage(Label);
 	}
+}
+
+int game::gettrails()
+{
+	int T;
+	if (T>0)
+	trail = T ;
+	return T;
 }
 
 grid* game::getGrid() const

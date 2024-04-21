@@ -16,12 +16,18 @@ class game
 	
 	window* pWind;	//Pointer to the CMU graphics window
 	grid* shapesGrid;
-
+	int level;
+	int score;
+	int trail = 5;
 public:
 	game();
 	~game();
 
 	string getSrting() const;	 //Returns a string entered by the user
+	int gettrails();
+	int getlevels();
+	int getscores();
+
 	void createWind(int, int, int, int); //creates the game window
 	void clearStatusBar() const;	//Clears the status bar
 	void printMessage(string msg) const;	//Print a message on Status bar

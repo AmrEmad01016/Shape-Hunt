@@ -111,12 +111,18 @@ void addKey::Act() {
 
 }
 
-addTraffic::addTraffic(game* r_pGame) : operation(r_pGame)
+addArrow::addArrow(game* r_pGame) : operation(r_pGame)
 {
 }
-void addTraffic::Act() {
-	pGame->printMessage("you have clicked traffic");
+void addArrow::Act() {
+	pGame->printMessage("you have clicked Arrow");
 
+}
+addDumple::addDumple(game* r_pGame) : operation(r_pGame)
+{
+}
+void addDumple::Act() {
+	pGame->printMessage("you have clicked Dumple");
 }
 operSave::operSave(game* r_pGame) : operation(r_pGame)
 {
@@ -171,8 +177,11 @@ void operRotate::Act() {
 
 operDelete::operDelete(game* r_pGame): operation(r_pGame)
 {
+	
 }
 void operDelete::Act() {
 	pGame->printMessage("you have clicked delete");
+	grid* pGrid = pGame->getGrid();
+	pGrid->~grid();
 
 }
