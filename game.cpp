@@ -68,6 +68,46 @@ operation* game::createRequiredOperation(toolbarItem clickedItem)
 	case ITM_SIGN:
 		op = new operAddSign(this);
 		break;
+	case ITM_TREE :
+		op = new addTree(this);
+		break;
+	case ITM_HOUSE:
+		op = new addHouse(this);
+		break;
+	
+	case ITM_KEY:
+		op = new addKey(this);
+		break;
+	case ITM_TRAFFIC:
+		op = new addTraffic(this);
+		break;
+
+	case ITM_SAVE:
+		op = new operSave(this);
+		break;
+
+	case ITM_INCREASE:
+		op = new operIncrease(this);
+		break;
+	case ITM_DECREASE:
+		op = new operDecrease(this);
+		break;
+	case ITM_HINT:
+		op = new operHint(this);
+		break;
+	case ITM_LEVELS:
+		op = new operLevels(this);
+		break;
+	case ITM_REFRESH:
+		op = new operRefresh(this);
+		break;
+	case ITM_ROTATE:
+		op = new operRotate(this);
+		break;
+	case ITM_DELETE:
+		op = new operDelete(this);
+		break;
+	
 	}
 	return op;
 }

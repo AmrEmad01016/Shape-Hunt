@@ -37,9 +37,10 @@ struct
 
 	////-----  Sign Shape Confoguration ---------////
 	// For the Sign shape, define width and height of both rectangles
-	
-
-	
+	struct {
+		int baseWdth = 20, baseHeight = 80;
+		int topWdth = 100, topHeight = 50;
+	}sighShape;
 
 }config;
 
@@ -48,9 +49,26 @@ enum toolbarItem //The items of the  toolbar (you should add more items)
 {
 	//Note: Items are ordered here as they appear in the toolbar
 	//If you want to change the toolbar items order, just change the order here
-	ITM_SIGN,		//Sign shape item
+	ITM_SIGN,
 
-	ITM_EXIT,		//Exit item
+	//Sign shape item
+	ITM_TREE,
+	ITM_HOUSE,
+	ITM_KEY,
+	ITM_TRAFFIC,
+	ITM_SAVE,
+	ITM_INCREASE,
+	ITM_DECREASE,
+	ITM_HINT,
+	ITM_LEVELS,
+	ITM_REFRESH,
+	ITM_ROTATE,
+	ITM_DELETE,
+	ITM_EXIT,
+	ITM_LIVES,
+	ITM_LEVEL1,
+	ITM_SCORE,
+	//Exit item
 	//TODO: Add more items names here
 
 	ITM_CNT		//no. of toolbar items ==> This should be the last line in this enum
