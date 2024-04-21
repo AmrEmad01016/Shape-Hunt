@@ -70,10 +70,10 @@ void EquiTri::draw() const
 	point uppervertex, rightvertex, leftvertex;
 	uppervertex.x = RefPoint.x+sin(angle)* (sqrt(3) / 3) * sidelen;
 	uppervertex.y = RefPoint.y - sin(angle)*(sqrt(3)/3)*sidelen;
-	rightvertex.x = RefPoint.x + sidelen / 2;
-	rightvertex.y = RefPoint.y + (sqrt(3) / 6) * sidelen;
-	leftvertex.x = RefPoint.x - sidelen / 2;
-	leftvertex.y = RefPoint.y + (sqrt(3) / 6) * sidelen;
+	rightvertex.x = RefPoint.x + sin(angle)*sidelen / 2+cos(angle)* (sqrt(3) / 6) * sidelen;
+	rightvertex.y = RefPoint.y + sin(angle)*(sqrt(3) / 6) * sidelen-cos(angle)* sin(angle) * sidelen / 2;
+	leftvertex.x = RefPoint.x - sin(angle) * sidelen / 2 + cos(angle) * (sqrt(3) / 6) * sidelen;
+	leftvertex.y = RefPoint.y + sin(angle) * (sqrt(3) / 6) * sidelen + cos(angle) * sin(angle) * sidelen / 2;
 
 	pW->DrawTriangle(uppervertex.x, uppervertex.y, rightvertex.x, rightvertex.y, leftvertex.x, leftvertex.y);
 }
@@ -81,5 +81,5 @@ void EquiTri::draw() const
 void EquiTri::rotate() {
 
 	angle += 90;
-	
+	/*EquiTri::draw();*/
 }

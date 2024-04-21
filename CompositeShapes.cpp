@@ -17,24 +17,41 @@ void Sign::draw() const
 	top->draw();
 }
 
+void Sign::rotate() {
+	angle += 90;
+	point bas = { RefPoint.x + int(cos(angle) * (5 * unitlen) / 2 + (8 * unitlen) / 2),RefPoint.y + int(sin(angle) * (5 * unitlen) / 2 + (8 * unitlen) / 2) };
+	base->setRefPoint(bas);
+	top->rotate(); base->rotate();
+
+}
 
 dumbel::dumbel(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
 
 	point handleRef = ref;
-	point RcircleRef = { ref.x + 6*unitlen / 2 + 3*unitlen, ref.y };
-	point LcircleRef = { ref.x - 6*unitlen / 2 - 3*unitlen, ref.y };
+	point RcircleRef = { ref.x + cos(angle)*6*unitlen / 2 + 3*unitlen, ref.y+sin(angle)* 6 * unitlen / 2 + 3 * unitlen };
+	point LcircleRef = { ref.x - cos(angle)*6*unitlen / 2 - 3*unitlen, ref.y - sin(angle) * 6 * unitlen / 2 - 3 * unitlen };
 	handle = new Rect(pGame, handleRef, 2*unitlen, 6*unitlen);
 	Rcircle = new circle(pGame, RcircleRef, 3*unitlen);
 	Lcircle = new circle(pGame, LcircleRef, 3*unitlen);
 }
-
+/*I am not sure if this will work*/
 void dumbel::draw() const
 {
 	handle->draw();
 	Rcircle->draw();
 	Lcircle->draw();
 
+}
+
+void dumbel::rotate()
+{
+	angle += 90;
+	point RcircleRef = { RefPoint.x + cos(angle) * 6 * unitlen / 2 + 3 * unitlen, RefPoint.y + sin(angle) * 6 * unitlen / 2 + 3 * unitlen };
+	point LcircleRef = { RefPoint.x - cos(angle) * 6 * unitlen / 2 - 3 * unitlen, RefPoint.y - sin(angle) * 6 * unitlen / 2 - 3 * unitlen };
+	Rcircle->setRefPoint(RcircleRef); Lcircle->setRefPoint(LcircleRef);
+	handle->rotate();
+	
 }
 
 car::car(game* r_pGame, point ref) :shape(r_pGame, ref)
@@ -80,7 +97,6 @@ void house::draw() const
 	Lbuild->draw();
 	Mbuild->draw();
 	top->draw();
-
 }
 
 key::key(game* r_pGame, point ref) :shape(r_pGame, ref)

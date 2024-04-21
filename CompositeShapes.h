@@ -25,7 +25,7 @@ class Sign :public shape
 {
 	Rect* base;
 	Rect* top;
-	int angle;
+	int angle=90;
 public:
 	Sign(game* r_pGame, point ref);
 	virtual void draw() const;
@@ -38,10 +38,11 @@ class dumbel :public shape
 {
 	circle *Rcircle, *Lcircle;
 	Rect *handle;
+	int angle=0;
 public:
 	dumbel(game* r_pGame,point ref);
 	virtual void draw() const;
-
+	void rotate();
 
 
 };
