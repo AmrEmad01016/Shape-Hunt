@@ -109,7 +109,7 @@
     </ClCompile>
     <ClCompile Include="game.cpp" />
     <ClCompile Include="toolbar.cpp">
-      <Filter>toolbar</Filter>
+      <Filter>Shapes\toolbar</Filter>
     </ClCompile>
     <ClCompile Include="grid.cpp" />
     <ClCompile Include="BasicShapes.cpp">
@@ -188,7 +188,7 @@
     </ClInclude>
     <ClInclude Include="game.h" />
     <ClInclude Include="toolbar.h">
-      <Filter>toolbar</Filter>
+      <Filter>Shapes\toolbar</Filter>
     </ClInclude>
     <ClInclude Include="grid.h" />
     <ClInclude Include="gameConfig.h" />
@@ -215,7 +215,7 @@
     <Filter Include="Operations">
       <UniqueIdentifier>{2646cc66-5aa0-46c6-b2a7-a7a6e35095dd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="toolbar">
+    <Filter Include="Shapes\toolbar">
       <UniqueIdentifier>{5f727420-cd1d-483b-8541-bd342f07e6df}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

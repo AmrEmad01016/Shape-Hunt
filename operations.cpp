@@ -182,6 +182,6 @@ operDelete::operDelete(game* r_pGame): operation(r_pGame)
 void operDelete::Act() {
 	pGame->printMessage("you have clicked delete");
 	grid* pGrid = pGame->getGrid();
-	pGrid->~grid();
+	pGrid->setActiveShape(0);
 
 }
