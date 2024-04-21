@@ -40,7 +40,8 @@ public:
 
 class EquiTri :public shape
 {
-	int sidelen;	//side length of the triangle
+	int sidelen;
+	int angle;	//side length of the triangle
 public:
 	EquiTri(game* r_pGame, point ref, int r_sidelen);
 	virtual void draw() const;
