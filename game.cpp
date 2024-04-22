@@ -84,6 +84,9 @@ operation* game::createRequiredOperation(toolbarItem clickedItem)
 	case ITM_DUMPLE:
 		op = new addDumple(this);
 		break;
+	case ITM_CAR:
+		op = new addCar(this);
+		break;
 
 	case ITM_SAVE:
 		op = new operSave(this);
@@ -162,7 +165,7 @@ string game::getSrting() const
 
 int game::gettrails()
 {
-	int T;
+	int T=5;
 	if (T>0)
 	trail = T ;
 	return T;

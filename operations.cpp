@@ -158,6 +158,31 @@ void addDumple::Act() {
 	grid* pGrid = pGame->getGrid();
 	pGrid->setActiveShape(psh);
 }
+
+addCar::addCar(game* r_pGame) : operation(r_pGame)
+{
+
+}
+void addCar::Act() {
+	pGame->printMessage("you have clicked CAR");
+	window* pw = pGame->getWind();
+	//TODO:
+	// Don't allow adding new shape if there is alreday an active shape
+
+	//align reference point to the nearest grid point
+	int xGrid = config.RefX - config.RefX % config.gridSpacing;
+	int yGrid = config.RefY - config.RefX % config.gridSpacing;
+
+	//take the aligned point as the sign shape ref point
+	point carShapeRef = { xGrid,yGrid };
+
+	//create a sign shape
+	shape* psh = new car(pGame, carShapeRef);
+	//Add the shape to the grid
+	grid* pGrid = pGame->getGrid();
+	pGrid->setActiveShape(psh);
+}
+
 operSave::operSave(game* r_pGame) : operation(r_pGame)
 {
 }

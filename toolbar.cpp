@@ -1,5 +1,7 @@
 #include "toolbar.h"
 #include "game.h"
+#include<iostream>
+
 //#include "grid.h"
 
 
@@ -11,7 +13,7 @@ toolbar::toolbar(game* pG)
 	width = config.windWidth;
 	this->pGame = pG;
 	window* pWind = pGame->getWind();
-	
+	cout << pGame->gettrails();
 	//You can draw the tool bar icons in any way you want.
 
 	//First prepare List of images for each toolbar item
@@ -20,6 +22,7 @@ toolbar::toolbar(game* pG)
 	toolbarItemImages[ITM_HOUSE] = "images\\toolbarItems\\HOUSE.jpg";
 	toolbarItemImages[ITM_KEY] = "images\\toolbarItems\\KEY.jpg";
 	toolbarItemImages[ITM_DUMPLE] = "images\\toolbarItems\\DUMPLE.jpg";
+	toolbarItemImages[ITM_CAR] = "images\\toolbarItems\\CAR.jpg";
 	toolbarItemImages[ITM_ARROW] = "images\\toolbarItems\\ARROW.jpg";
 	toolbarItemImages[ITM_SAVE] = "images\\toolbarItems\\SAVE.jpg";
 	toolbarItemImages[ITM_INCREASE] = "images\\toolbarItems\\INCREASE.jpg";

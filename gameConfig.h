@@ -20,10 +20,10 @@ struct
 	int gridHeight = int(remainingHeight * (2 / 3.0)); 		//The grid is where bricks can be drawn
 
 	//Default colors
-	color	penColor = RED,			//color used to draw borders/write messages
-			fillColor = RED,			//shapes fill color (Default)
-			bkGrndColor= LAVENDER,		//Screen Background color
-			statusBarColor = LIGHTSEAGREEN;	//background color of the status
+	color	penColor = BLACK,			//color used to draw borders/write messages
+			fillColor = BLACK,			//shapes fill color (Default)
+			bkGrndColor= WHITE ,		//Screen Background color
+			statusBarColor = GRAY;	//background color of the status
 	int penWidth=3;			//width of the pen that draws shapes
 
 
@@ -57,6 +57,7 @@ enum toolbarItem //The items of the  toolbar (you should add more items)
 	ITM_KEY,
 	ITM_DUMPLE,
 	ITM_ARROW,
+	ITM_CAR,
 	ITM_SAVE,
 	ITM_INCREASE,
 	ITM_DECREASE,
