@@ -46,13 +46,14 @@ void dumbel::draw() const
 
 car::car(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
-	int uprbody_s = 5 * unitlen, lwrbody_w = 2 * uprbody_s, wheel_r = unitlen;
+	unitlen *= 1.5;
+	int uprbody_h = 2 * unitlen, lwrbody_w = 5 * uprbody_h,uprbody_w = lwrbody_w/2,  wheel_r = unitlen;
 	point lwrBodyRef = ref,
-		uprBodyRef = { ref.x + unitlen * 3, ref.y - uprbody_s },
-		FwheelRef = { ref.x + unitlen * 3, ref.y + uprbody_s/2 },
-		BwheelRef = { ref.x - unitlen * 3, ref.y + uprbody_s/2 };
-	lwrBody = new Rect(pGame, lwrBodyRef, uprbody_s, lwrbody_w);
-	uprBody = new Rect(pGame, uprBodyRef, uprbody_s, uprbody_s);
+		uprBodyRef = { ref.x , ref.y - uprbody_h },
+		FwheelRef = { ref.x + unitlen * 3, ref.y + uprbody_h/2 },
+		BwheelRef = { ref.x - unitlen * 3, ref.y + uprbody_h/2 };
+	lwrBody = new Rect(pGame, lwrBodyRef, uprbody_h, lwrbody_w);
+	uprBody = new Rect(pGame, uprBodyRef, uprbody_h, uprbody_w);
 	frontWheel = new circle(pGame, FwheelRef, wheel_r);
 	backWheel = new circle(pGame, BwheelRef, wheel_r);
 
