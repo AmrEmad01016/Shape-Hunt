@@ -4,11 +4,12 @@
 ////////////////////////////////////////////////////  class Sign  ///////////////////////////////////////
 Sign::Sign(game* r_pGame, point ref):shape(r_pGame, ref)
 {
+	int top_h = 5 * unitlen, top_w = 10 * unitlen, base_h = 8 * unitlen, base_w = 2 * unitlen;
 	//calc the ref point of the Sign base and top rectangles relative to the Sign shape
 	point topRef = ref;	//top rect ref is the same as the sign
-	point baseRef = { ref.x, ref.y + (5*unitlen) / 2 + (8 * unitlen) / 2 };
-	top = new Rect(pGame, topRef, (5 * unitlen), (10 * unitlen));
-	base = new Rect(pGame, baseRef, (8 * unitlen), (2 * unitlen));
+	point baseRef = { ref.x, ref.y + top_h / 2 + base_h / 2 };
+	top = new Rect(pGame, topRef, top_h, top_w);
+	base = new Rect(pGame, baseRef, base_h, base_w);
 }
 
 void Sign::draw() const
@@ -28,8 +29,8 @@ dumbel::dumbel(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
 
 	point handleRef = ref;
-	point RcircleRef = { ref.x + 6*unitlen / 2 + 3*unitlen, ref.y };
-	point LcircleRef = { ref.x - 6*unitlen / 2 - 3*unitlen, ref.y };
+	point RcircleRef = { ref.x + 4*unitlen / 2 + 3*unitlen, ref.y };
+	point LcircleRef = { ref.x - 4*unitlen / 2 - 3*unitlen, ref.y };
 	handle = new Rect(pGame, handleRef, 2*unitlen, 6*unitlen);
 	Rcircle = new circle(pGame, RcircleRef, 3*unitlen);
 	Lcircle = new circle(pGame, LcircleRef, 3*unitlen);

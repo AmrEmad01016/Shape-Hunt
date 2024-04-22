@@ -116,13 +116,47 @@ addArrow::addArrow(game* r_pGame) : operation(r_pGame)
 }
 void addArrow::Act() {
 	pGame->printMessage("you have clicked Arrow");
+	window* pw = pGame->getWind();
+	//TODO:
+	// Don't allow adding new shape if there is alreday an active shape
 
+	//align reference point to the nearest grid point
+	int xGrid = config.RefX - config.RefX % config.gridSpacing;
+	int yGrid = config.RefY - config.RefX % config.gridSpacing;
+
+	//take the aligned point as the sign shape ref point
+	point arrowShapeRef = { xGrid,yGrid };
+
+	//create a sign shape
+	shape* psh = new arrow(pGame, arrowShapeRef);
+
+	//Add the shape to the grid
+	grid* pGrid = pGame->getGrid();
+	pGrid->setActiveShape(psh);
 }
 addDumple::addDumple(game* r_pGame) : operation(r_pGame)
 {
+	
 }
 void addDumple::Act() {
 	pGame->printMessage("you have clicked Dumple");
+	window* pw = pGame->getWind();
+	//TODO:
+	// Don't allow adding new shape if there is alreday an active shape
+
+	//align reference point to the nearest grid point
+	int xGrid = config.RefX - config.RefX % config.gridSpacing;
+	int yGrid = config.RefY - config.RefX % config.gridSpacing;
+
+	//take the aligned point as the sign shape ref point
+	point dumbelShapeRef = { xGrid,yGrid };
+
+	//create a sign shape
+	shape* psh = new dumbel(pGame, dumbelShapeRef);
+
+	//Add the shape to the grid
+	grid* pGrid = pGame->getGrid();
+	pGrid->setActiveShape(psh);
 }
 operSave::operSave(game* r_pGame) : operation(r_pGame)
 {
@@ -182,6 +216,6 @@ operDelete::operDelete(game* r_pGame): operation(r_pGame)
 void operDelete::Act() {
 	pGame->printMessage("you have clicked delete");
 	grid* pGrid = pGame->getGrid();
-	pGrid->setActiveShape(0);
+	pGrid->deleteActiveShape();
 
 }
