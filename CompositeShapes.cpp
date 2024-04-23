@@ -20,8 +20,10 @@ void Sign::draw() const
 
 //<<<<<<< HEAD
 void Sign::rotate() {
-	angle += 90;
-	point bas = { RefPoint.x + int(cos(angle) * (5 * unitlen) / 2 + (8 * unitlen) / 2),RefPoint.y + int(sin(angle) * (5 * unitlen) / 2 + (8 * unitlen) / 2) };
+	angle += 3.14/2;
+	int top_h = 5 * unitlen, base_h = 8 * unitlen;
+
+	point bas = { RefPoint.x - int(round(sin(angle)) * (top_h / 2 + base_h / 2)),RefPoint.y + int(round(cos(angle)) * (top_h / 2 + base_h / 2)) };
 	base->setRefPoint(bas);
 	top->rotate(); base->rotate();
 
@@ -45,7 +47,7 @@ dumbel::dumbel(game* r_pGame, point ref) :shape(r_pGame, ref)
 	Rcircle = new circle(pGame, RcircleRef, circle_r);
 	Lcircle = new circle(pGame, LcircleRef, circle_r);
 }
-/*I am not sure if this will work*/
+
 void dumbel::draw() const
 {
 	handle->draw();
@@ -56,9 +58,10 @@ void dumbel::draw() const
 
 void dumbel::rotate()
 {
-	angle += 90;
-	point RcircleRef = { RefPoint.x + cos(angle) * 6 * unitlen / 2 + 3 * unitlen, RefPoint.y + sin(angle) * 6 * unitlen / 2 + 3 * unitlen };
-	point LcircleRef = { RefPoint.x - cos(angle) * 6 * unitlen / 2 - 3 * unitlen, RefPoint.y - sin(angle) * 6 * unitlen / 2 - 3 * unitlen };
+	angle += 3.14 / 2;
+	int handle_w = 8 * unitlen;
+	point RcircleRef = { RefPoint.x + round(cos(angle)) * handle_w / 2 , RefPoint.y + round(sin(angle)) * handle_w / 2 };
+	point LcircleRef = { RefPoint.x - round(cos(angle)) * handle_w / 2 , RefPoint.y - round(sin(angle)) * handle_w / 2 };
 	Rcircle->setRefPoint(RcircleRef); Lcircle->setRefPoint(LcircleRef);
 	handle->rotate();
 	
@@ -89,6 +92,17 @@ void car::draw() const
 
 }
 
+void car::rotate()
+{
+	angle += 3.14 / 2; 
+	int uprbody_h = 2 * unitlen;
+	uprBody->setRefPoint({ RefPoint.x + int(round(sin(angle))) * uprbody_h ,RefPoint.y - int(round(cos(angle))) * uprbody_h });
+	frontWheel->setRefPoint({ RefPoint.x + int(round(cos(angle))) * unitlen * 3 - int(round(sin(angle))) * uprbody_h / 2,RefPoint.y + int(round(cos(angle))) * uprbody_h / 2 + int(round(sin(angle))) * unitlen * 3 });
+	backWheel->setRefPoint({ RefPoint.x - int(round(cos(angle))) * unitlen * 3 - int(round(sin(angle))) * uprbody_h / 2,RefPoint.y + int(round(cos(angle))) * uprbody_h / 2 - int(round(sin(angle))) * unitlen * 3 });
+	
+	lwrBody->rotate(); uprBody->rotate();
+}
+
 house::house(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
 	int build_w = 2 * unitlen, RLbuild_h = 3 * build_w;
@@ -113,6 +127,17 @@ void house::draw() const
 
 }
 
+void house::rotate()
+{
+	angle += 3.14 / 2;
+
+	int build_w = 2 * unitlen;
+	top->setRefPoint({ RefPoint.x + int(round(sin(angle)) * (unitlen + (sqrt(3) / 6) * (6 * unitlen))),RefPoint.y - int(round(cos(angle)) * (unitlen + (sqrt(3) / 6) * (6 * unitlen))) });
+	Rbuild->setRefPoint({ RefPoint.x + int(round(cos(angle)) * build_w)-int(round(sin(angle))*build_w), RefPoint.y + int(round(cos(angle)) * build_w) + int(round(sin(angle)) * build_w) });
+	Lbuild->setRefPoint({ RefPoint.x - int(round(cos(angle)) * build_w) - int(round(sin(angle)) * build_w), RefPoint.y + int(round(cos(angle)) * build_w) - int(round(sin(angle)) * build_w) });
+	top->rotate(); Rbuild->rotate(); Lbuild->rotate();
+}
+
 key::key(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
 	int square_s = 6 * unitlen, main_h = square_s / 3, main_w = 10 * unitlen;
@@ -135,6 +160,18 @@ void key::draw() const
 	Btooth->draw();
 	Stooth->draw();
 
+}
+
+void key::rotate()
+{
+	angle += 3.14 / 2;
+	int square_s = 6 * unitlen, main_w = 10 * unitlen;
+	
+	main->setRefPoint({ RefPoint.x + int(round(cos(angle))) * (square_s + main_w) / 2,RefPoint.y+int(round(sin(angle)))* (square_s + main_w) / 2 });
+	Stooth->setRefPoint({ RefPoint.x + int(round(cos(angle)) *( 6.5 * unitlen + square_s / 2)) - int(round(sin(angle)) * 1.5 * unitlen),RefPoint.y + int(round(sin(angle)) *( 6.5 * unitlen + square_s / 2)) + int(round(cos(angle)) * 1.5 * unitlen) });
+	Btooth->setRefPoint({ RefPoint.x + int(round(cos(angle)) * (8.5 * unitlen + square_s / 2)) - int(round(sin(angle)) * 2 * unitlen),RefPoint.y + int(round(sin(angle)) *( 8.5 * unitlen + square_s / 2)) + int(round(cos(angle)) * 2 * unitlen) });
+
+	main->rotate(); Btooth->rotate(); Stooth->rotate();
 }
 
 tree::tree(game* r_pGame, point ref) :shape(r_pGame, ref)
@@ -163,13 +200,27 @@ void tree::draw() const
 
 }
 
+void tree::rotate()
+{
+	angle += 3.14 / 2;
+	int root_h = 8 * unitlen;
+
+	tri1->setRefPoint({ RefPoint.x + int(round(sin(angle))) * root_h / 2 ,RefPoint.y - int(round(cos(angle))) * root_h / 2 });
+	tri2->setRefPoint({ RefPoint.x + int(round(sin(angle))) * (root_h / 2 - 2 * unitlen) ,RefPoint.y - int(round(cos(angle))) * (root_h / 2 - 2 * unitlen) });
+	tri3->setRefPoint({ RefPoint.x + int(round(sin(angle))) * (root_h / 2 - 4 * unitlen) ,RefPoint.y - int(round(cos(angle))) * (root_h / 2 - 4 * unitlen) });
+	root->rotate(); tri1->rotate(); tri2->rotate(); tri3->rotate();
+
+}
+
 arrow::arrow(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
 	int tail_h = 10 * unitlen, tail_w = 2 * unitlen, head_s = 6 * unitlen;
 	point tailRef = ref,
-		headRef = { ref.x ,ref.y - tail_h/2 };
+		headRef = { ref.x + tail_h/2 ,ref.y  };
 	tail = new Rect(pGame, tailRef, tail_h, tail_w);
 	head = new EquiTri(pGame, headRef, head_s);
+	head->rotate();
+	tail->rotate();
 	
 
 }
@@ -179,4 +230,13 @@ void arrow::draw() const
 	tail->draw();
 	head->draw();
 	//to adam: when you add a rotate function for arrow call it here
+}
+
+void arrow::rotate()
+{
+	angle += 3.14/2;
+	int tail_h = 10 * unitlen;
+
+	head->setRefPoint({ RefPoint.x + int(round(sin(angle))) * tail_h / 2,RefPoint.y - int(round(cos(angle))) * tail_h / 2 });
+	head->rotate(); tail->rotate();
 }

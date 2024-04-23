@@ -82,4 +82,9 @@ void grid::deleteActiveShape()
 	activeShape = 0;
 }
 
+shape* grid::getActiveShape()
+{
+	return activeShape;
+}
+
 

@@ -195,6 +195,10 @@ void operSave::Act() {
 }
 void operIncrease::Act() {
 	pGame->printMessage("you have clicked increase");
+	shape* shp;
+	grid* pGrid = pGame->getGrid();
+	shp = pGrid->getActiveShape();
+	shp->resizeUp();
 
 }
 operDecrease::operDecrease(game* r_pGame) : operation(r_pGame)
@@ -230,7 +234,11 @@ operRotate::operRotate(game* r_pGame) : operation(r_pGame)
 {
 }
 void operRotate::Act() {
+	shape* shp;
 	pGame->printMessage("you have clicked rotate");
+	grid* pGrid = pGame->getGrid();
+	shp = pGrid->getActiveShape();
+	shp->rotate();
 	
 }
 

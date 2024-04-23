@@ -49,7 +49,14 @@ void circle::draw() const
 	pW->SetPen(borderColor, config.penWidth);
 	pW->SetBrush(fillColor);
 	pW->DrawCircle(RefPoint.x, RefPoint.y, rad, FILLED);
+	
 }
+
+void circle::rotate()
+{
+}
+
+
 
 
 
@@ -69,12 +76,12 @@ void EquiTri::draw() const
 	pW->SetPen(config.penColor, config.penWidth);
 	pW->SetBrush(config.fillColor);
 	point uppervertex, rightvertex, leftvertex;
-	uppervertex.x = RefPoint.x+ int(cos(angle)) * (sqrt(3) / 3) * sidelen;
-	uppervertex.y = RefPoint.y - ceil(sin(angle)) *(sqrt(3)/3)*sidelen;
-	rightvertex.x = RefPoint.x + ceil(sin(angle)) *sidelen / 2 + int(cos(angle)) * (sqrt(3) / 6) * sidelen;
-	rightvertex.y = RefPoint.y + ceil(sin(angle)) * (sqrt(3) / 6) * sidelen;
-	leftvertex.x = RefPoint.x - ceil(sin(angle)) * sidelen / 2 + int(cos(angle)) * (sqrt(3) / 6) * sidelen;
-	leftvertex.y = RefPoint.y + ceil(sin(angle)) * (sqrt(3) / 6) * sidelen;
+	uppervertex.x = RefPoint.x- round(cos(angle)) * (sqrt(3) / 3) * sidelen;
+	uppervertex.y = RefPoint.y - round(sin(angle)) *(sqrt(3)/3)*sidelen;
+	rightvertex.x = RefPoint.x + round(sin(angle)) *sidelen / 2 + round(cos(angle)) * (sqrt(3) / 6) * sidelen;
+	rightvertex.y = RefPoint.y + round(sin(angle)) * (sqrt(3) / 6) * sidelen + round(cos(angle)) * sidelen / 2;
+	leftvertex.x = RefPoint.x - round(sin(angle)) * sidelen / 2 + round(cos(angle)) * (sqrt(3) / 6) * sidelen;
+	leftvertex.y = RefPoint.y + round(sin(angle)) * (sqrt(3) / 6) * sidelen - round(cos(angle)) * sidelen / 2;
 
 	pW->DrawTriangle(uppervertex.x, uppervertex.y, rightvertex.x, rightvertex.y, leftvertex.x, leftvertex.y);
 }

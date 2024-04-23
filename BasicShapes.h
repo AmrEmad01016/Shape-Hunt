@@ -19,7 +19,7 @@ class Rect:public shape
 public:
 	Rect(game* r_pGame, point ref, int r_hght, int r_wdth);
 	virtual void draw() const;
-	void rotate();
+	virtual void rotate();
 
 
 
@@ -35,17 +35,18 @@ class circle :public shape
 public:	
 	circle(game* r_pGame, point ref, int r);	//add more parameters for the constructor if needed
 	virtual void draw() const;
+	virtual void rotate();
 };
 
 
 class EquiTri :public shape
 {
 	int sidelen;
-	double angle = (22/7)/2;	//side length of the triangle
+	double angle = 3.14/2;	//side length of the triangle
 public:
 	EquiTri(game* r_pGame, point ref, int r_sidelen);
 	virtual void draw() const;
-	void rotate();
+	virtual void rotate();
 
 
 };
