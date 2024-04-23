@@ -4,11 +4,12 @@
 ////////////////////////////////////////////////////  class Sign  ///////////////////////////////////////
 Sign::Sign(game* r_pGame, point ref):shape(r_pGame, ref)
 {
+	int top_h = 5 * unitlen, top_w = 10 * unitlen, base_h = 8 * unitlen, base_w = 2 * unitlen;
 	//calc the ref point of the Sign base and top rectangles relative to the Sign shape
 	point topRef = ref;	//top rect ref is the same as the sign
-	point baseRef = { ref.x, ref.y + (5*unitlen) / 2 + (8 * unitlen) / 2 };
-	top = new Rect(pGame, topRef, (5 * unitlen), (10 * unitlen));
-	base = new Rect(pGame, baseRef, (8 * unitlen), (2 * unitlen));
+	point baseRef = { ref.x, ref.y + top_h / 2 + base_h / 2 };
+	top = new Rect(pGame, topRef, top_h, top_w);
+	base = new Rect(pGame, baseRef, base_h, base_w);
 }
 
 void Sign::draw() const
@@ -36,13 +37,13 @@ Sign::~Sign()
 
 dumbel::dumbel(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
-
+	int handle_h = 2 * unitlen, handle_w = 8 * unitlen, circle_r = 3 * unitlen;
 	point handleRef = ref;
-	point RcircleRef = { ref.x + cos(angle)*6*unitlen / 2 + 3*unitlen, ref.y+sin(angle)* 6 * unitlen / 2 + 3 * unitlen };
-	point LcircleRef = { ref.x - cos(angle)*6*unitlen / 2 - 3*unitlen, ref.y - sin(angle) * 6 * unitlen / 2 - 3 * unitlen };
-	handle = new Rect(pGame, handleRef, 2*unitlen, 6*unitlen);
-	Rcircle = new circle(pGame, RcircleRef, 3*unitlen);
-	Lcircle = new circle(pGame, LcircleRef, 3*unitlen);
+	point RcircleRef = { ref.x + handle_w / 2 , ref.y };
+	point LcircleRef = { ref.x - handle_w / 2 , ref.y };
+	handle = new Rect(pGame, handleRef, handle_h, 6*unitlen);
+	Rcircle = new circle(pGame, RcircleRef, circle_r);
+	Lcircle = new circle(pGame, LcircleRef, circle_r);
 }
 /*I am not sure if this will work*/
 void dumbel::draw() const
@@ -65,14 +66,16 @@ void dumbel::rotate()
 
 car::car(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
+	unitlen *= 1.5;
+	int uprbody_h = 2 * unitlen, lwrbody_w = 5 * uprbody_h,uprbody_w = lwrbody_w/2,  wheel_r = unitlen;
 	point lwrBodyRef = ref,
-		uprBodyRef = { ref.x - unitlen * 3, ref.y - unitlen * 4 },
-		FwheelRef = { ref.x + unitlen * 3, ref.y + unitlen * 2 },
-		BwheelRef = { ref.x - unitlen * 3, ref.y + unitlen * 2 };
-	lwrBody = new Rect(pGame, lwrBodyRef, unitlen * 4, unitlen * 12);
-	uprBody = new Rect(pGame, lwrBodyRef, unitlen * 4, unitlen * 6);
-	frontWheel = new circle(pGame, FwheelRef, unitlen);
-	backWheel = new circle(pGame, BwheelRef, unitlen);
+		uprBodyRef = { ref.x , ref.y - uprbody_h },
+		FwheelRef = { ref.x + unitlen * 3, ref.y + uprbody_h/2 },
+		BwheelRef = { ref.x - unitlen * 3, ref.y + uprbody_h/2 };
+	lwrBody = new Rect(pGame, lwrBodyRef, uprbody_h, lwrbody_w);
+	uprBody = new Rect(pGame, uprBodyRef, uprbody_h, uprbody_w);
+	frontWheel = new circle(pGame, FwheelRef, wheel_r);
+	backWheel = new circle(pGame, BwheelRef, wheel_r);
 
 
 }
@@ -88,15 +91,16 @@ void car::draw() const
 
 house::house(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
+	int build_w = 2 * unitlen, RLbuild_h = 3 * build_w;
 	point MbuildRef = ref,
-		RbuildRef = { ref.x + 2 * unitlen, ref.y + 2 * unitlen },
-		LbuildRef = { ref.x - 2 * unitlen, ref.y + 2 * unitlen },
+		RbuildRef = { ref.x + build_w, ref.y + build_w },
+		LbuildRef = { ref.x - build_w, ref.y + build_w },
 		topRef = { ref.x, ref.y - unitlen - (sqrt(3)/6) * (6*unitlen) };
 
-	Mbuild = new Rect(pGame, MbuildRef, 2 * unitlen, 2 * unitlen);
-	Rbuild = new Rect(pGame, RbuildRef, 6 * unitlen, 2 * unitlen);
-	Lbuild = new Rect(pGame, LbuildRef, 6 * unitlen, 2 * unitlen);
-	top = new EquiTri(pGame, topRef, 6 * unitlen);
+	Mbuild = new Rect(pGame, MbuildRef, build_w, build_w);
+	Rbuild = new Rect(pGame, RbuildRef, RLbuild_h, build_w);
+	Lbuild = new Rect(pGame, LbuildRef, RLbuild_h, build_w);
+	top = new EquiTri(pGame, topRef, RLbuild_h);
 
 }
 
@@ -106,24 +110,21 @@ void house::draw() const
 	Rbuild->draw();
 	Lbuild->draw();
 	Mbuild->draw();
-//<<<<<<< HEAD
-	top->draw();
-//=======
-//
-//>>>>>>> b63ce68a3d62c72a7a95f68ae46ae2ec2f5c869a
+
 }
 
 key::key(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
+	int square_s = 6 * unitlen, main_h = square_s / 3, main_w = 10 * unitlen;
 	point squareRef = ref,
-		mainRef = { ref.x + 9 * unitlen, ref.y },
-		BtoothRef = { ref.x + (27 / 2) * unitlen, ref.y + 2 * unitlen },
-		StoothRef = { ref.x + (23 / 2) * unitlen, ref.y + (3 / 2) * unitlen };
+		mainRef = { ref.x +(square_s+ main_w)/2 , ref.y},
+		BtoothRef = { ref.x + 8.5 * unitlen + square_s / 2, ref.y + 2 * unitlen },
+		StoothRef = { ref.x + 6.5* unitlen+ square_s/2, ref.y + 1.5* unitlen };
 
-	square = new Rect(pGame, squareRef, 8 * unitlen, 8 * unitlen);
-	main = new Rect(pGame, squareRef, 22 * unitlen, 2 * unitlen);
-	Btooth = new Rect(pGame, squareRef, 2 * unitlen, unitlen);
-	Stooth = new Rect(pGame, squareRef, unitlen, unitlen);
+	square = new Rect(pGame, squareRef, square_s, square_s);
+	main = new Rect(pGame, mainRef, main_h, main_w);
+	Btooth = new Rect(pGame, BtoothRef, main_h, unitlen);
+	Stooth = new Rect(pGame, StoothRef, unitlen, unitlen);
 
 }
 
@@ -138,14 +139,16 @@ void key::draw() const
 
 tree::tree(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
+	int root_h = 8 * unitlen, root_w = 2 * unitlen, tri_s = 6 * unitlen;
 	point rootRef = ref,
-		tri1Ref = { ref.x ,ref.y -  unitlen - (sqrt(3) / 6) *  unitlen },
-		tri2Ref = { ref.x ,ref.y - 2 *  unitlen - (sqrt(3) / 6) *  unitlen },
-		tri3Ref = { ref.x ,ref.y - unitlen - (sqrt(3) / 6) * unitlen };
-	root = new Rect(pGame, rootRef, 2 *  unitlen,  unitlen);
-	tri1 = new EquiTri(pGame, tri1Ref, (3/2) *  unitlen);
-	tri2 = new EquiTri(pGame, tri2Ref, (3 / 2) *  unitlen);
-	tri3 = new EquiTri(pGame, tri3Ref, (3 / 2) *  unitlen);
+		tri1Ref = { ref.x ,ref.y - root_h / 2 },
+		tri2Ref = { ref.x ,ref.y - root_h / 2 + 2*unitlen },
+	tri3Ref = { ref.x ,ref.y - root_h / 2 + 4*unitlen };
+	root = new Rect(pGame, rootRef, root_h, root_w);
+	tri1 = new EquiTri(pGame, tri1Ref, tri_s);
+	tri2 = new EquiTri(pGame, tri2Ref, tri_s);
+	tri3 = new EquiTri(pGame, tri3Ref, tri_s);
+
 
 
 
@@ -162,10 +165,11 @@ void tree::draw() const
 
 arrow::arrow(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
+	int tail_h = 10 * unitlen, tail_w = 2 * unitlen, head_s = 6 * unitlen;
 	point tailRef = ref,
-		headRef = { ref.x ,ref.y - unitlen - (sqrt(3) / 6) * unitlen };
-	tail = new Rect(pGame, tailRef, 2 * unitlen, unitlen);
-	head = new EquiTri(pGame, headRef, (3 / 2) * unitlen);
+		headRef = { ref.x ,ref.y - tail_h/2 };
+	tail = new Rect(pGame, tailRef, tail_h, tail_w);
+	head = new EquiTri(pGame, headRef, head_s);
 	
 
 }

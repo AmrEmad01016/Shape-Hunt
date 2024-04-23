@@ -53,13 +53,21 @@ public:
 	virtual void Act();
 
 };
-class addTraffic :public operation
+class addDumple :public operation
 {
 public:
-	addTraffic(game* r_pGame);
+	addDumple(game* r_pGame);
 	virtual void Act();
 
 };
+class addCar :public operation
+{
+public:
+	addCar(game* r_pGame);
+	virtual void Act();
+
+};
+
 class operSave :public operation
 {
 public:
