@@ -2,6 +2,7 @@
 #include "gameConfig.h"
 #include "game.h"
 #include <cmath>
+using namespace std;
 
 ////////////////////////////////////////////////////  class Rect  ///////////////////////////////////////
 
@@ -61,25 +62,25 @@ EquiTri::EquiTri(game* r_pGame, point ref, int r_sidelen):shape(r_pGame, ref)
 	sidelen = r_sidelen;
 
 }
-
+ 
 void EquiTri::draw() const
 {
 	window* pW = pGame->getWind();	//get interface window
 	pW->SetPen(config.penColor, config.penWidth);
 	pW->SetBrush(config.fillColor);
 	point uppervertex, rightvertex, leftvertex;
-	uppervertex.x = RefPoint.x+sin(angle)* (sqrt(3) / 3) * sidelen;
-	uppervertex.y = RefPoint.y - sin(angle)*(sqrt(3)/3)*sidelen;
-	rightvertex.x = RefPoint.x + sin(angle)*sidelen / 2+cos(angle)* (sqrt(3) / 6) * sidelen;
-	rightvertex.y = RefPoint.y + sin(angle)*(sqrt(3) / 6) * sidelen-cos(angle)* sin(angle) * sidelen / 2;
-	leftvertex.x = RefPoint.x - sin(angle) * sidelen / 2 + cos(angle) * (sqrt(3) / 6) * sidelen;
-	leftvertex.y = RefPoint.y + sin(angle) * (sqrt(3) / 6) * sidelen + cos(angle) * sin(angle) * sidelen / 2;
+	uppervertex.x = RefPoint.x+ int(cos(angle)) * (sqrt(3) / 3) * sidelen;
+	uppervertex.y = RefPoint.y - ceil(sin(angle)) *(sqrt(3)/3)*sidelen;
+	rightvertex.x = RefPoint.x + ceil(sin(angle)) *sidelen / 2 + int(cos(angle)) * (sqrt(3) / 6) * sidelen;
+	rightvertex.y = RefPoint.y + ceil(sin(angle)) * (sqrt(3) / 6) * sidelen;
+	leftvertex.x = RefPoint.x - ceil(sin(angle)) * sidelen / 2 + int(cos(angle)) * (sqrt(3) / 6) * sidelen;
+	leftvertex.y = RefPoint.y + ceil(sin(angle)) * (sqrt(3) / 6) * sidelen;
 
 	pW->DrawTriangle(uppervertex.x, uppervertex.y, rightvertex.x, rightvertex.y, leftvertex.x, leftvertex.y);
 }
 
 void EquiTri::rotate() {
 
-	angle += 90;
+	angle += 3.14/2;
 	/*EquiTri::draw();*/
 }

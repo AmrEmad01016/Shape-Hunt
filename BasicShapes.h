@@ -41,7 +41,7 @@ public:
 class EquiTri :public shape
 {
 	int sidelen;
-	int angle;	//side length of the triangle
+	double angle = (22/7)/2;	//side length of the triangle
 public:
 	EquiTri(game* r_pGame, point ref, int r_sidelen);
 	virtual void draw() const;

@@ -166,7 +166,7 @@ operRotate::operRotate(game* r_pGame) : operation(r_pGame)
 }
 void operRotate::Act() {
 	pGame->printMessage("you have clicked rotate");
-
+	
 }
 
 operDelete::operDelete(game* r_pGame): operation(r_pGame)
