@@ -25,4 +25,98 @@ public:
 	operAddSign(game* r_pGame);
 	virtual void Act();
 };
+class addTree :public operation
+{
+public :
+	addTree(game* r_pGame);
+	virtual void Act();
+
+};
+class addHouse :public operation
+{
+public:
+	addHouse(game* r_pGame);
+	virtual void Act();
+
+};
+class addKey :public operation
+{
+public:
+	addKey(game* r_pGame);
+	virtual void Act();
+
+};
+class addArrow :public operation
+{
+public:
+	addArrow(game* r_pGame);
+	virtual void Act();
+
+};
+class addTraffic :public operation
+{
+public:
+	addTraffic(game* r_pGame);
+	virtual void Act();
+
+};
+class operSave :public operation
+{
+public:
+	operSave(game* r_pGame);
+	virtual void Act();
+
+};
+class operIncrease:public operation
+{
+public:
+	operIncrease(game* r_pGame);
+	virtual void Act();
+
+};
+class operDecrease:public operation
+{
+public:
+	operDecrease(game* r_pGame);
+	virtual void Act();
+
+};
+
+class operHint :public operation
+{
+public:
+	operHint(game* r_pGame);
+	virtual void Act();
+
+};
+class operLevels :public operation
+{
+public:
+	operLevels(game* r_pGame);
+	virtual void Act();
+
+};
+class operRefresh :public operation
+{
+public:
+	operRefresh(game* r_pGame);
+	virtual void Act();
+
+};
+class operRotate :public operation
+{
+public:
+	operRotate(game* r_pGame);
+	virtual void Act();
+
+};
+class operDelete :public operation
+{
+public:
+	operDelete(game* r_pGame);
+	virtual void Act();
+
+};
+
+
 
