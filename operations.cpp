@@ -198,11 +198,16 @@ void operIncrease::Act() {
 	shape* shp;
 	grid* pGrid = pGame->getGrid();
 	shp = pGrid->getActiveShape();
-	shp->resizeUp();
+	shp->resizeup();
 
 }
 operDecrease::operDecrease(game* r_pGame) : operation(r_pGame)
 {
+	pGame->printMessage("you have clicked increase");
+	shape* shp;
+	grid* pGrid = pGame->getGrid();
+	shp = pGrid->getActiveShape();
+	shp->resizedown();
 }
 void operDecrease::Act() {
 	pGame->printMessage("you have clicked drcrease");

@@ -20,6 +20,8 @@ public:
 	Rect(game* r_pGame, point ref, int r_hght, int r_wdth);
 	virtual void draw() const;
 	virtual void rotate();
+	virtual void resizeup();
+	virtual void resizedown();
 
 
 
@@ -36,6 +38,9 @@ public:
 	circle(game* r_pGame, point ref, int r);	//add more parameters for the constructor if needed
 	virtual void draw() const;
 	virtual void rotate();
+	virtual void resizeup();
+	virtual void resizedown();
+
 };
 
 
@@ -47,6 +52,8 @@ public:
 	EquiTri(game* r_pGame, point ref, int r_sidelen);
 	virtual void draw() const;
 	virtual void rotate();
+	virtual void resizeup();
+	virtual void resizedown();
 
 
 };

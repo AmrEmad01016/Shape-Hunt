@@ -31,6 +31,9 @@ public:
 	~Sign();
 	virtual void draw() const;
 	virtual void rotate();
+	virtual void resizeup();
+	virtual void resizedown();
+
 
 };
 
@@ -44,6 +47,8 @@ public:
 	dumbel(game* r_pGame,point ref);
 	virtual void draw() const;
 	virtual void rotate();
+	virtual void resizeup();
+	virtual void resizedown();
 
 
 };
@@ -56,6 +61,8 @@ public:
 	car(game* r_pGame, point ref);
 	virtual void draw() const;
 	virtual void rotate();
+	virtual void resizeup();
+	virtual void resizedown();
 
 };
 
@@ -67,6 +74,9 @@ public:
 	house(game* r_pGame, point ref);
 	virtual void draw() const;
 	virtual void rotate();
+	virtual void resizeup();
+	virtual void resizedown();
+
 };
 
 class key :public shape {
@@ -76,6 +86,9 @@ public:
 	key(game* r_pGame, point ref);
 	virtual void draw() const;
 	virtual void rotate();
+	virtual void resizeup();
+	virtual void resizedown();
+
 };
 
 class arrow :public shape {
@@ -86,6 +99,9 @@ public:
 	arrow(game* r_pGame, point ref);
 	virtual void draw() const;
 	virtual void rotate();
+	virtual void resizeup();
+	virtual void resizedown();
+
 };
 
 class tree :public shape {
@@ -96,4 +112,7 @@ public:
 	tree(game* r_pGame, point ref);
 	virtual void draw() const;
 	virtual void rotate();
+	virtual void resizeup();
+	virtual void resizedown();
+
 };

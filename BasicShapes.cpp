@@ -35,6 +35,18 @@ void Rect::rotate()
 	wdth = t;
 }
 
+void Rect::resizeup()
+{
+	hght *= 2;
+	wdth *= 2;
+}
+void Rect::resizedown()
+{
+	hght /= 2;
+	wdth /= 2;
+}
+
+
 ////////////////////////////////////////////////////  class circle  ///////////////////////////////////////
 //TODO: Add implementation for class circle here
 circle::circle(game* r_pGame, point ref, int r):shape(r_pGame,ref)
@@ -56,6 +68,14 @@ void circle::rotate()
 {
 }
 
+void circle::resizeup()
+{
+	rad *= 2;
+}
+void circle::resizedown()
+{
+	rad /= 2;
+}
 
 
 
@@ -89,5 +109,14 @@ void EquiTri::draw() const
 void EquiTri::rotate() {
 
 	angle += 3.14/2;
-	/*EquiTri::draw();*/
+	
+}
+
+void EquiTri::resizeup()
+{
+	sidelen *= 2;
+}
+void EquiTri::resizedown()
+{
+	sidelen /= 2;
 }
