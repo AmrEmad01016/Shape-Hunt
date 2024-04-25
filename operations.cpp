@@ -199,19 +199,18 @@ void operIncrease::Act() {
 	grid* pGrid = pGame->getGrid();
 	shp = pGrid->getActiveShape();
 	shp->resizeup();
-
+	//shp->increase();
 }
 operDecrease::operDecrease(game* r_pGame) : operation(r_pGame)
 {
-	pGame->printMessage("you have clicked increase");
+	
+}
+void operDecrease::Act() {
+	pGame->printMessage("you have clicked decrease");
 	shape* shp;
 	grid* pGrid = pGame->getGrid();
 	shp = pGrid->getActiveShape();
 	shp->resizedown();
-}
-void operDecrease::Act() {
-	pGame->printMessage("you have clicked drcrease");
-
 }
 operHint::operHint(game* r_pGame) : operation(r_pGame)
 {

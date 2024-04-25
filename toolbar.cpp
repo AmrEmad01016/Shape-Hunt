@@ -13,7 +13,7 @@ toolbar::toolbar(game* pG)
 	width = config.windWidth;
 	this->pGame = pG;
 	window* pWind = pGame->getWind();
-	cout << pGame->gettrails();
+	//cout << pGame->gettrails();
 	//You can draw the tool bar icons in any way you want.
 
 	//First prepare List of images for each toolbar item
@@ -40,12 +40,17 @@ toolbar::toolbar(game* pG)
 	for (int i = 0; i < ITM_CNT; i++)
 		pWind->DrawImage(toolbarItemImages[i], i * config.toolbarItemWidth, 0, config.toolbarItemWidth, height);
 
+	pWind->SetPen(config.penColor, 5);
+	pWind->SetFont(15, BOLD, BY_NAME, "Arial");
+	pWind->DrawString(ITM_CNT*config.toolbarItemWidth + 5,5,"lives = "+ std::to_string(pG->getlives()));
+	pWind->DrawString(ITM_CNT * config.toolbarItemWidth + 5, 20, "score = " + std::to_string(pG->getscores()));
+	pWind->DrawString(ITM_CNT * config.toolbarItemWidth + 5, 35, "level = " + std::to_string(pG->getlevels()));
+
 
 	//Draw a line under the toolbar
 	pWind->SetPen(DARKBLUE, 3);
 	pWind->DrawLine(0, height,width , height);
 }
-
 
 
 //handles clicks on toolbar icons, returns ITM_CNT if the click is not inside the toolbar

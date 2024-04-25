@@ -27,6 +27,11 @@ game::~game()
 }
 
 
+int game::getlives()
+{
+	return lives;
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////
 void game::createWind(int w, int h, int x, int y) 
 {
@@ -163,13 +168,23 @@ string game::getSrting() const
 	}
 }
 
-int game::gettrails()
+int game::getlevels()
 {
-	int T=5;
-	if (T>0)
-	trail = T ;
-	return T;
+	return level;
 }
+
+int game::getscores()
+{
+	return score;
+}
+
+//int game::gettrails()
+//{
+//	int T=5;
+//	if (T>0)
+//	trail = T ;
+//	return T;
+//}
 
 grid* game::getGrid() const
 {
