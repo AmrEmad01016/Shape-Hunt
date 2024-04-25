@@ -231,25 +231,29 @@ void house::resizedown()
 
 key::key(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
-	int square_s = 6 * unitlen, main_h = square_s / 3, main_w = 10 * unitlen;
-	point squareRef = ref,
-		mainRef = { ref.x +(square_s+ main_w)/2 , ref.y},
-		BtoothRef = { ref.x + 8.5 * unitlen + square_s / 2, ref.y + 2 * unitlen },
-		StoothRef = { ref.x + 6.5* unitlen+ square_s/2, ref.y + 1.5* unitlen };
+	int circle_r = 6 * unitlen, main_h = circle_r/3, main_w = 20 * unitlen;
+	point handRef = ref,
+		mainRef = { ref.x +(circle_r+ main_w)/2 , ref.y},
+		BtoothRef = { ref.x + 2*8.5 * unitlen + circle_r / 2, ref.y + 2 * unitlen },
+		StoothRef = { ref.x + 2*6.5* unitlen+ circle_r/2,ref.y + 2 * unitlen };
 
-	square = new Rect(pGame, squareRef, square_s, square_s);
+	hand = new circle(pGame, handRef, circle_r);
 	main = new Rect(pGame, mainRef, main_h, main_w);
-	Btooth = new Rect(pGame, BtoothRef, main_h, unitlen);
-	Stooth = new Rect(pGame, StoothRef, unitlen, unitlen);
+	Btooth = new EquiTri(pGame, BtoothRef,  unitlen/(sqrt(3)/6));
+	Stooth = new EquiTri(pGame, StoothRef,  unitlen / (sqrt(3) / 6));
 
 }
 
 void key::draw() const
 {
-	square->draw();
+	hand->draw();
 	main->draw();
 	Btooth->draw();
+	
+
 	Stooth->draw();
+	
+
 
 }
 
@@ -275,7 +279,7 @@ void key::resizeup()
 	Stooth->setRefPoint({ RefPoint.x + int(round(cos(angle)) *( 6.5 * unitlen + square_s / 2)) - int(round(sin(angle)) * 1.5 * unitlen),RefPoint.y + int(round(sin(angle)) *( 6.5 * unitlen + square_s / 2)) + int(round(cos(angle)) * 1.5 * unitlen) });
 	Btooth->setRefPoint({ RefPoint.x + int(round(cos(angle)) * (8.5 * unitlen + square_s / 2)) - int(round(sin(angle)) * 2 * unitlen),RefPoint.y + int(round(sin(angle)) *( 8.5 * unitlen + square_s / 2)) + int(round(cos(angle)) * 2 * unitlen) });
 
-	main->resizeup(); Btooth->resizeup(); Stooth->resizeup(); square->resizeup();
+	main->resizeup(); Btooth->resizeup(); Stooth->resizeup(); hand->resizeup();
 }
 
 void key::resizedown()
@@ -288,7 +292,7 @@ void key::resizedown()
 	Stooth->setRefPoint({ RefPoint.x + int(round(cos(angle)) * (6.5 * unitlen + square_s / 2)) - int(round(sin(angle)) * 1.5 * unitlen),RefPoint.y + int(round(sin(angle)) * (6.5 * unitlen + square_s / 2)) + int(round(cos(angle)) * 1.5 * unitlen) });
 	Btooth->setRefPoint({ RefPoint.x + int(round(cos(angle)) * (8.5 * unitlen + square_s / 2)) - int(round(sin(angle)) * 2 * unitlen),RefPoint.y + int(round(sin(angle)) * (8.5 * unitlen + square_s / 2)) + int(round(cos(angle)) * 2 * unitlen) });
 
-	main->resizedown(); Btooth->resizedown(); Stooth->resizedown(); square->resizedown();
+	main->resizedown(); Btooth->resizedown(); Stooth->resizedown(); hand->resizedown();
 }
 
 tree::tree(game* r_pGame, point ref) :shape(r_pGame, ref)

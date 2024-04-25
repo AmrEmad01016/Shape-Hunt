@@ -82,7 +82,9 @@ public:
 };
 
 class key :public shape {
-	Rect *main, *square, *Stooth, *Btooth;
+	Rect* main;
+	circle* hand;
+	EquiTri*Stooth, * Btooth;
 	double angle = 0;
 public:
 	key(game* r_pGame, point ref);
