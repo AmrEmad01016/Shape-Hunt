@@ -6,7 +6,7 @@ using namespace std;
 
 ////////////////////////////////////////////////////  class Rect  ///////////////////////////////////////
 
-Rect::Rect(game* r_pGame, point ref, int r_hght, int r_wdth):shape(r_pGame,ref)
+Rect::Rect(game* r_pGame, point ref, double r_hght, double r_wdth):shape(r_pGame,ref)
 {
 	pGame = r_pGame;
 	hght = r_hght;
@@ -49,7 +49,7 @@ void Rect::resizedown()
 
 ////////////////////////////////////////////////////  class circle  ///////////////////////////////////////
 //TODO: Add implementation for class circle here
-circle::circle(game* r_pGame, point ref, int r):shape(r_pGame,ref)
+circle::circle(game* r_pGame, point ref, double r):shape(r_pGame,ref)
 {
 	pGame = r_pGame;
 	rad = r;
@@ -83,7 +83,7 @@ void circle::resizedown()
 ////////////////////////////////////////////////////  class triangle  ///////////////////////////////////////
 //TODO: Add implementation for class triangle here
 
-EquiTri::EquiTri(game* r_pGame, point ref, int r_sidelen):shape(r_pGame, ref)
+EquiTri::EquiTri(game* r_pGame, point ref, double r_sidelen):shape(r_pGame, ref)
 {
 	pGame = r_pGame;
 	sidelen = r_sidelen;

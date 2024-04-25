@@ -224,6 +224,8 @@ void game::run()
 			//4-Redraw the grid after each action
 			shapesGrid->draw();
 
+			createToolBar(); //phase 1 only
+			
 		}	
 
 	} while (clickedItem!=ITM_EXIT);

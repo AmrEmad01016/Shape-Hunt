@@ -56,7 +56,9 @@ public:
 class car :public shape {
 	circle* frontWheel, * backWheel;
 	Rect* lwrBody;
-	EquiTri* uprBody;
+	Rect* uprBody;
+	EquiTri* tri1;
+	EquiTri* tri2;
 	double angle = 0;
 public:
 	car(game* r_pGame, point ref);

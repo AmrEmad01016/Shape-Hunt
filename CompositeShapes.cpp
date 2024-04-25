@@ -112,15 +112,19 @@ void dumbel::resizedown()
 car::car(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
 	unitlen *= 1.5;
-	int uprbody_s = 4 * unitlen, lwrbody_w = 10*unitlen,lwrbody_h= 2*unitlen , wheel_r = unitlen;
+	int uprbody_h = 2 * unitlen, lwrbody_w = 5 * uprbody_h, uprbody_w = lwrbody_w / 2, wheel_r = unitlen;
 	point lwrBodyRef = ref,
-		uprBodyRef = { ref.x , ref.y - (lwrbody_h/2 + (sqrt(3)/6)*uprbody_s)},
-		FwheelRef = { ref.x + unitlen * 3, ref.y + lwrbody_h /2 },
-		BwheelRef = { ref.x - unitlen * 3, ref.y + lwrbody_h /2 };
-	lwrBody = new Rect(pGame, lwrBodyRef, lwrbody_h, lwrbody_w);
-	uprBody = new EquiTri(pGame, uprBodyRef, uprbody_s);
+		uprBodyRef = { ref.x , ref.y - uprbody_h },
+		FwheelRef = { ref.x + unitlen * 3, ref.y + uprbody_h / 2 },
+		BwheelRef = { ref.x - unitlen * 3, ref.y + uprbody_h / 2 },
+		Tri1 = { ref.x + uprbody_w / 2,ref.y - ((3 + sqrt(3)) / 6) * uprbody_h },
+		Tri2 = { ref.x - uprbody_w / 2,ref.y - ((3 + sqrt(3)) / 6) * uprbody_h };
+	lwrBody = new Rect(pGame, lwrBodyRef, uprbody_h, lwrbody_w);
+	uprBody = new Rect(pGame, uprBodyRef, uprbody_h, uprbody_w);
 	frontWheel = new circle(pGame, FwheelRef, wheel_r);
 	backWheel = new circle(pGame, BwheelRef, wheel_r);
+	tri1 = new EquiTri(pGame,Tri1,uprbody_h* (2/sqrt(3)));
+	tri2= new EquiTri(pGame, Tri2, uprbody_h * (2 / sqrt(3)));
 
 
 }
@@ -131,42 +135,57 @@ void car::draw() const
 	uprBody->draw();
 	frontWheel->draw();
 	backWheel->draw();
+	tri1->draw();
+	tri2->draw();
 
 }
 
 void car::rotate()
 {
 	angle += 3.14 / 2; 
-	int uprbody_h = 2 * unitlen;
+	int uprbody_h = 2 * unitlen, lwrbody_w = 5 * uprbody_h, uprbody_w = lwrbody_w / 2, wheel_r = unitlen;
+
+
 	uprBody->setRefPoint({ RefPoint.x + int(round(sin(angle))) * uprbody_h ,RefPoint.y - int(round(cos(angle))) * uprbody_h });
-	frontWheel->setRefPoint({ RefPoint.x + int(round(cos(angle))) * unitlen * 3 - int(round(sin(angle))) * uprbody_h / 2,RefPoint.y + int(round(cos(angle))) * uprbody_h / 2 + int(round(sin(angle))) * unitlen * 3 });
-	backWheel->setRefPoint({ RefPoint.x - int(round(cos(angle))) * unitlen * 3 - int(round(sin(angle))) * uprbody_h / 2,RefPoint.y + int(round(cos(angle))) * uprbody_h / 2 - int(round(sin(angle))) * unitlen * 3 });
-	
-	lwrBody->rotate(); uprBody->rotate();
+	frontWheel->setRefPoint({ RefPoint.x + int(round(cos(angle)) * unitlen * 3) - int(round(sin(angle))) * uprbody_h / 2,RefPoint.y + int(round(cos(angle)) * uprbody_h / 2) + int(round(sin(angle)) * unitlen * 3) });
+	backWheel->setRefPoint({ RefPoint.x - int(round(cos(angle)) * unitlen * 3) - int(round(sin(angle))) * uprbody_h / 2,RefPoint.y + int(round(cos(angle)) * uprbody_h / 2) - int(round(sin(angle)) * unitlen * 3) });
+	tri1->setRefPoint({ RefPoint.x + int(round(cos(angle)) * uprbody_w / 2) + int(round(sin(angle))*((3 + sqrt(3)) / 6) * uprbody_h), RefPoint.y + int(round(sin(angle)) * uprbody_w / 2) - int(round(cos(angle)) * ((3 + sqrt(3)) / 6) * uprbody_h) });
+	tri2->setRefPoint({ RefPoint.x - int(round(cos(angle)) * uprbody_w / 2) + int(round(sin(angle)) * ((3 + sqrt(3)) / 6) * uprbody_h),RefPoint.y - int(round(sin(angle)) * uprbody_w / 2) - int(round(cos(angle)) * ((3 + sqrt(3)) / 6) * uprbody_h) });
+
+	lwrBody->rotate(); uprBody->rotate(); tri1->rotate(); tri2->rotate();
 }
 
 void car::resizeup()
 {
 	unitlen *= 2;
+	int uprbody_h = 2 * unitlen, lwrbody_w = 5 * uprbody_h, uprbody_w = lwrbody_w / 2, wheel_r = unitlen;
 
-	int uprbody_h = 2 * unitlen;
+
 	uprBody->setRefPoint({ RefPoint.x + int(round(sin(angle))) * uprbody_h ,RefPoint.y - int(round(cos(angle))) * uprbody_h });
-	frontWheel->setRefPoint({ RefPoint.x + int(round(cos(angle))) * unitlen * 3 - int(round(sin(angle))) * uprbody_h / 2,RefPoint.y + int(round(cos(angle))) * uprbody_h / 2 + int(round(sin(angle))) * unitlen * 3 });
-	backWheel->setRefPoint({ RefPoint.x - int(round(cos(angle))) * unitlen * 3 - int(round(sin(angle))) * uprbody_h / 2,RefPoint.y + int(round(cos(angle))) * uprbody_h / 2 - int(round(sin(angle))) * unitlen * 3 });
+	frontWheel->setRefPoint({ RefPoint.x + int(round(cos(angle)) * unitlen * 3) - int(round(sin(angle)) * uprbody_h / 2),RefPoint.y + int(round(cos(angle)) * uprbody_h / 2) + int(round(sin(angle)) * unitlen * 3) });
+	backWheel->setRefPoint({ RefPoint.x - int(round(cos(angle)) * unitlen * 3) - int(round(sin(angle)) * uprbody_h / 2),RefPoint.y + int(round(cos(angle)) * uprbody_h / 2) - int(round(sin(angle)) * unitlen * 3) });
+	tri1->setRefPoint({ RefPoint.x + int(round(cos(angle)) * uprbody_w / 2) + int(round(sin(angle)) * ((3 + sqrt(3)) / 6) * uprbody_h), RefPoint.y + int(round(sin(angle)) * uprbody_w / 2) - int(round(cos(angle)) * ((3 + sqrt(3)) / 6) * uprbody_h) });
+	tri2->setRefPoint({ RefPoint.x - int(round(cos(angle)) * uprbody_w / 2) + int(round(sin(angle)) * ((3 + sqrt(3)) / 6) * uprbody_h),RefPoint.y - int(round(sin(angle)) * uprbody_w / 2) - int(round(cos(angle)) * ((3 + sqrt(3)) / 6) * uprbody_h) });
 
-	uprBody->resizeup(); lwrBody->resizeup(); backWheel->resizeup(); frontWheel->resizeup();
+	uprBody->resizeup(); lwrBody->resizeup(); backWheel->resizeup(); frontWheel->resizeup(); tri1->resizeup(); tri2->resizeup();
+
 }
 
 void car::resizedown()
 {
 	unitlen /= 2;
 
-	int uprbody_h = 2 * unitlen;
-	uprBody->setRefPoint({ RefPoint.x + int(round(sin(angle))) * uprbody_h ,RefPoint.y - int(round(cos(angle))) * uprbody_h });
-	frontWheel->setRefPoint({ RefPoint.x + int(round(cos(angle))) * unitlen * 3 - int(round(sin(angle))) * uprbody_h / 2,RefPoint.y + int(round(cos(angle))) * uprbody_h / 2 + int(round(sin(angle))) * unitlen * 3 });
-	backWheel->setRefPoint({ RefPoint.x - int(round(cos(angle))) * unitlen * 3 - int(round(sin(angle))) * uprbody_h / 2,RefPoint.y + int(round(cos(angle))) * uprbody_h / 2 - int(round(sin(angle))) * unitlen * 3 });
+	int uprbody_h = 2 * unitlen, lwrbody_w = 5 * uprbody_h, uprbody_w = lwrbody_w / 2, wheel_r = unitlen;
 
-	uprBody->resizedown(); lwrBody->resizedown(); backWheel->resizedown(); frontWheel->resizedown();
+
+	uprBody->setRefPoint({ RefPoint.x + int(round(sin(angle))) * uprbody_h ,RefPoint.y - int(round(cos(angle))) * uprbody_h });
+	frontWheel->setRefPoint({ RefPoint.x + int(round(cos(angle)) * unitlen * 3) - int(round(sin(angle)) * uprbody_h / 2),RefPoint.y + int(round(cos(angle)) * uprbody_h / 2) + int(round(sin(angle)) * unitlen * 3) });
+	backWheel->setRefPoint({ RefPoint.x - int(round(cos(angle)) * unitlen * 3) - int(round(sin(angle)) * uprbody_h / 2),RefPoint.y + int(round(cos(angle)) * uprbody_h / 2) - int(round(sin(angle)) * unitlen * 3) });
+	tri1->setRefPoint({ RefPoint.x + int(round(cos(angle)) * uprbody_w / 2) + int(round(sin(angle)) * ((3 + sqrt(3)) / 6) * uprbody_h), RefPoint.y + int(round(sin(angle)) * uprbody_w / 2) - int(round(cos(angle)) * ((3 + sqrt(3)) / 6) * uprbody_h) });
+	tri2->setRefPoint({ RefPoint.x - int(round(cos(angle)) * uprbody_w / 2) + int(round(sin(angle)) * ((3 + sqrt(3)) / 6) * uprbody_h),RefPoint.y - int(round(sin(angle)) * uprbody_w / 2) - int(round(cos(angle)) * ((3 + sqrt(3)) / 6) * uprbody_h) });
+
+
+	uprBody->resizedown(); lwrBody->resizedown(); backWheel->resizedown(); frontWheel->resizedown(); tri1->resizedown(); tri2->resizedown();
 }
 
 house::house(game* r_pGame, point ref) :shape(r_pGame, ref)
@@ -260,11 +279,11 @@ void key::draw() const
 void key::rotate()
 {
 	angle += 3.14 / 2;
-	int square_s = 6 * unitlen, main_w = 10 * unitlen;
+	int circle_r = 6 * unitlen, main_w = 20 * unitlen;
 	
-	main->setRefPoint({ RefPoint.x + int(round(cos(angle))) * (square_s + main_w) / 2,RefPoint.y+int(round(sin(angle)))* (square_s + main_w) / 2 });
-	Stooth->setRefPoint({ RefPoint.x + int(round(cos(angle)) *( 6.5 * unitlen + square_s / 2)) - int(round(sin(angle)) * 1.5 * unitlen),RefPoint.y + int(round(sin(angle)) *( 6.5 * unitlen + square_s / 2)) + int(round(cos(angle)) * 1.5 * unitlen) });
-	Btooth->setRefPoint({ RefPoint.x + int(round(cos(angle)) * (8.5 * unitlen + square_s / 2)) - int(round(sin(angle)) * 2 * unitlen),RefPoint.y + int(round(sin(angle)) *( 8.5 * unitlen + square_s / 2)) + int(round(cos(angle)) * 2 * unitlen) });
+	main->setRefPoint({ RefPoint.x + int(round(cos(angle))) * (circle_r + main_w) / 2,RefPoint.y+int(round(sin(angle)))* (circle_r + main_w) / 2 });
+	Stooth->setRefPoint({ RefPoint.x + int(round(cos(angle)) * (2* 6.5 * unitlen + circle_r / 2)) - int(round(sin(angle)) * 2 * unitlen),RefPoint.y + int(round(sin(angle)) *( 2*6.5 * unitlen + circle_r / 2)) + int(round(cos(angle)) * 2 * unitlen) });
+	Btooth->setRefPoint({ RefPoint.x + int(round(cos(angle)) * (2* 8.5 * unitlen + circle_r / 2)) - int(round(sin(angle)) * 2 * unitlen),RefPoint.y + int(round(sin(angle)) *( 2*8.5 * unitlen + circle_r / 2)) + int(round(cos(angle)) * 2 * unitlen) });
 
 	main->rotate(); Btooth->rotate(); Stooth->rotate();
 }
@@ -273,11 +292,11 @@ void key::resizeup()
 {
 	unitlen *= 2;
 
-	int square_s = 6 * unitlen, main_w = 10 * unitlen;
-	
-	main->setRefPoint({ RefPoint.x + int(round(cos(angle))) * (square_s + main_w) / 2,RefPoint.y+int(round(sin(angle)))* (square_s + main_w) / 2 });
-	Stooth->setRefPoint({ RefPoint.x + int(round(cos(angle)) *( 6.5 * unitlen + square_s / 2)) - int(round(sin(angle)) * 1.5 * unitlen),RefPoint.y + int(round(sin(angle)) *( 6.5 * unitlen + square_s / 2)) + int(round(cos(angle)) * 1.5 * unitlen) });
-	Btooth->setRefPoint({ RefPoint.x + int(round(cos(angle)) * (8.5 * unitlen + square_s / 2)) - int(round(sin(angle)) * 2 * unitlen),RefPoint.y + int(round(sin(angle)) *( 8.5 * unitlen + square_s / 2)) + int(round(cos(angle)) * 2 * unitlen) });
+	int circle_r = 6 * unitlen, main_w = 20 * unitlen;
+
+	main->setRefPoint({ RefPoint.x + int(round(cos(angle))) * (circle_r + main_w) / 2,RefPoint.y + int(round(sin(angle))) * (circle_r + main_w) / 2 });
+	Stooth->setRefPoint({ RefPoint.x + int(round(cos(angle)) * (2 * 6.5 * unitlen + circle_r / 2)) - int(round(sin(angle)) * 2 * unitlen),RefPoint.y + int(round(sin(angle)) * (2 * 6.5 * unitlen + circle_r / 2)) + int(round(cos(angle)) * 2 * unitlen) });
+	Btooth->setRefPoint({ RefPoint.x + int(round(cos(angle)) * (2 * 8.5 * unitlen + circle_r / 2)) - int(round(sin(angle)) * 2 * unitlen),RefPoint.y + int(round(sin(angle)) * (2 * 8.5 * unitlen + circle_r / 2)) + int(round(cos(angle)) * 2 * unitlen) });
 
 	main->resizeup(); Btooth->resizeup(); Stooth->resizeup(); hand->resizeup();
 }
@@ -286,11 +305,11 @@ void key::resizedown()
 {
 	unitlen /= 2;
 
-	int square_s = 6 * unitlen, main_w = 10 * unitlen;
+	int circle_r = 6 * unitlen, main_w = 20 * unitlen;
 
-	main->setRefPoint({ RefPoint.x + int(round(cos(angle))) * (square_s + main_w) / 2,RefPoint.y + int(round(sin(angle))) * (square_s + main_w) / 2 });
-	Stooth->setRefPoint({ RefPoint.x + int(round(cos(angle)) * (6.5 * unitlen + square_s / 2)) - int(round(sin(angle)) * 1.5 * unitlen),RefPoint.y + int(round(sin(angle)) * (6.5 * unitlen + square_s / 2)) + int(round(cos(angle)) * 1.5 * unitlen) });
-	Btooth->setRefPoint({ RefPoint.x + int(round(cos(angle)) * (8.5 * unitlen + square_s / 2)) - int(round(sin(angle)) * 2 * unitlen),RefPoint.y + int(round(sin(angle)) * (8.5 * unitlen + square_s / 2)) + int(round(cos(angle)) * 2 * unitlen) });
+	main->setRefPoint({ RefPoint.x + int(round(cos(angle))) * (circle_r + main_w) / 2,RefPoint.y + int(round(sin(angle))) * (circle_r + main_w) / 2 });
+	Stooth->setRefPoint({ RefPoint.x + int(round(cos(angle)) * (2 * 6.5 * unitlen + circle_r / 2)) - int(round(sin(angle)) * 2 * unitlen),RefPoint.y + int(round(sin(angle)) * (2 * 6.5 * unitlen + circle_r / 2)) + int(round(cos(angle)) * 2 * unitlen) });
+	Btooth->setRefPoint({ RefPoint.x + int(round(cos(angle)) * (2 * 8.5 * unitlen + circle_r / 2)) - int(round(sin(angle)) * 2 * unitlen),RefPoint.y + int(round(sin(angle)) * (2 * 8.5 * unitlen + circle_r / 2)) + int(round(cos(angle)) * 2 * unitlen) });
 
 	main->resizedown(); Btooth->resizedown(); Stooth->resizedown(); hand->resizedown();
 }
@@ -327,8 +346,8 @@ void tree::rotate()
 	int root_h = 8 * unitlen;
 
 	tri1->setRefPoint({ RefPoint.x + int(round(sin(angle))) * root_h / 2 ,RefPoint.y - int(round(cos(angle))) * root_h / 2 });
-	tri2->setRefPoint({ RefPoint.x + int(round(sin(angle))) * (root_h / 2 - 2 * unitlen) ,RefPoint.y - int(round(cos(angle))) * (root_h / 2 - 2 * unitlen) });
-	tri3->setRefPoint({ RefPoint.x + int(round(sin(angle))) * (root_h / 2 - 4 * unitlen) ,RefPoint.y - int(round(cos(angle))) * (root_h / 2 - 4 * unitlen) });
+	tri2->setRefPoint({ RefPoint.x + int(round(sin(angle)) * (root_h / 2 - 2 * unitlen)) ,RefPoint.y - int(round(cos(angle)) * (root_h / 2 - 2 * unitlen)) });
+	tri3->setRefPoint({ RefPoint.x + int(round(sin(angle)) * (root_h / 2 - 4 * unitlen)) ,RefPoint.y - int(round(cos(angle)) * (root_h / 2 - 4 * unitlen)) });
 	root->rotate(); tri1->rotate(); tri2->rotate(); tri3->rotate();
 
 }
@@ -340,8 +359,8 @@ void tree::resizeup()
 	int root_h = 8 * unitlen;
 
 	tri1->setRefPoint({ RefPoint.x + int(round(sin(angle))) * root_h / 2 ,RefPoint.y - int(round(cos(angle))) * root_h / 2 });
-	tri2->setRefPoint({ RefPoint.x + int(round(sin(angle))) * (root_h / 2 - 2 * unitlen) ,RefPoint.y - int(round(cos(angle))) * (root_h / 2 - 2 * unitlen) });
-	tri3->setRefPoint({ RefPoint.x + int(round(sin(angle))) * (root_h / 2 - 4 * unitlen) ,RefPoint.y - int(round(cos(angle))) * (root_h / 2 - 4 * unitlen) });
+	tri2->setRefPoint({ RefPoint.x + int(round(sin(angle)) * (root_h / 2 - 2 * unitlen)) ,RefPoint.y - int(round(cos(angle)) * (root_h / 2 - 2 * unitlen)) });
+	tri3->setRefPoint({ RefPoint.x + int(round(sin(angle)) * (root_h / 2 - 4 * unitlen)) ,RefPoint.y - int(round(cos(angle)) * (root_h / 2 - 4 * unitlen)) });
 
 	root->resizeup(); tri1->resizeup(); tri2->resizeup(); tri3->resizeup();
 }
@@ -353,8 +372,8 @@ void tree::resizedown()
 	int root_h = 8 * unitlen;
 
 	tri1->setRefPoint({ RefPoint.x + int(round(sin(angle))) * root_h / 2 ,RefPoint.y - int(round(cos(angle))) * root_h / 2 });
-	tri2->setRefPoint({ RefPoint.x + int(round(sin(angle))) * (root_h / 2 - 2 * unitlen) ,RefPoint.y - int(round(cos(angle))) * (root_h / 2 - 2 * unitlen) });
-	tri3->setRefPoint({ RefPoint.x + int(round(sin(angle))) * (root_h / 2 - 4 * unitlen) ,RefPoint.y - int(round(cos(angle))) * (root_h / 2 - 4 * unitlen) });
+	tri2->setRefPoint({ RefPoint.x + int(round(sin(angle)) * (root_h / 2 - 2 * unitlen)) ,RefPoint.y - int(round(cos(angle)) * (root_h / 2 - 2 * unitlen)) });
+	tri3->setRefPoint({ RefPoint.x + int(round(sin(angle)) * (root_h / 2 - 4 * unitlen)) ,RefPoint.y - int(round(cos(angle)) * (root_h / 2 - 4 * unitlen)) });
 
 	root->resizedown(); tri1->resizedown(); tri2->resizedown(); tri3->resizedown();
 }
