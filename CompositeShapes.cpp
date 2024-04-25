@@ -112,13 +112,13 @@ void dumbel::resizedown()
 car::car(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
 	unitlen *= 1.5;
-	int uprbody_h = 2 * unitlen, lwrbody_w = 5 * uprbody_h,uprbody_w = lwrbody_w/2,  wheel_r = unitlen;
+	int uprbody_s = 4 * unitlen, lwrbody_w = 10*unitlen,lwrbody_h= 2*unitlen , wheel_r = unitlen;
 	point lwrBodyRef = ref,
-		uprBodyRef = { ref.x , ref.y - uprbody_h },
-		FwheelRef = { ref.x + unitlen * 3, ref.y + uprbody_h/2 },
-		BwheelRef = { ref.x - unitlen * 3, ref.y + uprbody_h/2 };
-	lwrBody = new Rect(pGame, lwrBodyRef, uprbody_h, lwrbody_w);
-	uprBody = new Rect(pGame, uprBodyRef, uprbody_h, uprbody_w);
+		uprBodyRef = { ref.x , ref.y - (lwrbody_h/2 + (sqrt(3)/6)*uprbody_s)},
+		FwheelRef = { ref.x + unitlen * 3, ref.y + lwrbody_h /2 },
+		BwheelRef = { ref.x - unitlen * 3, ref.y + lwrbody_h /2 };
+	lwrBody = new Rect(pGame, lwrBodyRef, lwrbody_h, lwrbody_w);
+	uprBody = new EquiTri(pGame, uprBodyRef, uprbody_s);
 	frontWheel = new circle(pGame, FwheelRef, wheel_r);
 	backWheel = new circle(pGame, BwheelRef, wheel_r);
 
@@ -175,13 +175,14 @@ house::house(game* r_pGame, point ref) :shape(r_pGame, ref)
 	point MbuildRef = ref,
 		RbuildRef = { ref.x + build_w, ref.y + build_w },
 		LbuildRef = { ref.x - build_w, ref.y + build_w },
-		topRef = { ref.x, ref.y - unitlen - (sqrt(3)/6) * (6*unitlen) };
+		topRef = { ref.x, ref.y - unitlen - (sqrt(3)/6) * (6*unitlen) },
+		okraRef = {ref.x, ref.y + build_w };
 
 	Mbuild = new Rect(pGame, MbuildRef, build_w, build_w);
 	Rbuild = new Rect(pGame, RbuildRef, RLbuild_h, build_w);
 	Lbuild = new Rect(pGame, LbuildRef, RLbuild_h, build_w);
 	top = new EquiTri(pGame, topRef, RLbuild_h);
-
+	okra = new circle(pGame, okraRef, unitlen/4);
 }
 
 void house::draw() const
@@ -190,7 +191,7 @@ void house::draw() const
 	Rbuild->draw();
 	Lbuild->draw();
 	Mbuild->draw();
-
+	okra->draw();
 }
 
 void house::rotate()
