@@ -72,7 +72,6 @@ public:
 class house :public shape {
 	Rect* Rbuild, * Lbuild, *Mbuild;
 	EquiTri* top;
-	circle* okra;
 	double angle=0;
 public:
 	house(game* r_pGame, point ref);
