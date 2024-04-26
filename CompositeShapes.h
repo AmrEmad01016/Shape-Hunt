@@ -33,6 +33,7 @@ public:
 	virtual void rotate();
 	virtual void resizeup();
 	virtual void resizedown();
+	bool checkboundries() const;
 
 
 };
@@ -49,6 +50,7 @@ public:
 	virtual void rotate();
 	virtual void resizeup();
 	virtual void resizedown();
+	bool checkboundries() const;
 
 
 };
@@ -66,13 +68,12 @@ public:
 	virtual void rotate();
 	virtual void resizeup();
 	virtual void resizedown();
-
+	bool checkboundries() const;
 };
 
 class house :public shape {
 	Rect* Rbuild, * Lbuild, *Mbuild;
 	EquiTri* top;
-	circle* okra;
 	double angle=0;
 public:
 	house(game* r_pGame, point ref);
@@ -80,7 +81,7 @@ public:
 	virtual void rotate();
 	virtual void resizeup();
 	virtual void resizedown();
-
+	bool checkboundries() const;
 };
 
 class key :public shape {
@@ -107,6 +108,7 @@ public:
 	virtual void rotate();
 	virtual void resizeup();
 	virtual void resizedown();
+	bool checkboundries() const;
 
 };
 
@@ -120,5 +122,6 @@ public:
 	virtual void rotate();
 	virtual void resizeup();
 	virtual void resizedown();
+	bool checkboundries() const;
 
 };

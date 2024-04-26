@@ -36,17 +36,20 @@ public:
     shape(game* r_pGame, point ref);
     virtual void draw() const=0;//for a shape to draw itself on the screen
 	void setRefPoint(point p);
-	void increase();
 	virtual void resizeup()=0;
 	virtual void resizedown()=0;
+	void setunitlen(int n);
 
-								  
+	/*virtual bool checkboundries();*/
 							  
 	//-- The following functions should be supported by the shape class
 	//-- It should be overridden by each inherited shape
 	//-- Decide the parameters that you should pass to each function	
 
 	virtual void rotate()=0;	//Rotate the shape
+
+	
+	virtual bool checkboundries() const;
 	//virtual void resize() = 0;	//Resize the shape
 	//virtual void move() = 0;		//Move the shape
 	//virtual void save(ofstream &OutFile) = 0;	//Save the shape parameters to the file

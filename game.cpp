@@ -200,6 +200,7 @@ void game::run()
 	//This function reads the position where the user clicks to determine the desired operation
 	int x, y;
 	bool isExit = false;
+	
 
 	//Change the title
 	pWind->ChangeTitle("- - - - - - - - - - SHAPE HUNT (CIE 101 / CIE202 - project) - - - - - - - - - -");
@@ -220,6 +221,8 @@ void game::run()
 			operation* op = createRequiredOperation(clickedItem);
 			if (op)
 				op->Act();
+
+			
 
 			//4-Redraw the grid after each action
 			shapesGrid->draw();

@@ -27,5 +27,6 @@ public:
 	void setActiveShape(shape* actShape);
 	void deleteActiveShape();
 	shape* getActiveShape();
+	int getshapecount() { return shapeCount; }
 };
 

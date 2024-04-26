@@ -2,6 +2,9 @@
 #include "game.h"
 #include "CompositeShapes.h"
 #include <iostream>
+
+
+
 using namespace std;
 /////////////////////////////////// class operation  //////////////////
 operation::operation(game* r_pGame)
@@ -236,6 +239,73 @@ operRefresh::operRefresh(game* r_pGame) : operation(r_pGame)
 void operRefresh::Act() {
 	pGame->printMessage("you have clicked refresh");
 
+
+
+	grid* pgrid = pGame->getGrid();
+
+	shape* shp;
+	int x, y, unit, r, s;
+	srand(time(0));
+
+	x =  rand() % (400);
+	y = 80 + rand() % (config.windHeight - 80 + 1);
+
+	point ref = { x,y };
+
+	unit =  rand() % 2;
+	r = 1 + rand() % 2;
+
+	s = rand() % 6;
+
+
+
+
+	switch (s)
+	{
+	case(0):
+		shp = new Sign(pGame, ref);
+		break;
+	case(1):
+		shp = new dumbel(pGame, ref);
+		break;
+	case(2):
+		shp = new house(pGame, ref);
+		break;
+	case(3):
+		shp = new car(pGame, ref);
+		break;
+	case(4):
+		shp = new arrow(pGame, ref);
+		break;
+	case(5):
+		shp = new tree(pGame, ref);
+		break;
+	/*case(6):
+		shp = new key(pGame, ref);
+		break;*/
+	default:
+		break;
+	}
+
+
+	switch (r)
+	{
+	case(1):
+		for (int i = 0; i < unit; i++)
+			shp->resizeup();
+	case(2):
+		for (int i = 0; i < unit; i++)
+			shp->resizedown();
+	default:
+		break;
+	}
+
+
+	
+	
+
+	pgrid->addShape(shp);
+	shp = nullptr;
 }
 
 operRotate::operRotate(game* r_pGame) : operation(r_pGame)
@@ -261,3 +331,10 @@ void operDelete::Act() {
 	pGrid->deleteActiveShape();
 
 }
+
+//randshap::randshap(game* r_pGame):operation(r_pGame)
+//{
+//	
+//
+//
+//}

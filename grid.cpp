@@ -65,6 +65,13 @@ bool grid::addShape(shape* newShape)
 	// 1- Check that the shape can be drawn witout being clipped by grid boundaries
 	// 2- check shape count doesn't exceed maximum count
 	// return false if any of the checks fail
+
+	if (!newShape->checkboundries()) return false;
+
+
+
+
+
 	
 	//Here we assume that the above checks are passed
 	shapeList[shapeCount++] = newShape;
