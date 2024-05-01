@@ -24,13 +24,14 @@ toolbar::toolbar(game* pG)
 	toolbarItemImages[ITM_DUMPLE] = "images\\toolbarItems\\DUMPLE.jpg";
 	toolbarItemImages[ITM_CAR] = "images\\toolbarItems\\CAR.jpg";
 	toolbarItemImages[ITM_ARROW] = "images\\toolbarItems\\ARROW.jpg";
-	toolbarItemImages[ITM_SAVE] = "images\\toolbarItems\\SAVE.jpg";
 	toolbarItemImages[ITM_INCREASE] = "images\\toolbarItems\\INCREASE.jpg";
 	toolbarItemImages[ITM_DECREASE] = "images\\toolbarItems\\DECREASE.jpg";
 	toolbarItemImages[ITM_HINT] = "images\\toolbarItems\\HINT.jpg";
 	toolbarItemImages[ITM_LEVELS] = "images\\toolbarItems\\LEVELS.jpg";
 	toolbarItemImages[ITM_REFRESH] = "images\\toolbarItems\\REFRESH.jpg";
 	toolbarItemImages[ITM_ROTATE] = "images\\toolbarItems\\ROTATE.jpg";
+    toolbarItemImages[ITM_SAVE] = "images\\toolbarItems\\SAVE.jpg";
+	toolbarItemImages[ITM_LOAD] = "images\\toolbarItems\\LOAD.jpg";
 	toolbarItemImages[ITM_DELETE] = "images\\toolbarItems\\DELETE.jpg";
 	toolbarItemImages[ITM_EXIT] = "images\\toolbarItems\\EXIT.jpg";
 

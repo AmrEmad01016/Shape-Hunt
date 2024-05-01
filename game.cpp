@@ -115,6 +115,9 @@ operation* game::createRequiredOperation(toolbarItem clickedItem)
 	case ITM_ROTATE:
 		op = new operRotate(this);
 		break;
+	case ITM_LOAD:
+		op = new operLoad(this);
+		break;
 	case ITM_DELETE:
 		op = new operDelete(this);
 		break;
