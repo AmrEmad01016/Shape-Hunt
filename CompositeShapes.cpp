@@ -194,14 +194,12 @@ house::house(game* r_pGame, point ref) :shape(r_pGame, ref)
 	point MbuildRef = ref,
 		RbuildRef = { ref.x + build_w, ref.y + build_w },
 		LbuildRef = { ref.x - build_w, ref.y + build_w },
-		topRef = { ref.x, ref.y - unitlen - (sqrt(3)/6) * (6*unitlen) },
-		okraRef = {ref.x, ref.y + build_w };
+		topRef = { ref.x, ref.y - unitlen - (sqrt(3)/6) * (6*unitlen) };
 
 	Mbuild = new Rect(pGame, MbuildRef, build_w, build_w);
 	Rbuild = new Rect(pGame, RbuildRef, RLbuild_h, build_w);
 	Lbuild = new Rect(pGame, LbuildRef, RLbuild_h, build_w);
 	top = new EquiTri(pGame, topRef, RLbuild_h);
-	okra = new circle(pGame, okraRef, unitlen/4);
 }
 
 void house::draw() const
@@ -210,7 +208,6 @@ void house::draw() const
 	Rbuild->draw();
 	Lbuild->draw();
 	Mbuild->draw();
-	okra->draw();
 }
 
 void house::rotate()
