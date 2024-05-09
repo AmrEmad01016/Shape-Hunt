@@ -44,6 +44,15 @@ void Sign::resizedown()
 	base->setRefPoint({ RefPoint.x - int(round(sin(angle)) * (top_h / 2 + base_h / 2)),RefPoint.y + int(round(cos(angle)) * (top_h / 2 + base_h / 2)) });
 	base->resizedown(); top->resizedown();
 }
+
+void Sign::move(int x, int y)
+{
+	
+	RefPoint.x = RefPoint.x + x;
+	RefPoint.y = RefPoint.y + y;
+}
+
+
 //=======
 Sign::~Sign()
 {
@@ -107,6 +116,12 @@ void dumbel::resizedown()
 	Rcircle->setRefPoint(RcircleRef); Lcircle->setRefPoint(LcircleRef);
 
 	Rcircle->resizedown(); Lcircle->resizedown(); handle->resizedown();
+}
+
+void dumbel::move(int x, int y)
+{
+	RefPoint.x = RefPoint.x + x;
+	RefPoint.y = RefPoint.y + y;
 }
 
 car::car(game* r_pGame, point ref) :shape(r_pGame, ref)
@@ -188,6 +203,12 @@ void car::resizedown()
 	uprBody->resizedown(); lwrBody->resizedown(); backWheel->resizedown(); frontWheel->resizedown(); tri1->resizedown(); tri2->resizedown();
 }
 
+void car::move(int x, int y)
+{
+	RefPoint.x = RefPoint.x + x;
+	RefPoint.y = RefPoint.y + y;
+}
+
 house::house(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
 	int build_w = 2 * unitlen, RLbuild_h = 3 * build_w;
@@ -243,6 +264,12 @@ void house::resizedown()
 	Lbuild->setRefPoint({ RefPoint.x - int(round(cos(angle)) * build_w) - int(round(sin(angle)) * build_w), RefPoint.y + int(round(cos(angle)) * build_w) - int(round(sin(angle)) * build_w) });
 
 	top->resizedown(); Rbuild->resizedown(); Lbuild->resizedown(); Mbuild->resizedown();
+}
+
+void house::move(int x, int y)
+{
+	RefPoint.x = RefPoint.x + x;
+	RefPoint.y = RefPoint.y + y;
 }
 
 key::key(game* r_pGame, point ref) :shape(r_pGame, ref)
@@ -311,6 +338,12 @@ void key::resizedown()
 	main->resizedown(); Btooth->resizedown(); Stooth->resizedown(); hand->resizedown();
 }
 
+void key::move(int x, int y)
+{
+	RefPoint.x = RefPoint.x + x;
+	RefPoint.y = RefPoint.y + y;
+}
+
 tree::tree(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
 	int root_h = 8 * unitlen, root_w = 2 * unitlen, tri_s = 6 * unitlen;
@@ -375,6 +408,12 @@ void tree::resizedown()
 	root->resizedown(); tri1->resizedown(); tri2->resizedown(); tri3->resizedown();
 }
 
+void tree::move(int x, int y)
+{
+	RefPoint.x = RefPoint.x + x;
+	RefPoint.y = RefPoint.y + y;
+}
+
 arrow::arrow(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
 	int tail_h = 10 * unitlen, tail_w = 2 * unitlen, head_s = 6 * unitlen;
@@ -424,4 +463,10 @@ void arrow::resizedown()
 	head->setRefPoint({ RefPoint.x + int(round(sin(angle))) * tail_h / 2,RefPoint.y - int(round(cos(angle))) * tail_h / 2 });
 
 	head->resizedown(); tail->resizedown();
+}
+
+void arrow::move(int x, int y)
+{
+	RefPoint.x = RefPoint.x + x;
+	RefPoint.y = RefPoint.y + y;
 }

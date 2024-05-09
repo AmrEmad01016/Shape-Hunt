@@ -22,7 +22,7 @@ public:
 	virtual void rotate();
 	virtual void resizeup();
 	virtual void resizedown();
-
+	void move(int x, int y);
 
 
 };
@@ -40,7 +40,7 @@ public:
 	virtual void rotate();
 	virtual void resizeup();
 	virtual void resizedown();
-
+	void move(int x, int y);
 };
 
 
@@ -54,6 +54,6 @@ public:
 	virtual void rotate();
 	virtual void resizeup();
 	virtual void resizedown();
-
+	void move(int x , int y );
 
 };
