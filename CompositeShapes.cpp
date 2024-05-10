@@ -48,8 +48,8 @@ void Sign::resizedown()
 void Sign::move(int x, int y)
 {
 	
-	RefPoint.x = RefPoint.x + x;
-	RefPoint.y = RefPoint.y + y;
+	setRefPoint({ RefPoint.x + x, RefPoint.y + y });
+
 }
 
 

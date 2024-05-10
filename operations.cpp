@@ -2,6 +2,7 @@
 #include "game.h"
 #include "CompositeShapes.h"
 #include <iostream>
+#include <fstream>
 using namespace std;
 /////////////////////////////////// class operation  //////////////////
 operation::operation(game* r_pGame)
@@ -187,6 +188,16 @@ operSave::operSave(game* r_pGame) : operation(r_pGame)
 {
 }
 void operSave::Act() {
+
+	grid* pGrid = pGame->getGrid();
+	ofstream Datafile;
+	Datafile.open("data/saveddata.txt" , ios:: out , ios :: app);
+	//Datafile.open("data\n");
+    Datafile << pGame->getlevels() << "\n"<< pGame->getlives() << "\n" << pGame->getscores() << "\n" << pGrid ->getActiveShape() << "\n"  ;
+	Datafile.close();
+	system("pause");
+
+
 	pGame->printMessage("you have clicked save");
 
 }
