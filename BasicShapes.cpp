@@ -45,7 +45,12 @@ void Rect::resizedown()
 	hght /= 2;
 	wdth /= 2;
 }
-
+void Rect::move(int x , int y)
+{
+	
+	RefPoint.x = RefPoint.x + x ;
+	RefPoint.y = RefPoint.y + y ;
+}
 
 ////////////////////////////////////////////////////  class circle  ///////////////////////////////////////
 //TODO: Add implementation for class circle here
@@ -75,6 +80,12 @@ void circle::resizeup()
 void circle::resizedown()
 {
 	rad /= 2;
+}
+void circle::move(int x , int y )
+{
+
+	RefPoint.x = RefPoint.x + x;
+	RefPoint.y = RefPoint.y + y;
 }
 
 
@@ -119,4 +130,9 @@ void EquiTri::resizeup()
 void EquiTri::resizedown()
 {
 	sidelen /= 2;
+}
+void EquiTri ::move(int x , int y)
+{
+	RefPoint.x = RefPoint.x + x;
+	RefPoint.y = RefPoint.y + y;
 }

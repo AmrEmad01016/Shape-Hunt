@@ -38,6 +38,7 @@ public:
 	void setRefPoint(point p);
 	virtual void resizeup()=0;
 	virtual void resizedown()=0;
+	virtual void move(int x , int y ) =0;
 
 								  
 							  

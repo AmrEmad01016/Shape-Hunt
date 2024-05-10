@@ -261,3 +261,12 @@ void operDelete::Act() {
 	pGrid->deleteActiveShape();
 
 }
+operLoad::operLoad(game* r_pGame) : operation(r_pGame)
+{
+
+}
+void operLoad::Act() {
+	pGame->printMessage("you have clicked Load");
+	
+
+}

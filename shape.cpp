@@ -15,18 +15,15 @@ void shape::setRefPoint(point p)
 	RefPoint = p;
 }
 
-//void shape::increase()
-//{
-//	unitlen *= 2;
-//}
 
-//void shape::resizeUp()
-//{
-//	unitlen *= 2;
-//}
-//
-//void shape::resizeDown()
-//{
-//	unitlen /= 2;
-//
-//}
+
+void shape::resizeup()
+{
+	unitlen *= 2;
+}
+
+void shape::resizedown()
+{
+	unitlen /= 2;
+
+}
