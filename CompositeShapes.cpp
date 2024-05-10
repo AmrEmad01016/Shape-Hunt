@@ -60,6 +60,15 @@ bool Sign::checkboundries() const
 
 
 }
+
+void Sign::move(int x, int y)
+{
+	
+	setRefPoint({ RefPoint.x + x, RefPoint.y + y });
+
+}
+
+
 //=======
 Sign::~Sign()
 {
@@ -140,6 +149,12 @@ bool dumbel::checkboundries() const
 	else return true;
 
 	
+}
+
+void dumbel::move(int x, int y)
+{
+	RefPoint.x = RefPoint.x + x;
+	RefPoint.y = RefPoint.y + y;
 }
 
 car::car(game* r_pGame, point ref) :shape(r_pGame, ref)
@@ -239,6 +254,12 @@ bool car::checkboundries() const
 	return false;
 }
 
+void car::move(int x, int y)
+{
+	RefPoint.x = RefPoint.x + x;
+	RefPoint.y = RefPoint.y + y;
+}
+
 house::house(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
 	int build_w = 2 * unitlen, RLbuild_h = 3 * build_w;
@@ -314,6 +335,12 @@ bool house::checkboundries() const
 	return false;
 }
 
+void house::move(int x, int y)
+{
+	RefPoint.x = RefPoint.x + x;
+	RefPoint.y = RefPoint.y + y;
+}
+
 key::key(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
 	int circle_r = 6 * unitlen, main_h = circle_r/3, main_w = 20 * unitlen;
@@ -378,6 +405,12 @@ void key::resizedown()
 	Btooth->setRefPoint({ RefPoint.x + int(round(cos(angle)) * (2 * 8.5 * unitlen + circle_r / 2)) - int(round(sin(angle)) * 2 * unitlen),RefPoint.y + int(round(sin(angle)) * (2 * 8.5 * unitlen + circle_r / 2)) + int(round(cos(angle)) * 2 * unitlen) });
 
 	main->resizedown(); Btooth->resizedown(); Stooth->resizedown(); hand->resizedown();
+}
+
+void key::move(int x, int y)
+{
+	RefPoint.x = RefPoint.x + x;
+	RefPoint.y = RefPoint.y + y;
 }
 
 tree::tree(game* r_pGame, point ref) :shape(r_pGame, ref)
@@ -462,6 +495,12 @@ bool tree::checkboundries() const
 	
 }
 
+void tree::move(int x, int y)
+{
+	RefPoint.x = RefPoint.x + x;
+	RefPoint.y = RefPoint.y + y;
+}
+
 arrow::arrow(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
 	int tail_h = 10 * unitlen, tail_w = 2 * unitlen, head_s = 6 * unitlen;
@@ -528,4 +567,10 @@ bool arrow::checkboundries() const
 	else return true;
 
 	return true;
+}
+
+void arrow::move(int x, int y)
+{
+	RefPoint.x = RefPoint.x + x;
+	RefPoint.y = RefPoint.y + y;
 }

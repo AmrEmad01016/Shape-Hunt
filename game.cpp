@@ -65,6 +65,32 @@ void game::createGrid()
 	shapesGrid = new grid(gridUpperLeftPoint, config.windWidth, gridHeight, this);
 }
 
+void game::handleKeyPress(char key)
+{
+	if (!shapesGrid) return;
+	int step = 25;
+	shape* activeshape = shapesGrid->getActiveShape();
+	switch (key) {
+	case'w':               //move up
+		activeshape->move(0, -step);
+		break;
+	case's':                    // move down 
+		activeshape->move(0, step);
+		break;
+	case'a':                    // move left
+		activeshape->move(step, 0);
+		break;
+	case'd':                    // move right
+		activeshape->move(-step, 0);
+		break;
+
+
+ 
+	}
+}
+
+
+
 operation* game::createRequiredOperation(toolbarItem clickedItem)
 {
 	operation* op=nullptr;
@@ -114,6 +140,9 @@ operation* game::createRequiredOperation(toolbarItem clickedItem)
 		break;
 	case ITM_ROTATE:
 		op = new operRotate(this);
+		break;
+	case ITM_LOAD:
+		op = new operLoad(this);
 		break;
 	case ITM_DELETE:
 		op = new operDelete(this);
@@ -202,6 +231,10 @@ void game::run()
 	bool isExit = false;
 	
 
+	char key;
+
+	pWind->GetKeyPress(key);
+	handleKeyPress(key);
 	//Change the title
 	pWind->ChangeTitle("- - - - - - - - - - SHAPE HUNT (CIE 101 / CIE202 - project) - - - - - - - - - -");
 	toolbarItem clickedItem=ITM_CNT;

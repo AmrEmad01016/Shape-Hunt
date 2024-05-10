@@ -12,7 +12,7 @@ struct
 
 		//The window is divded into 3 areas: toolbar, Working area, and statusbar
 		toolBarHeight=60,		//Tool Bar Height (distance from top of window to bottom line of toolbar)
-		toolbarItemWidth = 70,			//Width of each icon in toolbar
+		toolbarItemWidth = 62.5,			//Width of each icon in toolbar
 		statusBarHeight=50;	//Status Bar Height
 	
 	int remainingHeight = windHeight - toolBarHeight - statusBarHeight;
@@ -58,13 +58,15 @@ enum toolbarItem //The items of the  toolbar (you should add more items)
 	ITM_DUMPLE,
 	ITM_ARROW,
 	ITM_CAR,
-	ITM_SAVE,
+
 	ITM_INCREASE,
 	ITM_DECREASE,
 	ITM_HINT,
 	ITM_LEVELS,
 	ITM_REFRESH,
 	ITM_ROTATE,
+	ITM_SAVE,
+	ITM_LOAD,
 	ITM_DELETE,
 	ITM_EXIT,
 

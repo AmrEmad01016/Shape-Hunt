@@ -34,7 +34,7 @@ public:
 	virtual void resizeup();
 	virtual void resizedown();
 	bool checkboundries() const;
-
+	void move(int x , int y);
 
 };
 
@@ -51,7 +51,7 @@ public:
 	virtual void resizeup();
 	virtual void resizedown();
 	bool checkboundries() const;
-
+	void move(int x, int y);
 
 };
 
@@ -69,6 +69,7 @@ public:
 	virtual void resizeup();
 	virtual void resizedown();
 	bool checkboundries() const;
+	void move(int x, int y);
 };
 
 class house :public shape {
@@ -82,6 +83,8 @@ public:
 	virtual void resizeup();
 	virtual void resizedown();
 	bool checkboundries() const;
+	void move(int x, int y);
+
 };
 
 class key :public shape {
@@ -95,7 +98,7 @@ public:
 	virtual void rotate();
 	virtual void resizeup();
 	virtual void resizedown();
-
+	void move(int x, int y);
 };
 
 class arrow :public shape {
@@ -110,6 +113,7 @@ public:
 	virtual void resizedown();
 	bool checkboundries() const;
 
+	void move(int x, int y);
 };
 
 class tree :public shape {
@@ -124,4 +128,5 @@ public:
 	virtual void resizedown();
 	bool checkboundries() const;
 
+	void move(int x, int y);
 };

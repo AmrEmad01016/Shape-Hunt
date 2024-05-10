@@ -131,6 +131,12 @@ public:
 //	
 //};
 
+class operLoad :public operation {
+public:
+	operLoad(game* r_pGmae);
+	virtual void Act();
+
+};
 
 
 

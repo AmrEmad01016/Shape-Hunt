@@ -25,6 +25,9 @@ void shape::setunitlen(int n)
 
 
 bool shape::checkboundries() const
+
+
+void shape::resizeup()
 {
 	return false;
 }
@@ -45,3 +48,8 @@ bool shape::checkboundries() const
 //	unitlen /= 2;
 //
 //}
+void shape::resizedown()
+{
+	unitlen /= 2;
+
+}

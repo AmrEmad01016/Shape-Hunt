@@ -39,6 +39,7 @@ public:
 	virtual void resizeup()=0;
 	virtual void resizedown()=0;
 	void setunitlen(int n);
+	virtual void move(int x , int y ) =0;
 
 	/*virtual bool checkboundries();*/
 							  
