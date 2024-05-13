@@ -138,5 +138,15 @@ public:
 
 };
 
+class selectgamelevel : public operation
+{
+public:
+	selectgamelevel(game* r_pGame);
+	void Act();
+
+
+
+};
+
 
 

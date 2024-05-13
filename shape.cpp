@@ -25,9 +25,6 @@ void shape::setunitlen(int n)
 
 
 bool shape::checkboundries() const
-
-
-void shape::resizeup()
 {
 	return false;
 }

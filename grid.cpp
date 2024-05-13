@@ -1,7 +1,7 @@
 #include "grid.h"
 #include "game.h"
 #include "gameConfig.h"
-
+#include <time.h>
 
 grid::grid(point r_uprleft, int wdth, int hght, game* pG)
 {
@@ -92,6 +92,83 @@ void grid::deleteActiveShape()
 shape* grid::getActiveShape()
 {
 	return activeShape;
+}
+
+void grid::randshapes()
+{
+	
+
+	while (this->getshapecount() < pGame->getlevels()) {
+
+
+
+		shape* shp;
+		int x, y, unit, r, s;
+		/*srand(time(0));*/
+
+		x = rand() % (400); y = 80 + rand() % (config.windHeight - 80 + 1);
+
+		point ref = { x,y };
+
+		unit = rand() % 2;
+		r = 1 + rand() % 2;
+
+		s = rand() % 6;
+
+
+
+
+		switch (s)
+		{
+		case(0):
+			shp = new Sign(pGame, ref);
+			break;
+		case(1):
+			shp = new dumbel(pGame, ref);
+			break;
+		case(2):
+			shp = new house(pGame, ref);
+			break;
+		case(3):
+			shp = new car(pGame, ref);
+			break;
+		case(4):
+			shp = new arrow(pGame, ref);
+			break;
+		case(5):
+			shp = new tree(pGame, ref);
+			break;
+			/*case(6):
+				shp = new key(pGame, ref);
+				break;*/
+		default:
+			break;
+		}
+
+
+		switch (r)
+		{
+		case(1):
+			for (int i = 0; i < unit; i++)
+				shp->resizeup();
+		case(2):
+			for (int i = 0; i < unit; i++)
+				shp->resizedown();
+		default:
+			break;
+		}
+
+
+
+
+		this->addShape(shp);
+		shp = nullptr;
+	}
+}
+
+void grid::setshapecount(int n)
+{
+	shapeCount = n;
 }
 
 

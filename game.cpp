@@ -32,6 +32,11 @@ int game::getlives()
 	return lives;
 }
 
+void game::setlevels(int l)
+{
+	 level = l;
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////
 void game::createWind(int w, int h, int x, int y) 
 {
@@ -133,7 +138,9 @@ operation* game::createRequiredOperation(toolbarItem clickedItem)
 		op = new operHint(this);
 		break;
 	case ITM_LEVELS:
-		op = new operLevels(this);
+		/*op = new operLevels(this);*/
+
+		op = new selectgamelevel(this);
 		break;
 	case ITM_REFRESH:
 		op = new operRefresh(this);
@@ -256,7 +263,7 @@ void game::run()
 				op->Act();
 
 			
-
+			shapesGrid->randshapes();
 			//4-Redraw the grid after each action
 			shapesGrid->draw();
 
