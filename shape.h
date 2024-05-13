@@ -38,6 +38,7 @@ public:
 	void setRefPoint(point p);
 	virtual void resizeup()=0;
 	virtual void resizedown()=0;
+	void setunitlen(int n);
 	virtual void move(int x , int y ) =0;
 	virtual void save(ofstream &f)=0 ;
 	/*virtual void load(ifstream& f) =0;*/
@@ -48,6 +49,9 @@ public:
 	//-- Decide the parameters that you should pass to each function	
 
 	virtual void rotate()=0;	//Rotate the shape
+
+	
+	virtual bool checkboundries() const;
 	//virtual void resize() = 0;	//Resize the shape
 	//virtual void move() = 0;		//Move the shape
 	//virtual void save(ofstream &OutFile) = 0;	//Save the shape parameters to the file

@@ -2,6 +2,9 @@
 #include "game.h"
 #include "CompositeShapes.h"
 #include <iostream>
+
+
+
 #include <fstream>
 using namespace std;
 /////////////////////////////////// class operation  //////////////////
@@ -265,7 +268,8 @@ operRefresh::operRefresh(game* r_pGame) : operation(r_pGame)
 }
 void operRefresh::Act() {
 	pGame->printMessage("you have clicked refresh");
-
+	
+	
 }
 
 operRotate::operRotate(game* r_pGame) : operation(r_pGame)
@@ -292,13 +296,47 @@ void operDelete::Act() {
 
 }
 
-//operexit::operexit(game* r_pGame): operation(r_pGame)
+//randshap::randshap(game* r_pGame):operation(r_pGame)
 //{
-//}
-//
-//void operexit::Act()
-//{
-//
 //	
 //
+//
 //}
+operLoad::operLoad(game* r_pGame) : operation(r_pGame)
+{
+
+}
+void operLoad::Act() {
+	pGame->printMessage("you have clicked Load");
+	
+
+}
+
+selectgamelevel::selectgamelevel(game* r_pGame): operation (r_pGame)
+{
+}
+
+void selectgamelevel::Act()
+{
+	pGame->printMessage("Enter valid level: ");
+	window *pwind = pGame->getWind();
+	grid* pgird = pGame->getGrid();
+	char c;
+
+	pwind->WaitKeyPress(c);
+
+	if ('1' > c || c > '9') {
+		pGame->printMessage("unvalid level number");
+		return;
+	}
+
+	pgird->setshapecount(0);
+	pgird->~grid();
+
+	int n = int(c) - 48;
+
+	pGame->setlevels(n);
+	pGame->printMessage("the level was entered successfully");
+}
+
+

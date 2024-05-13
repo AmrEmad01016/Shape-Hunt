@@ -33,6 +33,7 @@ public:
 	virtual void rotate();
 	virtual void resizeup();
 	virtual void resizedown();
+	bool checkboundries() const;
 	void move(int x , int y);
 	void save(ofstream& f);
 	/*void load(ifstream& f);*/
@@ -50,6 +51,7 @@ public:
 	virtual void rotate();
 	virtual void resizeup();
 	virtual void resizedown();
+	bool checkboundries() const;
 	void move(int x, int y);
 	void save(ofstream& f);
 	//void load(ifstream& f);
@@ -68,6 +70,7 @@ public:
 	virtual void rotate();
 	virtual void resizeup();
 	virtual void resizedown();
+	bool checkboundries() const;
 	void move(int x, int y);
 	void save(ofstream& f);
 	/*void load(ifstream& f);*/
@@ -83,6 +86,7 @@ public:
 	virtual void rotate();
 	virtual void resizeup();
 	virtual void resizedown();
+	bool checkboundries() const;
 	void move(int x, int y);
 	void save(ofstream& f);
 	/*void load(ifstream& f);*/
@@ -114,6 +118,8 @@ public:
 	virtual void rotate();
 	virtual void resizeup();
 	virtual void resizedown();
+	bool checkboundries() const;
+
 	void move(int x, int y);
 	void save(ofstream& f);
 	/*void load(ifstream& f);*/
@@ -129,6 +135,8 @@ public:
 	virtual void rotate();
 	virtual void resizeup();
 	virtual void resizedown();
+	bool checkboundries() const;
+
 	void move(int x, int y);
 	void save(ofstream& f);
 	/*void load(ifstream& f);*/
