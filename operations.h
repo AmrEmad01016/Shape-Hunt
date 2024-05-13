@@ -131,6 +131,11 @@ public:
 	virtual void Act();
 
 };
+//class operexit : public operation {
+//public:
+//	operexit(game* r_pGame);
+//	virtual void Act();
+
 
 
 

@@ -232,6 +232,7 @@ void game::run()
 	char key;
 
 	pWind->GetKeyPress(key);
+	pWind->WaitKeyPress(key);
 	handleKeyPress(key);
 	//Change the title
 	pWind->ChangeTitle("- - - - - - - - - - SHAPE HUNT (CIE 101 / CIE202 - project) - - - - - - - - - -");
@@ -259,6 +260,10 @@ void game::run()
 			createToolBar(); //phase 1 only
 			
 		}	
-
+		
 	} while (clickedItem!=ITM_EXIT);
 }
+
+
+
+

@@ -189,11 +189,14 @@ operSave::operSave(game* r_pGame) : operation(r_pGame)
 }
 void operSave::Act() {
 
+	shape* shp;
 	grid* pGrid = pGame->getGrid();
+	shp = pGrid->getActiveShape();
 	ofstream Datafile;
-	Datafile.open("data/saveddata.txt" , ios:: out , ios :: app);
+	Datafile.open("saveddata\\data.txt");
 	//Datafile.open("data\n");
-    Datafile << pGame->getlevels() << "\n"<< pGame->getlives() << "\n" << pGame->getscores() << "\n" << pGrid ->getActiveShape() << "\n"  ;
+    Datafile<< pGame->getlevels() << "\t\t" << pGame->getlives() << "\t\t" << pGame->getscores() << "\t\t\n" ;
+	if (shp) shp->save(Datafile);
 	Datafile.close();
 	system("pause");
 
@@ -201,6 +204,22 @@ void operSave::Act() {
 	pGame->printMessage("you have clicked save");
 
 }
+operLoad::operLoad(game* r_pGame) : operation(r_pGame)
+{
+
+}
+
+void operLoad::Act() {
+	pGame->printMessage("you have clicked Load");
+	ifstream data ;
+	int x;
+	while(data>>x)
+		data >> x;
+
+}
+
+
+
  operIncrease::operIncrease(game* r_pGame):operation(r_pGame)
 {
 }
@@ -272,12 +291,14 @@ void operDelete::Act() {
 	pGrid->deleteActiveShape();
 
 }
-operLoad::operLoad(game* r_pGame) : operation(r_pGame)
-{
 
-}
-void operLoad::Act() {
-	pGame->printMessage("you have clicked Load");
-	
-
-}
+//operexit::operexit(game* r_pGame): operation(r_pGame)
+//{
+//}
+//
+//void operexit::Act()
+//{
+//
+//	
+//
+//}

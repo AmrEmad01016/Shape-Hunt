@@ -39,7 +39,8 @@ public:
 	virtual void resizeup()=0;
 	virtual void resizedown()=0;
 	virtual void move(int x , int y ) =0;
-
+	virtual void save(ofstream &f)=0 ;
+	/*virtual void load(ifstream& f) =0;*/
 								  
 							  
 	//-- The following functions should be supported by the shape class

@@ -1,5 +1,6 @@
 #include "CompositeShapes.h"
 #include "gameConfig.h"
+#include <fstream>
 
 ////////////////////////////////////////////////////  class Sign  ///////////////////////////////////////
 Sign::Sign(game* r_pGame, point ref):shape(r_pGame, ref)
@@ -51,6 +52,15 @@ void Sign::move(int x, int y)
 	setRefPoint({ RefPoint.x + x, RefPoint.y + y });
 
 }
+
+void Sign::save(ofstream& f)
+{
+	f << "sign" << "\t" << "(" << RefPoint.x << "," << RefPoint.y << ")" << "\t"<<angle<<"\t"<<unitlen;
+}
+
+//void Sign::load(ifstream& f)
+//{
+//}
 
 
 //=======
@@ -120,9 +130,19 @@ void dumbel::resizedown()
 
 void dumbel::move(int x, int y)
 {
-	RefPoint.x = RefPoint.x + x;
-	RefPoint.y = RefPoint.y + y;
+	setRefPoint({ RefPoint.x + x, RefPoint.y + y });
 }
+
+void dumbel::save(ofstream& f)
+{
+	f << "dampel" << "\t" << "(" << RefPoint.x << "," << RefPoint.y << ")" << "\t" << angle << "\t" << unitlen;
+}
+
+
+//void dumbel::load(ifstream& f)
+//{
+//}
+
 
 car::car(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
@@ -205,9 +225,19 @@ void car::resizedown()
 
 void car::move(int x, int y)
 {
-	RefPoint.x = RefPoint.x + x;
-	RefPoint.y = RefPoint.y + y;
+	setRefPoint({ RefPoint.x + x, RefPoint.y + y });
 }
+
+void car::save(ofstream& f)
+{
+	f << "car" << "\t" << "(" << RefPoint.x << "," << RefPoint.y << ")" << "\t" << angle << "\t" << unitlen;
+}
+
+
+
+//void car::load(ifstream& f)
+//{
+//}
 
 house::house(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
@@ -271,6 +301,17 @@ void house::move(int x, int y)
 	RefPoint.x = RefPoint.x + x;
 	RefPoint.y = RefPoint.y + y;
 }
+
+void house::save(ofstream& f)
+{
+	f << "house" << "\t" << "(" << RefPoint.x << "," << RefPoint.y << ")" << "\t" << angle << "\t" << unitlen;
+}
+
+
+
+//void house::load(ifstream& f)
+//{
+//}
 
 key::key(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
@@ -340,9 +381,19 @@ void key::resizedown()
 
 void key::move(int x, int y)
 {
-	RefPoint.x = RefPoint.x + x;
-	RefPoint.y = RefPoint.y + y;
+	setRefPoint({ RefPoint.x + x, RefPoint.y + y });
 }
+
+void key::save(ofstream& f)
+{
+	f << "key" << "\t" << "(" << RefPoint.x << "," << RefPoint.y << ")" << "\t" << angle << "\t" << unitlen;
+}
+
+
+
+//void key::load(ifstream& f)
+//{
+//}
 
 tree::tree(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
@@ -410,9 +461,19 @@ void tree::resizedown()
 
 void tree::move(int x, int y)
 {
-	RefPoint.x = RefPoint.x + x;
-	RefPoint.y = RefPoint.y + y;
+	setRefPoint({ RefPoint.x + x, RefPoint.y + y });
 }
+
+void tree::save(ofstream& f)
+{
+	f << "tree" << "\t" << "(" << RefPoint.x << "," << RefPoint.y << ")" << "\t" << angle << "\t" << unitlen;
+}
+
+
+
+//void tree::load(ifstream& f)
+//{
+//}
 
 arrow::arrow(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
@@ -467,6 +528,16 @@ void arrow::resizedown()
 
 void arrow::move(int x, int y)
 {
-	RefPoint.x = RefPoint.x + x;
-	RefPoint.y = RefPoint.y + y;
+	setRefPoint({ RefPoint.x + x, RefPoint.y + y });
 }
+
+void arrow::save(ofstream& f)
+{
+	f << "arrow" << "\t" << "(" << RefPoint.x << "," << RefPoint.y << ")" << "\t" << angle << "\t" << unitlen;
+}
+
+
+
+//void arrow::load(ifstream& f)
+//{
+//}

@@ -34,7 +34,8 @@ public:
 	virtual void resizeup();
 	virtual void resizedown();
 	void move(int x , int y);
-
+	void save(ofstream& f);
+	/*void load(ifstream& f);*/
 };
 
 
@@ -50,7 +51,8 @@ public:
 	virtual void resizeup();
 	virtual void resizedown();
 	void move(int x, int y);
-
+	void save(ofstream& f);
+	//void load(ifstream& f);
 };
 
 class car :public shape {
@@ -67,6 +69,8 @@ public:
 	virtual void resizeup();
 	virtual void resizedown();
 	void move(int x, int y);
+	void save(ofstream& f);
+	/*void load(ifstream& f);*/
 };
 
 class house :public shape {
@@ -80,7 +84,8 @@ public:
 	virtual void resizeup();
 	virtual void resizedown();
 	void move(int x, int y);
-
+	void save(ofstream& f);
+	/*void load(ifstream& f);*/
 };
 
 class key :public shape {
@@ -95,6 +100,8 @@ public:
 	virtual void resizeup();
 	virtual void resizedown();
 	void move(int x, int y);
+	void save(ofstream& f);
+	/*void load(ifstream& f);*/
 };
 
 class arrow :public shape {
@@ -108,6 +115,8 @@ public:
 	virtual void resizeup();
 	virtual void resizedown();
 	void move(int x, int y);
+	void save(ofstream& f);
+	/*void load(ifstream& f);*/
 };
 
 class tree :public shape {
@@ -121,4 +130,6 @@ public:
 	virtual void resizeup();
 	virtual void resizedown();
 	void move(int x, int y);
+	void save(ofstream& f);
+	/*void load(ifstream& f);*/
 };

@@ -48,9 +48,16 @@ void Rect::resizedown()
 void Rect::move(int x , int y)
 {
 	
-	RefPoint.x = RefPoint.x + x ;
-	RefPoint.y = RefPoint.y + y ;
+	setRefPoint({ RefPoint.x + x, RefPoint.y + y });
 }
+
+void Rect::save(ofstream& f)
+{
+}
+
+//void Rect::load(ifstream& f)
+//{
+//}
 
 ////////////////////////////////////////////////////  class circle  ///////////////////////////////////////
 //TODO: Add implementation for class circle here
@@ -84,9 +91,16 @@ void circle::resizedown()
 void circle::move(int x , int y )
 {
 
-	RefPoint.x = RefPoint.x + x;
-	RefPoint.y = RefPoint.y + y;
+	setRefPoint({ RefPoint.x + x, RefPoint.y + y });
 }
+void circle::save(ofstream& f)
+{
+}
+
+//void circle::load(ifstream& f)
+//{
+//
+//}
 
 
 
@@ -133,6 +147,12 @@ void EquiTri::resizedown()
 }
 void EquiTri ::move(int x , int y)
 {
-	RefPoint.x = RefPoint.x + x;
-	RefPoint.y = RefPoint.y + y;
+	setRefPoint({ RefPoint.x + x, RefPoint.y + y });
 }
+void EquiTri::save(ofstream& f) {
+
+}
+
+//void EquiTri::load(ifstream& f)
+//{
+//}
