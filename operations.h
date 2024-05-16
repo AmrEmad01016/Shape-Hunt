@@ -125,10 +125,31 @@ public:
 	virtual void Act();
 
 };
+//class randshap:public operation{
+//public:
+//	randshap(game* r_pGame);
+//	
+//};
+
 class operLoad :public operation {
 public:
 	operLoad(game* r_pGmae);
 	virtual void Act();
+
+};
+//class operexit : public operation {
+//public:
+//	operexit(game* r_pGame);
+//	virtual void Act();
+
+
+class selectgamelevel : public operation
+{
+public:
+	selectgamelevel(game* r_pGame);
+	void Act();
+
+
 
 };
 

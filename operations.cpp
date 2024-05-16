@@ -2,6 +2,10 @@
 #include "game.h"
 #include "CompositeShapes.h"
 #include <iostream>
+
+
+
+#include <fstream>
 using namespace std;
 /////////////////////////////////// class operation  //////////////////
 operation::operation(game* r_pGame)
@@ -187,9 +191,38 @@ operSave::operSave(game* r_pGame) : operation(r_pGame)
 {
 }
 void operSave::Act() {
+
+	shape* shp;
+	grid* pGrid = pGame->getGrid();
+	shp = pGrid->getActiveShape();
+	ofstream Datafile;
+	Datafile.open("saveddata\\data.txt");
+	//Datafile.open("data\n");
+    Datafile<< pGame->getlevels() << "\t\t" << pGame->getlives() << "\t\t" << pGame->getscores() << "\t\t\n" ;
+	if (shp) shp->save(Datafile);
+	Datafile.close();
+	system("pause");
+
+
 	pGame->printMessage("you have clicked save");
 
 }
+operLoad::operLoad(game* r_pGame) : operation(r_pGame)
+{
+
+}
+
+void operLoad::Act() {
+	pGame->printMessage("you have clicked Load");
+	ifstream data ;
+	int x;
+	while(data>>x)
+		data >> x;
+
+}
+
+
+
  operIncrease::operIncrease(game* r_pGame):operation(r_pGame)
 {
 }
@@ -235,7 +268,8 @@ operRefresh::operRefresh(game* r_pGame) : operation(r_pGame)
 }
 void operRefresh::Act() {
 	pGame->printMessage("you have clicked refresh");
-
+	
+	
 }
 
 operRotate::operRotate(game* r_pGame) : operation(r_pGame)
@@ -261,12 +295,40 @@ void operDelete::Act() {
 	pGrid->deleteActiveShape();
 
 }
-operLoad::operLoad(game* r_pGame) : operation(r_pGame)
+
+//randshap::randshap(game* r_pGame):operation(r_pGame)
+//{
+//	
+//
+//
+//}
+
+
+selectgamelevel::selectgamelevel(game* r_pGame): operation (r_pGame)
 {
-
 }
-void operLoad::Act() {
-	pGame->printMessage("you have clicked Load");
-	
 
+void selectgamelevel::Act()
+{
+	pGame->printMessage("Enter valid level: ");
+	window *pwind = pGame->getWind();
+	grid* pgird = pGame->getGrid();
+	char c;
+
+	pwind->WaitKeyPress(c);
+
+	if ('1' > c || c > '9') {
+		pGame->printMessage("unvalid level number");
+		return;
+	}
+
+	pgird->setshapecount(0);
+	pgird->~grid();
+
+	int n = int(c) - 48;
+
+	pGame->setlevels(n);
+	pGame->printMessage("the level was entered successfully");
 }
+
+

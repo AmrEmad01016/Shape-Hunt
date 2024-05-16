@@ -23,7 +23,8 @@ public:
 	virtual void resizeup();
 	virtual void resizedown();
 	void move(int x, int y);
-
+	virtual void save(ofstream& f);
+	/*void load(ifstream& f);*/
 
 };
 
@@ -41,6 +42,8 @@ public:
 	virtual void resizeup();
 	virtual void resizedown();
 	void move(int x, int y);
+	virtual void save(ofstream& f);
+	/*void load(ifstream& f);*/
 };
 
 
@@ -54,6 +57,8 @@ public:
 	virtual void rotate();
 	virtual void resizeup();
 	virtual void resizedown();
-	void move(int x , int y );
+	virtual void move(int x , int y );
+	virtual void save(ofstream& f);
+	/*void load(ifstream& f); */
 
 };

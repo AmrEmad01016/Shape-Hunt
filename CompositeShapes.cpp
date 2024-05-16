@@ -1,5 +1,6 @@
 #include "CompositeShapes.h"
 #include "gameConfig.h"
+#include <fstream>
 
 ////////////////////////////////////////////////////  class Sign  ///////////////////////////////////////
 Sign::Sign(game* r_pGame, point ref):shape(r_pGame, ref)
@@ -31,6 +32,12 @@ void Sign::rotate() {
 void Sign::resizeup()
 {
 	unitlen *= 2;
+	if (!Sign::checkboundries())
+	{
+		unitlen /= 2;
+		return;
+	}
+
 	int top_h = 5 * unitlen, base_h = 8 * unitlen;
 
 	base->setRefPoint({ RefPoint.x - int(round(sin(angle)) * (top_h / 2 + base_h / 2)),RefPoint.y + int(round(cos(angle)) * (top_h / 2 + base_h / 2)) });
@@ -44,13 +51,32 @@ void Sign::resizedown()
 	base->setRefPoint({ RefPoint.x - int(round(sin(angle)) * (top_h / 2 + base_h / 2)),RefPoint.y + int(round(cos(angle)) * (top_h / 2 + base_h / 2)) });
 	base->resizedown(); top->resizedown();
 }
+bool Sign::checkboundries() const
+{
+	double maxy = 10.5 * unitlen;
+
+	if (RefPoint.y < 60 + maxy || RefPoint.y > config.windHeight - maxy || RefPoint.x < maxy || RefPoint.x > config.windWidth - maxy) return false;
+
+	else return true;
+
+
+}
 
 void Sign::move(int x, int y)
 {
 	
-	RefPoint.x = RefPoint.x + x;
-	RefPoint.y = RefPoint.y + y;
+	setRefPoint({ RefPoint.x + x, RefPoint.y + y });
+
 }
+
+void Sign::save(ofstream& f)
+{
+	f << "sign" << "\t" << "(" << RefPoint.x << "," << RefPoint.y << ")" << "\t"<<angle<<"\t"<<unitlen;
+}
+
+//void Sign::load(ifstream& f)
+//{
+//}
 
 
 //=======
@@ -98,6 +124,12 @@ void dumbel::resizeup()
 	unitlen *= 2;
 	int handle_w = 8 * unitlen;
 
+	if (!dumbel::checkboundries())
+	{
+		unitlen /= 2;
+		return;
+	}
+
 	point RcircleRef = { RefPoint.x + round(cos(angle)) * handle_w / 2 , RefPoint.y + round(sin(angle)) * handle_w / 2 };
 	point LcircleRef = { RefPoint.x - round(cos(angle)) * handle_w / 2 , RefPoint.y - round(sin(angle)) * handle_w / 2 };
 	Rcircle->setRefPoint(RcircleRef); Lcircle->setRefPoint(LcircleRef);
@@ -118,11 +150,32 @@ void dumbel::resizedown()
 	Rcircle->resizedown(); Lcircle->resizedown(); handle->resizedown();
 }
 
+bool dumbel::checkboundries() const
+{
+	double maxy = 7*unitlen;
+
+	if (RefPoint.y < 60 + maxy || RefPoint.y > config.windHeight - maxy || RefPoint.x < maxy || RefPoint.x > config.windWidth - maxy) return false;
+
+	else return true;
+
+	
+}
+
 void dumbel::move(int x, int y)
 {
-	RefPoint.x = RefPoint.x + x;
-	RefPoint.y = RefPoint.y + y;
+	setRefPoint({ RefPoint.x + x, RefPoint.y + y });
 }
+
+void dumbel::save(ofstream& f)
+{
+	f << "dampel" << "\t" << "(" << RefPoint.x << "," << RefPoint.y << ")" << "\t" << angle << "\t" << unitlen;
+}
+
+
+//void dumbel::load(ifstream& f)
+//{
+//}
+
 
 car::car(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
@@ -173,6 +226,13 @@ void car::rotate()
 void car::resizeup()
 {
 	unitlen *= 2;
+
+	if (!car::checkboundries())
+	{
+		unitlen /= 2;
+		return;
+	}
+
 	int uprbody_h = 2 * unitlen, lwrbody_w = 5 * uprbody_h, uprbody_w = lwrbody_w / 2, wheel_r = unitlen;
 
 
@@ -203,11 +263,32 @@ void car::resizedown()
 	uprBody->resizedown(); lwrBody->resizedown(); backWheel->resizedown(); frontWheel->resizedown(); tri1->resizedown(); tri2->resizedown();
 }
 
+bool car::checkboundries() const
+{
+	double maxy = 5 * unitlen;
+
+	if (RefPoint.y < 60 + maxy || RefPoint.y > config.windHeight - maxy || RefPoint.x < maxy || RefPoint.x > config.windWidth - maxy) return false;
+
+	else return true;
+
+	return false;
+}
+
 void car::move(int x, int y)
 {
-	RefPoint.x = RefPoint.x + x;
-	RefPoint.y = RefPoint.y + y;
+	setRefPoint({ RefPoint.x + x, RefPoint.y + y });
 }
+
+void car::save(ofstream& f)
+{
+	f << "car" << "\t" << "(" << RefPoint.x << "," << RefPoint.y << ")" << "\t" << angle << "\t" << unitlen;
+}
+
+
+
+//void car::load(ifstream& f)
+//{
+//}
 
 house::house(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
@@ -246,6 +327,12 @@ void house::resizeup()
 {
 	unitlen *= 2;
 
+	if (!house::checkboundries())
+	{
+		unitlen /= 2;
+		return;
+	}
+
 	int build_w = 2 * unitlen;
 	top->setRefPoint({ RefPoint.x + int(round(sin(angle)) * (unitlen + (sqrt(3) / 6) * (6 * unitlen))),RefPoint.y - int(round(cos(angle)) * (unitlen + (sqrt(3) / 6) * (6 * unitlen))) });
 	Rbuild->setRefPoint({ RefPoint.x + int(round(cos(angle)) * build_w) - int(round(sin(angle)) * build_w), RefPoint.y + int(round(cos(angle)) * build_w) + int(round(sin(angle)) * build_w) });
@@ -266,11 +353,34 @@ void house::resizedown()
 	top->resizedown(); Rbuild->resizedown(); Lbuild->resizedown(); Mbuild->resizedown();
 }
 
+bool house::checkboundries() const
+{
+
+	double maxy = (1+3*sqrt(3))*unitlen;
+
+	if (RefPoint.y < 60+maxy || RefPoint.y > config.windHeight - maxy || RefPoint.x < maxy || RefPoint.x > config.windWidth - maxy) return false;
+
+	else return true;
+
+	return false;
+}
+
 void house::move(int x, int y)
 {
 	RefPoint.x = RefPoint.x + x;
 	RefPoint.y = RefPoint.y + y;
 }
+
+void house::save(ofstream& f)
+{
+	f << "house" << "\t" << "(" << RefPoint.x << "," << RefPoint.y << ")" << "\t" << angle << "\t" << unitlen;
+}
+
+
+
+//void house::load(ifstream& f)
+//{
+//}
 
 key::key(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
@@ -340,9 +450,19 @@ void key::resizedown()
 
 void key::move(int x, int y)
 {
-	RefPoint.x = RefPoint.x + x;
-	RefPoint.y = RefPoint.y + y;
+	setRefPoint({ RefPoint.x + x, RefPoint.y + y });
 }
+
+void key::save(ofstream& f)
+{
+	f << "key" << "\t" << "(" << RefPoint.x << "," << RefPoint.y << ")" << "\t" << angle << "\t" << unitlen;
+}
+
+
+
+//void key::load(ifstream& f)
+//{
+//}
 
 tree::tree(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
@@ -386,6 +506,12 @@ void tree::resizeup()
 {
 	unitlen *= 2;
 
+	if (!tree::checkboundries())
+	{
+		unitlen /= 2;
+		return;
+	}
+
 	int root_h = 8 * unitlen;
 
 	tri1->setRefPoint({ RefPoint.x + int(round(sin(angle))) * root_h / 2 ,RefPoint.y - int(round(cos(angle))) * root_h / 2 });
@@ -393,6 +519,7 @@ void tree::resizeup()
 	tri3->setRefPoint({ RefPoint.x + int(round(sin(angle)) * (root_h / 2 - 4 * unitlen)) ,RefPoint.y - int(round(cos(angle)) * (root_h / 2 - 4 * unitlen)) });
 
 	root->resizeup(); tri1->resizeup(); tri2->resizeup(); tri3->resizeup();
+	
 }
 
 void tree::resizedown()
@@ -408,11 +535,32 @@ void tree::resizedown()
 	root->resizedown(); tri1->resizedown(); tri2->resizedown(); tri3->resizedown();
 }
 
+bool tree::checkboundries() const
+{
+	double maxy = (4 + 2 * sqrt(3)) * unitlen;
+
+	if (RefPoint.y <config.toolBarHeight + maxy|| RefPoint.y > config.windHeight - maxy|| RefPoint.x < maxy|| RefPoint.x > config.windWidth - maxy) return false;
+
+	else return true;
+
+	
+}
+
 void tree::move(int x, int y)
 {
-	RefPoint.x = RefPoint.x + x;
-	RefPoint.y = RefPoint.y + y;
+	setRefPoint({ RefPoint.x + x, RefPoint.y + y });
 }
+
+void tree::save(ofstream& f)
+{
+	f << "tree" << "\t" << "(" << RefPoint.x << "," << RefPoint.y << ")" << "\t" << angle << "\t" << unitlen;
+}
+
+
+
+//void tree::load(ifstream& f)
+//{
+//}
 
 arrow::arrow(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
@@ -447,6 +595,12 @@ void arrow::resizeup()
 {
 	unitlen *= 2;
 
+	if (!arrow::checkboundries())
+	{
+		unitlen /= 2;
+		return;
+	}
+
 	int tail_h = 10 * unitlen;
 
 	head->setRefPoint({ RefPoint.x + int(round(sin(angle))) * tail_h / 2,RefPoint.y - int(round(cos(angle))) * tail_h / 2 });
@@ -465,8 +619,29 @@ void arrow::resizedown()
 	head->resizedown(); tail->resizedown();
 }
 
+bool arrow::checkboundries() const
+{
+	double maxy = (5 + sqrt(3) * 2) * unitlen;
+
+	if (RefPoint.y < 60+maxy || RefPoint.y > config.windHeight - maxy || RefPoint.x < maxy || RefPoint.x > config.windWidth - maxy) return false;
+
+	else return true;
+
+	return true;
+}
+
 void arrow::move(int x, int y)
 {
-	RefPoint.x = RefPoint.x + x;
-	RefPoint.y = RefPoint.y + y;
+	setRefPoint({ RefPoint.x + x, RefPoint.y + y });
 }
+
+void arrow::save(ofstream& f)
+{
+	f << "arrow" << "\t" << "(" << RefPoint.x << "," << RefPoint.y << ")" << "\t" << angle << "\t" << unitlen;
+}
+
+
+
+//void arrow::load(ifstream& f)
+//{
+//}
