@@ -4,6 +4,11 @@
 #include <cstdlib>
 #include <time.h>
 
+double shape::getUnitlen()
+{
+	return unitlen;
+}
+
 shape::shape(game* r_pGame, point ref)
 {
 	RefPoint = ref;
@@ -27,6 +32,29 @@ void shape::setunitlen(int n)
 bool shape::checkboundries() const
 {
 	return false;
+}
+
+void shape::Match()
+{
+	grid* pGrid = pGame->getGrid();
+	shape* activeShape = pGrid->getActiveShape();
+	int shapeCount = pGrid->getshapecount();
+	shape** shapeList = pGrid->getRandShapes();
+	for (int i = 0; i < shapeCount; i++) {
+		int T = shapeList[i]->getType();
+		double size = shapeList[i]->getUnitlen(), A = shapeList[i]->getAngle(), angle = activeShape->getAngle();
+		point R_ref = shapeList[i]->RefPoint, A_ref = activeShape->RefPoint;
+
+		if (activeShape->getType() == T && A_ref.x == R_ref.x && A_ref.y == R_ref.y && unitlen == size && sin(angle)  == sin(A) ) {
+			pGame->changeScore(2);
+			delete shapeList[i];
+			pGrid->deleteActiveShape();
+		}
+		else { 
+			pGame->changeScore(-1); 
+			
+		}
+	}
 }
 
 

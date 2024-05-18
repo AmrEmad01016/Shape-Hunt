@@ -1,6 +1,24 @@
 #include "CompositeShapes.h"
 #include "gameConfig.h"
 #include <fstream>
+#include "grid.h"
+#include "game.h"
+
+
+double Sign::getAngle()
+{
+	return angle;
+}
+
+double Sign::getUnitlen()
+{
+	return unitlen;
+}
+
+int Sign::getType()
+{
+	return type;
+}
 
 ////////////////////////////////////////////////////  class Sign  ///////////////////////////////////////
 Sign::Sign(game* r_pGame, point ref):shape(r_pGame, ref)
@@ -74,6 +92,25 @@ void Sign::save(ofstream& f)
 	f << "sign" << "\t" << "(" << RefPoint.x << "," << RefPoint.y << ")" << "\t"<<angle<<"\t"<<unitlen;
 }
 
+//void Sign::Match()
+//{
+//	grid* pGrid = pGame->getGrid();
+//	int shapeCount = pGrid->getshapecount();
+//	shape** shapeList = pGrid->getRandShapes(); 
+//	for (int i = 0; i < shapeCount; i++) {
+//		int T = shapeList[i]->getType();
+//		double size = shapeList[i]->getUnitlen(), A = shapeList[i]->getAngle();
+//
+//		if (type == T && unitlen == size && angle == A) {
+//			pGame->changeScore(2);
+//			delete shapeList[i];
+//			pGrid->deleteActiveShape();
+//		}
+//		else pGame->changeScore(-1);
+//	}
+//	
+//}
+
 //void Sign::load(ifstream& f)
 //{
 //}
@@ -87,6 +124,21 @@ Sign::~Sign()
 }
 
 //>>>>>>> b63ce68a3d62c72a7a95f68ae46ae2ec2f5c869a
+
+double dumbel::getAngle()
+{
+	return angle;
+}
+
+double dumbel::getUnitlen()
+{
+	return unitlen;
+}
+
+int dumbel::getType()
+{
+	return type;
+}
 
 dumbel::dumbel(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
@@ -171,11 +223,44 @@ void dumbel::save(ofstream& f)
 	f << "dampel" << "\t" << "(" << RefPoint.x << "," << RefPoint.y << ")" << "\t" << angle << "\t" << unitlen;
 }
 
+//void dumbel::Match()
+//{
+//	grid* pGrid = pGame->getGrid();
+//	int shapeCount = pGrid->getshapecount();
+//	shape** shapeList = pGrid->getRandShapes();
+//	for (int i = 0; i < shapeCount; i++) {
+//		int T = shapeList[i]->getType();
+//		double size = shapeList[i]->getUnitlen(), A = shapeList[i]->getAngle();
+//
+//		if (type == T && unitlen == size && angle == A) {
+//			pGame->changeScore(2);
+//			delete shapeList[i];
+//			pGrid->deleteActiveShape();
+//		}
+//		else pGame->changeScore(-1);
+//	}
+//}
+
 
 //void dumbel::load(ifstream& f)
 //{
 //}
 
+
+double car::getAngle()
+{
+	return angle;
+}
+
+double car::getUnitlen()
+{
+	return unitlen;
+}
+
+int car::getType()
+{
+	return type;
+}
 
 car::car(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
@@ -284,11 +369,44 @@ void car::save(ofstream& f)
 	f << "car" << "\t" << "(" << RefPoint.x << "," << RefPoint.y << ")" << "\t" << angle << "\t" << unitlen;
 }
 
+//void car::Match()
+//{
+//	grid* pGrid = pGame->getGrid();
+//	int shapeCount = pGrid->getshapecount();
+//	shape** shapeList = pGrid->getRandShapes();
+//	for (int i = 0; i < shapeCount; i++) {
+//		int T = shapeList[i]->getType();
+//		double size = shapeList[i]->getUnitlen(), A = shapeList[i]->getAngle();
+//
+//		if (type == T && unitlen == size && angle == A) {
+//			pGame->changeScore(2);
+//			delete shapeList[i];
+//			pGrid->deleteActiveShape();
+//		}
+//		else pGame->changeScore(-1);
+//	}
+//}
+
 
 
 //void car::load(ifstream& f)
 //{
 //}
+
+double house::getAngle()
+{
+	return angle;
+}
+
+double house::getUnitlen()
+{
+	return unitlen;
+}
+
+int house::getType()
+{
+	return type;
+}
 
 house::house(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
@@ -376,11 +494,44 @@ void house::save(ofstream& f)
 	f << "house" << "\t" << "(" << RefPoint.x << "," << RefPoint.y << ")" << "\t" << angle << "\t" << unitlen;
 }
 
+//void house::Match()
+//{
+//	grid* pGrid = pGame->getGrid();
+//	int shapeCount = pGrid->getshapecount();
+//	shape** shapeList = pGrid->getRandShapes();
+//	for (int i = 0; i < shapeCount; i++) {
+//		int T = shapeList[i]->getType();
+//		double size = shapeList[i]->getUnitlen(), A = shapeList[i]->getAngle();
+//
+//		if (type == T && unitlen == size && angle == A) {
+//			pGame->changeScore(2);
+//			delete shapeList[i];
+//			pGrid->deleteActiveShape();
+//		}
+//		else pGame->changeScore(-1);
+//	}
+//}
+
 
 
 //void house::load(ifstream& f)
 //{
 //}
+
+double key::getAngle()
+{
+	return angle;
+}
+
+double key::getUnitlen()
+{
+	return unitlen;
+}
+
+int key::getType()
+{
+	return type;
+}
 
 key::key(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
@@ -458,11 +609,44 @@ void key::save(ofstream& f)
 	f << "key" << "\t" << "(" << RefPoint.x << "," << RefPoint.y << ")" << "\t" << angle << "\t" << unitlen;
 }
 
+//void key::Match()
+//{
+//	grid* pGrid = pGame->getGrid();
+//	int shapeCount = pGrid->getshapecount();
+//	shape** shapeList = pGrid->getRandShapes();
+//	for (int i = 0; i < shapeCount; i++) {
+//		int T = shapeList[i]->getType();
+//		double size = shapeList[i]->getUnitlen(), A = shapeList[i]->getAngle();
+//
+//		if (type == T && unitlen == size && angle == A) {
+//			pGame->changeScore(2);
+//			delete shapeList[i];
+//			pGrid->deleteActiveShape();
+//		}
+//		else pGame->changeScore(-1);
+//	}
+//}
+
 
 
 //void key::load(ifstream& f)
 //{
 //}
+
+double tree::getAngle()
+{
+	return angle;
+}
+
+double tree::getUnitlen()
+{
+	return unitlen;
+}
+
+int tree::getType()
+{
+	return type;
+}
 
 tree::tree(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
@@ -556,11 +740,44 @@ void tree::save(ofstream& f)
 	f << "tree" << "\t" << "(" << RefPoint.x << "," << RefPoint.y << ")" << "\t" << angle << "\t" << unitlen;
 }
 
+//void tree::Match()
+//{
+//	grid* pGrid = pGame->getGrid();
+//	int shapeCount = pGrid->getshapecount();
+//	shape** shapeList = pGrid->getRandShapes();
+//	for (int i = 0; i < shapeCount; i++) {
+//		int T = shapeList[i]->getType();
+//		double size = shapeList[i]->getUnitlen(), A = shapeList[i]->getAngle();
+//
+//		if (type == T && unitlen == size && angle == A) {
+//			pGame->changeScore(2);
+//			delete shapeList[i];
+//			pGrid->deleteActiveShape();
+//		}
+//		else pGame->changeScore(-1);
+//	}
+//}
+
 
 
 //void tree::load(ifstream& f)
 //{
 //}
+
+double arrow::getAngle()
+{
+	return angle;
+}
+
+double arrow::getUnitlen()
+{
+	return unitlen;
+}
+
+int arrow::getType()
+{
+	return type;
+}
 
 arrow::arrow(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
@@ -639,6 +856,24 @@ void arrow::save(ofstream& f)
 {
 	f << "arrow" << "\t" << "(" << RefPoint.x << "," << RefPoint.y << ")" << "\t" << angle << "\t" << unitlen;
 }
+
+//void arrow::Match()
+//{
+//	grid* pGrid = pGame->getGrid();
+//	int shapeCount = pGrid->getshapecount();
+//	shape** shapeList = pGrid->getRandShapes();
+//	for (int i = 0; i < shapeCount; i++) {
+//		int T = shapeList[i]->getType();
+//		double size = shapeList[i]->getUnitlen(), A = shapeList[i]->getAngle();
+//
+//		if (type == T && unitlen == size && angle == A) {
+//			pGame->changeScore(2);
+//			delete shapeList[i];
+//			pGrid->deleteActiveShape();
+//		}
+//		else pGame->changeScore(-1);
+//	}
+//}
 
 
 

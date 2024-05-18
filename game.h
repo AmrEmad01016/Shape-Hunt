@@ -27,6 +27,7 @@ public:
 	//int gettrails();
 	int getlevels();
 	int getscores();
+	void changeScore(int ds);
 	int getlives();
 	void setlevels(int l);
 	void createWind(int, int, int, int); //creates the game window

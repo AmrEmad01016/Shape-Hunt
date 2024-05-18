@@ -33,6 +33,9 @@ protected:
 	color borderColor;	//shape border color
 	double unitlen = 10;    //all dimensions of shapes are calculated related to that unit length
 public:
+	virtual double getAngle() { return 0; };
+	double getUnitlen();
+	virtual int getType() { return 0; };
     shape(game* r_pGame, point ref);
     virtual void draw() const=0;//for a shape to draw itself on the screen
 	void setRefPoint(point p);
@@ -56,7 +59,7 @@ public:
 	//virtual void move() = 0;		//Move the shape
 	//virtual void save(ofstream &OutFile) = 0;	//Save the shape parameters to the file
 	//virtual void load(ifstream &Infile) = 0;	//Load the shape parameters to the file
-
+	virtual void Match();//=0;
 };
 
 

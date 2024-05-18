@@ -30,5 +30,6 @@ public:
 	int getshapecount() { return shapeCount; }
 	void randshapes();
 	void setshapecount(int n);
+	shape** getRandShapes();
 };
 

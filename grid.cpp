@@ -96,15 +96,14 @@ shape* grid::getActiveShape()
 
 void grid::randshapes()
 {
-	
 
-	while (this->getshapecount() < pGame->getlevels()) {
+	while ( this->getshapecount() < (2*pGame->getlevels() -1)) {
 
 
 
 		shape* shp;
-		int x, y, unit, r, s;
-		/*srand(time(0));*/
+		int x, y, unit, r, type;
+		//srand(time(0));
 
 		x = rand() % (400); y = 80 + rand() % (config.windHeight - 80 + 1);
 
@@ -113,12 +112,12 @@ void grid::randshapes()
 		unit = rand() % 2;
 		r = 1 + rand() % 2;
 
-		s = rand() % 6;
+		type = rand() % 6;
 
 
 
 
-		switch (s)
+		switch (type)
 		{
 		case(0):
 			shp = new Sign(pGame, ref);
@@ -126,21 +125,21 @@ void grid::randshapes()
 		case(1):
 			shp = new dumbel(pGame, ref);
 			break;
-		case(2):
+		case(3):
 			shp = new house(pGame, ref);
 			break;
-		case(3):
+		case(2):
 			shp = new car(pGame, ref);
 			break;
-		case(4):
+		case(5):
 			shp = new arrow(pGame, ref);
 			break;
-		case(5):
+		case(6):
 			shp = new tree(pGame, ref);
 			break;
-			/*case(6):
+			case(4):
 				shp = new key(pGame, ref);
-				break;*/
+				break;
 		default:
 			break;
 		}
@@ -169,6 +168,11 @@ void grid::randshapes()
 void grid::setshapecount(int n)
 {
 	shapeCount = n;
+}
+
+shape** grid::getRandShapes()
+{
+	return shapeList;
 }
 
 
