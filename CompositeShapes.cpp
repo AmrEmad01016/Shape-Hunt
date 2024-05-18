@@ -284,6 +284,14 @@ car::car(game* r_pGame, point ref) :shape(r_pGame, ref)
 
 void car::draw() const
 {
+	int uprbody_h = 2 * unitlen, lwrbody_w = 5 * uprbody_h, uprbody_w = lwrbody_w / 2, wheel_r = unitlen;
+	uprBody->setRefPoint({ RefPoint.x + int(round(sin(angle))) * uprbody_h ,RefPoint.y - int(round(cos(angle))) * uprbody_h });
+	frontWheel->setRefPoint({ RefPoint.x + int(round(cos(angle)) * unitlen * 3) - int(round(sin(angle)) * uprbody_h / 2),RefPoint.y + int(round(cos(angle)) * uprbody_h / 2) + int(round(sin(angle)) * unitlen * 3) });
+	backWheel->setRefPoint({ RefPoint.x - int(round(cos(angle)) * unitlen * 3) - int(round(sin(angle)) * uprbody_h / 2),RefPoint.y + int(round(cos(angle)) * uprbody_h / 2) - int(round(sin(angle)) * unitlen * 3) });
+	tri1->setRefPoint({ RefPoint.x + int(round(cos(angle)) * uprbody_w / 2) + int(round(sin(angle)) * ((3 + sqrt(3)) / 6) * uprbody_h), RefPoint.y + int(round(sin(angle)) * uprbody_w / 2) - int(round(cos(angle)) * ((3 + sqrt(3)) / 6) * uprbody_h) });
+	tri2->setRefPoint({ RefPoint.x - int(round(cos(angle)) * uprbody_w / 2) + int(round(sin(angle)) * ((3 + sqrt(3)) / 6) * uprbody_h),RefPoint.y - int(round(sin(angle)) * uprbody_w / 2) - int(round(cos(angle)) * ((3 + sqrt(3)) / 6) * uprbody_h) });
+	lwrBody->setRefPoint(RefPoint);
+
 	lwrBody->draw();
 	uprBody->draw();
 	frontWheel->draw();
@@ -361,6 +369,7 @@ bool car::checkboundries() const
 
 void car::move(int x, int y)
 {
+	
 	setRefPoint({ RefPoint.x + x, RefPoint.y + y });
 }
 

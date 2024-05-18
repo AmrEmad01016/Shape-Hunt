@@ -78,6 +78,7 @@ void game::handleKeyPress(char key)
 	switch (key) {
 	case'w':               //move up
 		activeshape->move(0, -step);
+
 		break;
 	case's':                    // move down 
 		activeshape->move(0, step);
@@ -90,9 +91,11 @@ void game::handleKeyPress(char key)
 		break;
 	case'm':
 		activeshape->Match();
-
+		break;
  
 	}
+
+	shapesGrid->draw();
 }
 
 
@@ -252,12 +255,16 @@ void game::run()
 	toolbarItem clickedItem=ITM_CNT;
 	do
 	{
-		if (shapesGrid->getActiveShape()) {
+		while (pWind->GetKeyPress(key)) {
+			handleKeyPress(key);
+			
+		}
+		/*if (shapesGrid->getActiveShape()) {
 			pWind->GetKeyPress(key);
 			handleKeyPress(key);
 			shapesGrid->draw();
 			createToolBar();
-		}
+		}*/
 		
 
 
@@ -265,26 +272,27 @@ void game::run()
 		//printMessage("Ready...");
 		//1- Get user click
 			
-		pWind->WaitMouseClick(x, y);	//Get the coordinates of the user click
-		//2-Explain the user click
-		//If user clicks on the Toolbar, ask toolbar which item is clicked
-		if (y >= 0 && y < config.toolBarHeight)
-		{
-			clickedItem=gameToolbar->getItemClicked(x);
+		if (pWind->GetMouseClick(x, y)) {	//Get the coordinates of the user click
+			//2-Explain the user click
+			//If user clicks on the Toolbar, ask toolbar which item is clicked
+			if (y >= 0 && y < config.toolBarHeight)
+			{
+				clickedItem = gameToolbar->getItemClicked(x);
 
-			//3-create the approp operation accordin to item clicked by the user
-			operation* op = createRequiredOperation(clickedItem);
-			if (op)
-				op->Act();
+				//3-create the approp operation accordin to item clicked by the user
+				operation* op = createRequiredOperation(clickedItem);
+				if (op)
+					op->Act();
 
-			
-			shapesGrid->randshapes();
-			
-			shapesGrid->draw();         //4-Redraw the grid after each action
 
-			createToolBar(); //phase 1 only
-			
-		}	
+				shapesGrid->randshapes();
+
+				shapesGrid->draw();         //4-Redraw the grid after each action
+
+				//createToolBar(); //phase 1 only
+
+			}
+		}
 		
 	} while (clickedItem!=ITM_EXIT);
 }
