@@ -72,12 +72,13 @@ void game::createGrid()
 
 void game::handleKeyPress(char key)
 {
-	if (!shapesGrid->getActiveShape()) return;
-	int step = 25;
+	if (!shapesGrid) return;
+	int step = config.gridSpacing;
 	shape* activeshape = shapesGrid->getActiveShape();
 	switch (key) {
 	case'w':               //move up
 		activeshape->move(0, -step);
+
 		break;
 	case's':                    // move down 
 		activeshape->move(0, step);
@@ -88,10 +89,13 @@ void game::handleKeyPress(char key)
 	case'd':                    // move right
 		activeshape->move(-step, 0);
 		break;
-
-		
+	case'm':
+		shapesGrid->Match();
+		break;
  
 	}
+
+	shapesGrid->draw();
 }
 
 
@@ -214,6 +218,11 @@ int game::getscores()
 	return score;
 }
 
+void game::changeScore(int ds)
+{
+	score += ds;
+}
+
 //int game::gettrails()
 //{
 //	int T=5;
@@ -246,35 +255,44 @@ void game::run()
 	toolbarItem clickedItem=ITM_CNT;
 	do
 	{
-		//printMessage("Ready...");
-		//1- Get user click
-		pWind->WaitMouseClick(x, y);	//Get the coordinates of the user click
-
 		while (pWind->GetKeyPress(key)) {
-
 			handleKeyPress(key);
 			
-			
 		}
-		//2-Explain the user click
-		//If user clicks on the Toolbar, ask toolbar which item is clicked
-		if (y >= 0 && y < config.toolBarHeight)
-		{
-			clickedItem=gameToolbar->getItemClicked(x);
-
-			//3-create the approp operation accordin to item clicked by the user
-			operation* op = createRequiredOperation(clickedItem);
-			if (op)
-				op->Act();
-
-			
-			shapesGrid->randshapes();
-			//4-Redraw the grid after each action
+		/*if (shapesGrid->getActiveShape()) {
+			pWind->GetKeyPress(key);
+			handleKeyPress(key);
 			shapesGrid->draw();
+			createToolBar();
+		}*/
+		
 
-			createToolBar(); //phase 1 only
+
+
+		//printMessage("Ready...");
+		//1- Get user click
 			
-		}	
+		if (pWind->GetMouseClick(x, y)) {	//Get the coordinates of the user click
+			//2-Explain the user click
+			//If user clicks on the Toolbar, ask toolbar which item is clicked
+			if (y >= 0 && y < config.toolBarHeight)
+			{
+				clickedItem = gameToolbar->getItemClicked(x);
+
+				//3-create the approp operation accordin to item clicked by the user
+				operation* op = createRequiredOperation(clickedItem);
+				if (op)
+					op->Act();
+
+
+				shapesGrid->randshapes();
+
+				shapesGrid->draw();         //4-Redraw the grid after each action
+
+				//createToolBar(); //phase 1 only
+
+			}
+		}
 		
 	} while (clickedItem!=ITM_EXIT);
 }

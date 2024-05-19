@@ -7,7 +7,7 @@ class game;     //forward declaration
 
 struct point
 {
-	int x, y;
+	double x, y;
 };
 
 enum ShapeType
@@ -33,14 +33,18 @@ protected:
 	color borderColor;	//shape border color
 	double unitlen = 10;    //all dimensions of shapes are calculated related to that unit length
 public:
+	virtual double getAngle() { return 0; };
+	double getUnitlen();
+	virtual int getType() { return 0; };
+	point getRefPoint();
     shape(game* r_pGame, point ref);
     virtual void draw() const=0;//for a shape to draw itself on the screen
 	void setRefPoint(point p);
 	virtual void resizeup()=0;
 	virtual void resizedown()=0;
 	void setunitlen(int n);
-	virtual void move(int x , int y ) =0;
-	virtual void save(ofstream &f)=0 ;
+	void move(int x , int y );
+	void save(ofstream &f);
 	/*virtual void load(ifstream& f) =0;*/
 								  
 							  

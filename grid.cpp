@@ -96,29 +96,29 @@ shape* grid::getActiveShape()
 
 void grid::randshapes()
 {
-	
-	srand(time(0));
-	while (this->getshapecount() < pGame->getlevels()) {
+
+	while ( this->getshapecount() < (2*pGame->getlevels() -1)) {
 
 
 
 		shape* shp;
-		int x, y, unit, r, s;
+		int x, y, unit, r, type;
+		//srand(time(0));
+		x = rand() % (400) + config.RefX % config.gridSpacing;
+		 y = 80 + rand() % (config.windHeight - 80 + 1) + config.RefX % config.gridSpacing;
 		
-
-		x = rand() % (400); y = 80 + rand() % (config.windHeight - 80 + 1);
 
 		point ref = { x,y };
 
 		unit = rand() % 2;
 		r = 1 + rand() % 2;
 
-		s = rand() % 6;
+		type = rand() % 6;
 
 
 
 
-		switch (s)
+		switch (type)
 		{
 		case(0):
 			shp = new Sign(pGame, ref);
@@ -126,21 +126,21 @@ void grid::randshapes()
 		case(1):
 			shp = new dumbel(pGame, ref);
 			break;
-		case(2):
+		case(3):
 			shp = new house(pGame, ref);
 			break;
-		case(3):
+		case(2):
 			shp = new car(pGame, ref);
 			break;
-		case(4):
+		case(5):
 			shp = new arrow(pGame, ref);
 			break;
-		case(5):
+		case(6):
 			shp = new tree(pGame, ref);
 			break;
-			/*case(6):
+			case(4):
 				shp = new key(pGame, ref);
-				break;*/
+				break;
 		default:
 			break;
 		}
@@ -171,6 +171,33 @@ void grid::randshapes()
 void grid::setshapecount(int n)
 {
 	shapeCount = n;
+}
+
+shape** grid::getRandShapes()
+{
+	return shapeList;
+}
+
+void grid::Match()
+{
+
+	for (int i = 0; i < shapeCount; i++) {
+		int T = shapeList[i]->getType();
+		double size = shapeList[i]->getUnitlen(), A = shapeList[i]->getAngle(), angle = activeShape->getAngle();
+		point R_ref = shapeList[i]->getRefPoint(), A_ref = activeShape->getRefPoint();
+
+		if (activeShape->getType() == T && A_ref.x == R_ref.x && A_ref.y == R_ref.y && activeShape->getUnitlen() == size && sin(angle) == sin(A)) {
+			pGame->changeScore(2);
+			delete shapeList[i];
+			shapeList[i] = 0;
+			deleteActiveShape();
+		}
+		else {
+			pGame->changeScore(-1);
+
+		}
+	}
+
 }
 
 
