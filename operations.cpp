@@ -302,15 +302,7 @@ void operDelete::Act() {
 //
 //
 //}
-operLoad::operLoad(game* r_pGame) : operation(r_pGame)
-{
 
-}
-void operLoad::Act() {
-	pGame->printMessage("you have clicked Load");
-	
-
-}
 
 selectgamelevel::selectgamelevel(game* r_pGame): operation (r_pGame)
 {
@@ -324,6 +316,7 @@ void selectgamelevel::Act()
 	char c;
 
 	pwind->WaitKeyPress(c);
+	
 
 	if ('1' > c || c > '9') {
 		pGame->printMessage("unvalid level number");

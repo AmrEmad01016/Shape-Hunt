@@ -97,14 +97,14 @@ shape* grid::getActiveShape()
 void grid::randshapes()
 {
 	
-
+	srand(time(0));
 	while (this->getshapecount() < pGame->getlevels()) {
 
 
 
 		shape* shp;
 		int x, y, unit, r, s;
-		/*srand(time(0));*/
+		
 
 		x = rand() % (400); y = 80 + rand() % (config.windHeight - 80 + 1);
 
@@ -151,9 +151,11 @@ void grid::randshapes()
 		case(1):
 			for (int i = 0; i < unit; i++)
 				shp->resizeup();
+			break;
 		case(2):
 			for (int i = 0; i < unit; i++)
 				shp->resizedown();
+			break;
 		default:
 			break;
 		}

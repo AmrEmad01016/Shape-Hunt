@@ -72,7 +72,7 @@ void game::createGrid()
 
 void game::handleKeyPress(char key)
 {
-	if (!shapesGrid) return;
+	if (!shapesGrid->getActiveShape()) return;
 	int step = 25;
 	shape* activeshape = shapesGrid->getActiveShape();
 	switch (key) {
@@ -89,7 +89,7 @@ void game::handleKeyPress(char key)
 		activeshape->move(-step, 0);
 		break;
 
-
+		
  
 	}
 }
@@ -240,8 +240,7 @@ void game::run()
 
 	char key;
 
-	pWind->GetKeyPress(key);
-	handleKeyPress(key);
+	
 	//Change the title
 	pWind->ChangeTitle("- - - - - - - - - - SHAPE HUNT (CIE 101 / CIE202 - project) - - - - - - - - - -");
 	toolbarItem clickedItem=ITM_CNT;
@@ -251,6 +250,12 @@ void game::run()
 		//1- Get user click
 		pWind->WaitMouseClick(x, y);	//Get the coordinates of the user click
 
+		while (pWind->GetKeyPress(key)) {
+
+			handleKeyPress(key);
+			
+			
+		}
 		//2-Explain the user click
 		//If user clicks on the Toolbar, ask toolbar which item is clicked
 		if (y >= 0 && y < config.toolBarHeight)

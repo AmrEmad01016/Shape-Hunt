@@ -213,7 +213,7 @@ void car::rotate()
 	angle += 3.14 / 2; 
 	int uprbody_h = 2 * unitlen, lwrbody_w = 5 * uprbody_h, uprbody_w = lwrbody_w / 2, wheel_r = unitlen;
 
-
+	lwrBody->setRefPoint(RefPoint);
 	uprBody->setRefPoint({ RefPoint.x + int(round(sin(angle))) * uprbody_h ,RefPoint.y - int(round(cos(angle))) * uprbody_h });
 	frontWheel->setRefPoint({ RefPoint.x + int(round(cos(angle)) * unitlen * 3) - int(round(sin(angle))) * uprbody_h / 2,RefPoint.y + int(round(cos(angle)) * uprbody_h / 2) + int(round(sin(angle)) * unitlen * 3) });
 	backWheel->setRefPoint({ RefPoint.x - int(round(cos(angle)) * unitlen * 3) - int(round(sin(angle))) * uprbody_h / 2,RefPoint.y + int(round(cos(angle)) * uprbody_h / 2) - int(round(sin(angle)) * unitlen * 3) });
