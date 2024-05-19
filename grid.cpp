@@ -104,8 +104,9 @@ void grid::randshapes()
 		shape* shp;
 		int x, y, unit, r, type;
 		//srand(time(0));
-
-		x = rand() % (400); y = 80 + rand() % (config.windHeight - 80 + 1);
+		x = rand() % (400) + config.RefX % config.gridSpacing;
+		 y = 80 + rand() % (config.windHeight - 80 + 1) + config.RefX % config.gridSpacing;
+		
 
 		point ref = { x,y };
 
@@ -173,6 +174,28 @@ void grid::setshapecount(int n)
 shape** grid::getRandShapes()
 {
 	return shapeList;
+}
+
+void grid::Match()
+{
+
+	for (int i = 0; i < shapeCount; i++) {
+		int T = shapeList[i]->getType();
+		double size = shapeList[i]->getUnitlen(), A = shapeList[i]->getAngle(), angle = activeShape->getAngle();
+		point R_ref = shapeList[i]->getRefPoint(), A_ref = activeShape->getRefPoint();
+
+		if (activeShape->getType() == T && A_ref.x == R_ref.x && A_ref.y == R_ref.y && activeShape->getUnitlen() == size && sin(angle) == sin(A)) {
+			pGame->changeScore(2);
+			delete shapeList[i];
+			shapeList[i] = 0;
+			deleteActiveShape();
+		}
+		else {
+			pGame->changeScore(-1);
+
+		}
+	}
+
 }
 
 

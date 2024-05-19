@@ -33,6 +33,9 @@ Sign::Sign(game* r_pGame, point ref):shape(r_pGame, ref)
 
 void Sign::draw() const
 {
+	int top_h = 5 * unitlen, top_w = 10 * unitlen, base_h = 8 * unitlen, base_w = 2 * unitlen;
+	base->setRefPoint({ RefPoint.x - int(round(sin(angle)) * (top_h / 2 + base_h / 2)),RefPoint.y + int(round(cos(angle)) * (top_h / 2 + base_h / 2)) });
+	top->setRefPoint(RefPoint);
 	base->draw();
 	top->draw();
 }
@@ -80,12 +83,12 @@ bool Sign::checkboundries() const
 
 }
 
-void Sign::move(int x, int y)
-{
-	
-	setRefPoint({ RefPoint.x + x, RefPoint.y + y });
-
-}
+//void Sign::move(int x, int y)
+//{
+//	
+//	setRefPoint({ RefPoint.x + x, RefPoint.y + y });
+//
+//}
 
 
 //void Sign::Match()
@@ -150,6 +153,11 @@ dumbel::dumbel(game* r_pGame, point ref) :shape(r_pGame, ref)
 
 void dumbel::draw() const
 {
+	int handle_h = 2 * unitlen, handle_w = 8 * unitlen, circle_r = 3 * unitlen;
+	handle->setRefPoint(RefPoint);
+	Rcircle->setRefPoint({ RefPoint.x + round(cos(angle)) * handle_w / 2 , RefPoint.y + round(sin(angle)) * handle_w / 2 });
+	Lcircle->setRefPoint({ RefPoint.x - round(cos(angle)) * handle_w / 2 , RefPoint.y - round(sin(angle)) * handle_w / 2 });
+
 	handle->draw();
 	Rcircle->draw();
 	Lcircle->draw();
@@ -209,10 +217,10 @@ bool dumbel::checkboundries() const
 	
 }
 
-void dumbel::move(int x, int y)
-{
-	setRefPoint({ RefPoint.x + x, RefPoint.y + y });
-}
+//void dumbel::move(int x, int y)
+//{
+//	setRefPoint({ RefPoint.x + x, RefPoint.y + y });
+//}
 
 
 
@@ -238,6 +246,8 @@ void dumbel::move(int x, int y)
 //void dumbel::load(ifstream& f)
 //{
 //}
+
+
 
 
 double car::getAngle()
@@ -360,11 +370,11 @@ bool car::checkboundries() const
 	return false;
 }
 
-void car::move(int x, int y)
-{
-	
-	setRefPoint({ RefPoint.x + x, RefPoint.y + y });
-}
+//void car::move(int x, int y)
+//{
+//	
+//	setRefPoint({ RefPoint.x + x, RefPoint.y + y });
+//}
 
 
 //void car::Match()
@@ -422,6 +432,11 @@ house::house(game* r_pGame, point ref) :shape(r_pGame, ref)
 
 void house::draw() const
 {
+	int build_w = 2 * unitlen, RLbuild_h = 3 * build_w;
+	top->setRefPoint({ RefPoint.x + int(round(sin(angle)) * (unitlen + (sqrt(3) / 6) * (6 * unitlen))),RefPoint.y - int(round(cos(angle)) * (unitlen + (sqrt(3) / 6) * (6 * unitlen))) });
+	Rbuild->setRefPoint({ RefPoint.x + int(round(cos(angle)) * build_w) - int(round(sin(angle)) * build_w), RefPoint.y + int(round(cos(angle)) * build_w) + int(round(sin(angle)) * build_w) });
+	Lbuild->setRefPoint({ RefPoint.x - int(round(cos(angle)) * build_w) - int(round(sin(angle)) * build_w), RefPoint.y + int(round(cos(angle)) * build_w) - int(round(sin(angle)) * build_w) });
+	Mbuild->setRefPoint(RefPoint);
 	top->draw();
 	Rbuild->draw();
 	Lbuild->draw();
@@ -481,11 +496,11 @@ bool house::checkboundries() const
 	return false;
 }
 
-void house::move(int x, int y)
-{
-	RefPoint.x = RefPoint.x + x;
-	RefPoint.y = RefPoint.y + y;
-}
+//void house::move(int x, int y)
+//{
+//	RefPoint.x = RefPoint.x + x;
+//	RefPoint.y = RefPoint.y + y;
+//}
 
 
 
@@ -530,6 +545,8 @@ int key::getType()
 
 key::key(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
+	unitlen /= 1.5;
+
 	int circle_r = 6 * unitlen, main_h = circle_r/3, main_w = 20 * unitlen;
 	point handRef = ref,
 		mainRef = { ref.x +(circle_r+ main_w)/2 , ref.y},
@@ -545,11 +562,15 @@ key::key(game* r_pGame, point ref) :shape(r_pGame, ref)
 
 void key::draw() const
 {
+	int circle_r = 6 * unitlen, main_h = circle_r / 3, main_w = 20 * unitlen;
+	hand->setRefPoint(RefPoint);
+	main->setRefPoint({ RefPoint.x + int(round(cos(angle))) * (circle_r + main_w) / 2,RefPoint.y + int(round(sin(angle))) * (circle_r + main_w) / 2 });
+	Stooth->setRefPoint({ RefPoint.x + int(round(cos(angle)) * (2 * 6.5 * unitlen + circle_r / 2)) - int(round(sin(angle)) * 2 * unitlen),RefPoint.y + int(round(sin(angle)) * (2 * 6.5 * unitlen + circle_r / 2)) + int(round(cos(angle)) * 2 * unitlen) });
+	Btooth->setRefPoint({ RefPoint.x + int(round(cos(angle)) * (2 * 8.5 * unitlen + circle_r / 2)) - int(round(sin(angle)) * 2 * unitlen),RefPoint.y + int(round(sin(angle)) * (2 * 8.5 * unitlen + circle_r / 2)) + int(round(cos(angle)) * 2 * unitlen) });
+
 	hand->draw();
 	main->draw();
 	Btooth->draw();
-	
-
 	Stooth->draw();
 	
 
@@ -594,10 +615,10 @@ void key::resizedown()
 	main->resizedown(); Btooth->resizedown(); Stooth->resizedown(); hand->resizedown();
 }
 
-void key::move(int x, int y)
-{
-	setRefPoint({ RefPoint.x + x, RefPoint.y + y });
-}
+//void key::move(int x, int y)
+//{
+//	setRefPoint({ RefPoint.x + x, RefPoint.y + y });
+//}
 
 
 
@@ -659,6 +680,12 @@ tree::tree(game* r_pGame, point ref) :shape(r_pGame, ref)
 
 void tree::draw() const
 {
+	int root_h = 8 * unitlen, root_w = 2 * unitlen, tri_s = 6 * unitlen;
+	root->setRefPoint(RefPoint);
+	tri1->setRefPoint({ RefPoint.x + int(round(sin(angle))) * root_h / 2 ,RefPoint.y - int(round(cos(angle))) * root_h / 2 });
+	tri2->setRefPoint({ RefPoint.x + int(round(sin(angle)) * (root_h / 2 - 2 * unitlen)) ,RefPoint.y - int(round(cos(angle)) * (root_h / 2 - 2 * unitlen)) });
+	tri3->setRefPoint({ RefPoint.x + int(round(sin(angle)) * (root_h / 2 - 4 * unitlen)) ,RefPoint.y - int(round(cos(angle)) * (root_h / 2 - 4 * unitlen)) });
+
 	root->draw();
 	tri1->draw();
 	tri2->draw();
@@ -722,10 +749,10 @@ bool tree::checkboundries() const
 	
 }
 
-void tree::move(int x, int y)
-{
-	setRefPoint({ RefPoint.x + x, RefPoint.y + y });
-}
+//void tree::move(int x, int y)
+//{
+//	setRefPoint({ RefPoint.x + x, RefPoint.y + y });
+//}
 
 
 
@@ -783,6 +810,9 @@ arrow::arrow(game* r_pGame, point ref) :shape(r_pGame, ref)
 
 void arrow::draw() const
 {
+	int tail_h = 10 * unitlen, tail_w = 2 * unitlen, head_s = 6 * unitlen;
+	tail->setRefPoint(RefPoint);
+	head->setRefPoint({ RefPoint.x + int(round(sin(angle))) * tail_h / 2,RefPoint.y - int(round(cos(angle))) * tail_h / 2 });
 	tail->draw();
 	head->draw();
 	//to adam: when you add a rotate function for arrow call it here
@@ -836,10 +866,10 @@ bool arrow::checkboundries() const
 	return true;
 }
 
-void arrow::move(int x, int y)
-{
-	setRefPoint({ RefPoint.x + x, RefPoint.y + y });
-}
+//void arrow::move(int x, int y)
+//{
+//	setRefPoint({ RefPoint.x + x, RefPoint.y + y });
+//}
 
 
 //void arrow::Match()

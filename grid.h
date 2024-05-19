@@ -31,5 +31,6 @@ public:
 	void randshapes();
 	void setshapecount(int n);
 	shape** getRandShapes();
+	void Match();
 };
 

@@ -73,7 +73,7 @@ void game::createGrid()
 void game::handleKeyPress(char key)
 {
 	if (!shapesGrid) return;
-	int step = 25;
+	int step = config.gridSpacing;
 	shape* activeshape = shapesGrid->getActiveShape();
 	switch (key) {
 	case'w':               //move up
@@ -90,7 +90,7 @@ void game::handleKeyPress(char key)
 		activeshape->move(-step, 0);
 		break;
 	case'm':
-		activeshape->Match();
+		shapesGrid->Match();
 		break;
  
 	}
