@@ -7,7 +7,7 @@ class game;     //forward declaration
 
 struct point
 {
-	int x, y;
+	double x, y;
 };
 
 enum ShapeType
@@ -36,13 +36,14 @@ public:
 	virtual double getAngle() { return 0; };
 	double getUnitlen();
 	virtual int getType() { return 0; };
+	point getRefPoint();
     shape(game* r_pGame, point ref);
     virtual void draw() const=0;//for a shape to draw itself on the screen
 	void setRefPoint(point p);
 	virtual void resizeup()=0;
 	virtual void resizedown()=0;
 	void setunitlen(int n);
-	virtual void move(int x , int y ) =0;
+	void move(int x , int y );
 	virtual void save(ofstream &f)=0 ;
 	/*virtual void load(ifstream& f) =0;*/
 								  
@@ -59,7 +60,7 @@ public:
 	//virtual void move() = 0;		//Move the shape
 	//virtual void save(ofstream &OutFile) = 0;	//Save the shape parameters to the file
 	//virtual void load(ifstream &Infile) = 0;	//Load the shape parameters to the file
-	virtual void Match();//=0;
+
 };
 
 

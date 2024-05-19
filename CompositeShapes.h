@@ -28,6 +28,8 @@ class Sign :public shape
 	double angle=0;
 	const int type = 0;
 public:
+	//void calculations();
+
 	double getAngle();
 	double getUnitlen();
 	int getType();
@@ -38,7 +40,7 @@ public:
 	virtual void resizeup();
 	virtual void resizedown();
 	bool checkboundries() const;
-	void move(int x , int y);
+	//void move(int x , int y);
 	void save(ofstream& f);
 	/*void load(ifstream& f);*/
 	//void Match() override;
@@ -53,6 +55,8 @@ class dumbel :public shape
 	const int type = 1;
 
 public:
+	//void calculations();
+
 	double getAngle();
 	double getUnitlen();
 	int getType();
@@ -62,7 +66,7 @@ public:
 	virtual void resizeup();
 	virtual void resizedown();
 	bool checkboundries() const;
-	void move(int x, int y);
+	//void move(int x, int y);
 	void save(ofstream& f);
 	//void load(ifstream& f);
 	//void Match() override;
@@ -79,6 +83,7 @@ class car :public shape {
 	const int type = 2;
 
 public:
+	//void calculations();
 	double getAngle();
 	double getUnitlen();
 	int getType();
@@ -88,7 +93,7 @@ public:
 	virtual void resizeup();
 	virtual void resizedown();
 	bool checkboundries() const;
-	void move(int x, int y);
+	//void move(int x, int y);
 	void save(ofstream& f);
 	/*void load(ifstream& f);*/
 	//void Match() override;
@@ -102,6 +107,8 @@ class house :public shape {
 	const int type = 3;
 
 public:
+	//void calculations();
+
 	double getAngle();
 	double getUnitlen();
 	int getType();
@@ -111,7 +118,7 @@ public:
 	virtual void resizeup();
 	virtual void resizedown();
 	bool checkboundries() const;
-	void move(int x, int y);
+	//void move(int x, int y);
 	void save(ofstream& f);
 	/*void load(ifstream& f);*/
 	//void Match() override;
@@ -126,6 +133,8 @@ class key :public shape {
 	const int type = 4;
 
 public:
+	//void calculations();
+
 	double getAngle();
 	double getUnitlen();
 	int getType();
@@ -134,7 +143,7 @@ public:
 	virtual void rotate();
 	virtual void resizeup();
 	virtual void resizedown();
-	void move(int x, int y);
+	//void move(int x, int y);
 	void save(ofstream& f);
 	/*void load(ifstream& f);*/
 	//void Match() override;
@@ -148,6 +157,8 @@ class arrow :public shape {
 	const int type = 5;
 
 public:
+	//void calculations();
+
 	double getAngle();
 	double getUnitlen();
 	int getType();
@@ -158,7 +169,7 @@ public:
 	virtual void resizedown();
 	bool checkboundries() const;
 
-	void move(int x, int y);
+	//void move(int x, int y);
 	void save(ofstream& f);
 	/*void load(ifstream& f);*/
 	//void Match() override;
@@ -172,6 +183,8 @@ class tree :public shape {
 	const int type = 6;
 
 public:
+	//void calculations();
+
 	double getAngle();
 	double getUnitlen();
 	int getType();
@@ -182,7 +195,7 @@ public:
 	virtual void resizedown();
 	bool checkboundries() const;
 
-	void move(int x, int y);
+	//void move(int x, int y);
 	void save(ofstream& f);
 	/*void load(ifstream& f);*/
 	//void Match() override;
