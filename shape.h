@@ -44,7 +44,7 @@ public:
 	virtual void resizedown()=0;
 	void setunitlen(int n);
 	void move(int x , int y );
-	virtual void save(ofstream &f)=0 ;
+	void save(ofstream &f);
 	/*virtual void load(ifstream& f) =0;*/
 								  
 							  
