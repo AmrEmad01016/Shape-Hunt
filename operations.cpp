@@ -191,19 +191,17 @@ operSave::operSave(game* r_pGame) : operation(r_pGame)
 {
 }
 void operSave::Act() {
-
-	shape* shp;
+	
 	grid* pGrid = pGame->getGrid();
-	shp = pGrid->getActiveShape();
+	shape** shp = pGrid->getRandShapes();
 	ofstream Datafile;
 	Datafile.open("saveddata\\data.txt");
-	//Datafile.open("data\n");
     Datafile<< pGame->getlevels() << "\t\t" << pGame->getlives() << "\t\t" << pGame->getscores() << "\t\t\n" ;
-	if (shp) shp->save(Datafile);
+	for (int i = 0; i < pGrid->getshapecount(); i++) {
+		shp[i]->save(Datafile);
+	}
 	Datafile.close();
-	system("pause");
-
-
+	
 	pGame->printMessage("you have clicked save");
 
 }

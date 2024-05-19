@@ -87,10 +87,6 @@ void Sign::move(int x, int y)
 
 }
 
-void Sign::save(ofstream& f)
-{
-	f << "sign" << "\t" << "(" << RefPoint.x << "," << RefPoint.y << ")" << "\t"<<angle<<"\t"<<unitlen;
-}
 
 //void Sign::Match()
 //{
@@ -218,10 +214,7 @@ void dumbel::move(int x, int y)
 	setRefPoint({ RefPoint.x + x, RefPoint.y + y });
 }
 
-void dumbel::save(ofstream& f)
-{
-	f << "dampel" << "\t" << "(" << RefPoint.x << "," << RefPoint.y << ")" << "\t" << angle << "\t" << unitlen;
-}
+
 
 //void dumbel::Match()
 //{
@@ -373,10 +366,6 @@ void car::move(int x, int y)
 	setRefPoint({ RefPoint.x + x, RefPoint.y + y });
 }
 
-void car::save(ofstream& f)
-{
-	f << "car" << "\t" << "(" << RefPoint.x << "," << RefPoint.y << ")" << "\t" << angle << "\t" << unitlen;
-}
 
 //void car::Match()
 //{
@@ -498,10 +487,7 @@ void house::move(int x, int y)
 	RefPoint.y = RefPoint.y + y;
 }
 
-void house::save(ofstream& f)
-{
-	f << "house" << "\t" << "(" << RefPoint.x << "," << RefPoint.y << ")" << "\t" << angle << "\t" << unitlen;
-}
+
 
 //void house::Match()
 //{
@@ -613,10 +599,7 @@ void key::move(int x, int y)
 	setRefPoint({ RefPoint.x + x, RefPoint.y + y });
 }
 
-void key::save(ofstream& f)
-{
-	f << "key" << "\t" << "(" << RefPoint.x << "," << RefPoint.y << ")" << "\t" << angle << "\t" << unitlen;
-}
+
 
 //void key::Match()
 //{
@@ -744,10 +727,7 @@ void tree::move(int x, int y)
 	setRefPoint({ RefPoint.x + x, RefPoint.y + y });
 }
 
-void tree::save(ofstream& f)
-{
-	f << "tree" << "\t" << "(" << RefPoint.x << "," << RefPoint.y << ")" << "\t" << angle << "\t" << unitlen;
-}
+
 
 //void tree::Match()
 //{
@@ -861,10 +841,6 @@ void arrow::move(int x, int y)
 	setRefPoint({ RefPoint.x + x, RefPoint.y + y });
 }
 
-void arrow::save(ofstream& f)
-{
-	f << "arrow" << "\t" << "(" << RefPoint.x << "," << RefPoint.y << ")" << "\t" << angle << "\t" << unitlen;
-}
 
 //void arrow::Match()
 //{

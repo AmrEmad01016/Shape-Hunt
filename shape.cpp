@@ -3,7 +3,8 @@
 #include "gameConfig.h"
 #include <cstdlib>
 #include <time.h>
-
+#include<fstream>
+#include<iostream>
 double shape::getUnitlen()
 {
 	return unitlen;
@@ -25,6 +26,14 @@ void shape::setRefPoint(point p)
 void shape::setunitlen(int n)
 {
 	unitlen *= n;
+}
+
+
+void shape::save(ofstream& f)
+{
+	
+		f << getType() << "\t" << RefPoint.x << "," << RefPoint.y << "\t" << getAngle() << "\t" << unitlen <<"\t\n";
+	
 }
 
 
