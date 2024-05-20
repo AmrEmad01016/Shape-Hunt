@@ -29,6 +29,8 @@ Sign::Sign(game* r_pGame, point ref):shape(r_pGame, ref)
 	point baseRef = { ref.x, ref.y + top_h / 2 + base_h / 2 };
 	top = new Rect(pGame, topRef, top_h, top_w);
 	base = new Rect(pGame, baseRef, base_h, base_w);
+
+	maxy = 10.5 * unitlen;
 }
 
 void Sign::draw() const
@@ -48,6 +50,7 @@ void Sign::rotate() {
 	point bas = { RefPoint.x - int(round(sin(angle)) * (top_h / 2 + base_h / 2)),RefPoint.y + int(round(cos(angle)) * (top_h / 2 + base_h / 2)) };
 	base->setRefPoint(bas);
 	top->rotate(); base->rotate();
+
 
 }
 void Sign::resizeup()
@@ -71,12 +74,14 @@ void Sign::resizedown()
 
 	base->setRefPoint({ RefPoint.x - int(round(sin(angle)) * (top_h / 2 + base_h / 2)),RefPoint.y + int(round(cos(angle)) * (top_h / 2 + base_h / 2)) });
 	base->resizedown(); top->resizedown();
+
+	maxy = 10.5 * unitlen;
 }
 bool Sign::checkboundries() 
 {
 	 maxy = 10.5 * unitlen;
 
-	if (RefPoint.y < 60 + maxy || RefPoint.y > config.windHeight - maxy || RefPoint.x < maxy || RefPoint.x > config.windWidth - maxy) return false;
+	if (RefPoint.y < 60 + maxy || RefPoint.y > config.windHeight -80 - maxy || RefPoint.x < maxy || RefPoint.x > config.windWidth - maxy) return false;
 
 	else return true;
 
@@ -158,6 +163,16 @@ dumbel::dumbel(game* r_pGame, point ref) :shape(r_pGame, ref)
 	Rcircle = new circle(pGame, RcircleRef, circle_r);
 	Lcircle = new circle(pGame, LcircleRef, circle_r);
 
+	maxy = 7 * unitlen;
+
+}
+
+dumbel::~dumbel()
+{
+	delete handle;
+	delete Rcircle;
+	delete Lcircle;
+
 }
 
 void dumbel::draw() const
@@ -213,13 +228,15 @@ void dumbel::resizedown()
 	Rcircle->setRefPoint(RcircleRef); Lcircle->setRefPoint(LcircleRef);
 
 	Rcircle->resizedown(); Lcircle->resizedown(); handle->resizedown();
+
+	maxy = 7 * unitlen;
 }
 
 bool dumbel::checkboundries() 
 {
 	 maxy = 7*unitlen;
 
-	if (RefPoint.y < 60 + maxy || RefPoint.y > config.windHeight - maxy || RefPoint.x < maxy || RefPoint.x > config.windWidth - maxy) return false;
+	if (RefPoint.y < 60 + maxy || RefPoint.y > config.windHeight -80- maxy || RefPoint.x < maxy || RefPoint.x > config.windWidth - maxy) return false;
 
 	else return true;
 
@@ -287,6 +304,8 @@ int car::getType()
 
 car::car(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
+	maxy = 5 * unitlen;
+
 	unitlen *= 1.5;
 	int uprbody_h = 2 * unitlen, lwrbody_w = 5 * uprbody_h, uprbody_w = lwrbody_w / 2, wheel_r = unitlen;
 	point lwrBodyRef = ref,
@@ -305,6 +324,16 @@ car::car(game* r_pGame, point ref) :shape(r_pGame, ref)
 
 }
 
+car::~car()
+{
+	delete lwrBody;
+	delete uprBody;
+	delete frontWheel;
+	delete backWheel;
+	delete tri1;
+	delete tri2;
+}
+
 void car::draw() const
 {
 	int uprbody_h = 2 * unitlen, lwrbody_w = 5 * uprbody_h, uprbody_w = lwrbody_w / 2, wheel_r = unitlen;
@@ -321,6 +350,8 @@ void car::draw() const
 	backWheel->draw();
 	tri1->draw();
 	tri2->draw();
+
+	
 
 }
 
@@ -360,6 +391,7 @@ void car::resizeup()
 
 	uprBody->resizeup(); lwrBody->resizeup(); backWheel->resizeup(); frontWheel->resizeup(); tri1->resizeup(); tri2->resizeup();
 
+	maxy = 5 * unitlen;
 }
 
 void car::resizedown()
@@ -377,13 +409,15 @@ void car::resizedown()
 
 
 	uprBody->resizedown(); lwrBody->resizedown(); backWheel->resizedown(); frontWheel->resizedown(); tri1->resizedown(); tri2->resizedown();
+
+	maxy = 5 * unitlen;
 }
 
 bool car::checkboundries() 
 {
 	 maxy = 5 * unitlen;
 
-	if (RefPoint.y < 60 + maxy || RefPoint.y > config.windHeight - maxy || RefPoint.x < maxy || RefPoint.x > config.windWidth - maxy) return false;
+	if (RefPoint.y < 60 + maxy || RefPoint.y > config.windHeight -80- maxy || RefPoint.x < maxy || RefPoint.x > config.windWidth - maxy) return false;
 
 	else return true;
 
@@ -462,6 +496,16 @@ house::house(game* r_pGame, point ref) :shape(r_pGame, ref)
 	Rbuild = new Rect(pGame, RbuildRef, RLbuild_h, build_w);
 	Lbuild = new Rect(pGame, LbuildRef, RLbuild_h, build_w);
 	top = new EquiTri(pGame, topRef, RLbuild_h);
+
+	maxy = (1 + 3 * sqrt(3)) * unitlen;
+}
+
+house::~house()
+{
+	delete Mbuild;
+	delete Rbuild;
+	delete Lbuild;
+	delete top;
 }
 
 void house::draw() const
@@ -504,6 +548,8 @@ void house::resizeup()
 	Lbuild->setRefPoint({ RefPoint.x - int(round(cos(angle)) * build_w) - int(round(sin(angle)) * build_w), RefPoint.y + int(round(cos(angle)) * build_w) - int(round(sin(angle)) * build_w) });
 
 	top->resizeup(); Rbuild->resizeup(); Lbuild->resizeup(); Mbuild->resizeup();
+
+
 }
 
 void house::resizedown()
@@ -516,6 +562,8 @@ void house::resizedown()
 	Lbuild->setRefPoint({ RefPoint.x - int(round(cos(angle)) * build_w) - int(round(sin(angle)) * build_w), RefPoint.y + int(round(cos(angle)) * build_w) - int(round(sin(angle)) * build_w) });
 
 	top->resizedown(); Rbuild->resizedown(); Lbuild->resizedown(); Mbuild->resizedown();
+
+	maxy = (1 + 3 * sqrt(3)) * unitlen;
 }
 
 bool house::checkboundries() 
@@ -523,7 +571,7 @@ bool house::checkboundries()
 
 	 maxy = (1+3*sqrt(3))*unitlen;
 
-	if (RefPoint.y < 60+maxy || RefPoint.y > config.windHeight - maxy || RefPoint.x < maxy || RefPoint.x > config.windWidth - maxy) return false;
+	if (RefPoint.y < 60+maxy || RefPoint.y > config.windHeight -80- maxy || RefPoint.x < maxy || RefPoint.x > config.windWidth - maxy) return false;
 
 	else return true;
 
@@ -591,6 +639,8 @@ key::key(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
 	unitlen /= 1.5;
 
+	
+
 	int circle_r = 6 * unitlen, main_h = circle_r/3, main_w = 20 * unitlen;
 	point handRef = ref,
 		mainRef = { ref.x +(circle_r+ main_w)/2 , ref.y},
@@ -601,6 +651,16 @@ key::key(game* r_pGame, point ref) :shape(r_pGame, ref)
 	main = new Rect(pGame, mainRef, main_h, main_w);
 	Btooth = new EquiTri(pGame, BtoothRef,  unitlen/(sqrt(3)/6));
 	Stooth = new EquiTri(pGame, StoothRef,  unitlen / (sqrt(3) / 6));
+
+	maxy = 26 * unitlen;
+}
+
+key::~key()
+{
+	delete hand;
+	delete main;
+	delete Btooth;
+	delete Stooth;
 
 }
 
@@ -637,6 +697,11 @@ void key::resizeup()
 {
 	unitlen *= 2;
 
+	if (!key::checkboundries()) {
+		unitlen / 2;
+		return;
+	}
+
 	int circle_r = 6 * unitlen, main_w = 20 * unitlen;
 
 	main->setRefPoint({ RefPoint.x + int(round(cos(angle))) * (circle_r + main_w) / 2,RefPoint.y + int(round(sin(angle))) * (circle_r + main_w) / 2 });
@@ -657,6 +722,8 @@ void key::resizedown()
 	Btooth->setRefPoint({ RefPoint.x + int(round(cos(angle)) * (2 * 8.5 * unitlen + circle_r / 2)) - int(round(sin(angle)) * 2 * unitlen),RefPoint.y + int(round(sin(angle)) * (2 * 8.5 * unitlen + circle_r / 2)) + int(round(cos(angle)) * 2 * unitlen) });
 
 	main->resizedown(); Btooth->resizedown(); Stooth->resizedown(); hand->resizedown();
+
+	maxy = 26 * unitlen;
 }
 
 void key::setcolor(int r, int g, int b)
@@ -670,7 +737,10 @@ void key::setcolor(int r, int g, int b)
 
 bool key::checkboundries()
 {
-	return false;
+
+	if (RefPoint.y < 60 + maxy || RefPoint.y > config.windHeight-80 - maxy || RefPoint.x < maxy || RefPoint.x > config.windWidth - maxy) return false;
+
+	else return true;
 }
 
 //void key::move(int x, int y)
@@ -732,7 +802,16 @@ tree::tree(game* r_pGame, point ref) :shape(r_pGame, ref)
 	tri3 = new EquiTri(pGame, tri3Ref, tri_s);
 
 
+	maxy = (4 + 2 * sqrt(3)) * unitlen;
 
+}
+
+tree::~tree()
+{
+	delete root;
+	delete tri1;
+	delete tri2;
+	delete tri3;
 
 }
 
@@ -794,15 +873,17 @@ void tree::resizedown()
 	tri3->setRefPoint({ RefPoint.x + int(round(sin(angle)) * (root_h / 2 - 4 * unitlen)) ,RefPoint.y - int(round(cos(angle)) * (root_h / 2 - 4 * unitlen)) });
 
 	root->resizedown(); tri1->resizedown(); tri2->resizedown(); tri3->resizedown();
+
+	maxy = (4 + 2 * sqrt(3)) * unitlen;
 }
 
 bool tree::checkboundries() 
 {
 	 maxy = (4 + 2 * sqrt(3)) * unitlen;
 
-	if (RefPoint.y <config.toolBarHeight + maxy|| RefPoint.y > config.windHeight - maxy|| RefPoint.x < maxy|| RefPoint.x > config.windWidth - maxy) return false;
+	 if (RefPoint.y < 60 + maxy || RefPoint.y > config.windHeight-80 - maxy || RefPoint.x < maxy || RefPoint.x > config.windWidth - maxy) return false;
 
-	else return true;
+	 else return true;
 
 	
 }
@@ -873,7 +954,14 @@ arrow::arrow(game* r_pGame, point ref) :shape(r_pGame, ref)
 	head->rotate();
 	tail->rotate();
 	
+	maxy = (5 + sqrt(3) * 2) * unitlen;
 
+}
+
+arrow::~arrow()
+{
+	delete tail;
+	delete head;
 }
 
 void arrow::draw() const
@@ -921,13 +1009,15 @@ void arrow::resizedown()
 	head->setRefPoint({ RefPoint.x + int(round(sin(angle))) * tail_h / 2,RefPoint.y - int(round(cos(angle))) * tail_h / 2 });
 
 	head->resizedown(); tail->resizedown();
+
+	maxy = (5 + sqrt(3) * 2) * unitlen;
 }
 
 bool arrow::checkboundries() 
 {
 	 maxy = (5 + sqrt(3) * 2) * unitlen;
 
-	if (RefPoint.y < 60+maxy || RefPoint.y > config.windHeight - maxy || RefPoint.x < maxy || RefPoint.x > config.windWidth - maxy) return false;
+	if (RefPoint.y < 60+maxy || RefPoint.y > config.windHeight-80 - maxy || RefPoint.x < maxy || RefPoint.x > config.windWidth - maxy) return false;
 
 	else return true;
 

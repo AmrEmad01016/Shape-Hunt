@@ -322,7 +322,8 @@ operRefresh::operRefresh(game* r_pGame) : operation(r_pGame)
 }
 void operRefresh::Act() {
 	pGame->printMessage("you have clicked refresh");
-	
+	pGame->getGrid()->randshapes();
+	pGame->dec_lives();
 	
 }
 
@@ -377,8 +378,9 @@ void selectgamelevel::Act()
 		return;
 	}
 
-	pgird->setshapecount(0);
+	
 	pgird->~grid();
+	pgird->setshapecount(0);
 
 	int n = int(c) - 48;
 
@@ -408,3 +410,7 @@ void operExit::Act()
 }
 	
 
+void operExit::Act()
+{
+	delete pGame;
+}

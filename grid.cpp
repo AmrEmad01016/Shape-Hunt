@@ -25,6 +25,7 @@ grid::grid(point r_uprleft, int wdth, int hght, game* pG)
 
 grid::~grid()
 {
+	delete activeShape;
 	for (int i = 0; i < shapeCount; i++)
 		delete shapeList[i];
 }
@@ -91,7 +92,7 @@ void grid::setActiveShape(shape* actShape)
 void grid::deleteActiveShape()
 {
 	delete activeShape;
-	activeShape = 0;
+	activeShape = nullptr;
 }
 
 shape* grid::getActiveShape()
@@ -108,7 +109,7 @@ void grid::randshapes()
 
 
 		shape* shp;
-		int x, y, unit, resize, type, a;
+		int x, y, unit, resizetype, type, a;
 
 		x = rand() % 12;
 		y = rand() % 12;
@@ -117,17 +118,16 @@ void grid::randshapes()
 		point ref = { x * 30,10 + y * 30 };
 
 		unit = rand() % 2;
-		resize = 1 + rand() % 2;
+		resizetype = 1 + rand() % 2;
 
-		type = rand() % 6;
+		type = rand() % 7;
 
 		int r, g, b;
 
 		a = rand() % 3;
-
-		r = rand() % 255;
-		g = rand() % 255;
-		b = rand() % 255;
+		r = rand() % 256;
+		g = rand() % 256;
+		b = rand() % 256;
 
 		switch (type)
 		{
@@ -157,7 +157,7 @@ void grid::randshapes()
 		}
 
 
-		switch (resize)
+		switch (resizetype)
 		{
 		case(1):
 			for (int i = 0; i < unit; i++)
@@ -176,23 +176,19 @@ void grid::randshapes()
 			shp->setcolor(r, g, b);
 		}
 
-		for (int i = 0; i < a; i++){
+		for (int i = 0; i < a; i++) {
 			shp->rotate();
-	}
-		
+
+		}
+
 		bool flag = true;
 		if (pGame->getlevels()==2 ) {
 			
-			point ref1, ref2; double maxy1, maxy2;
 			for (int i = 0; i < shapeCount; i++) {
-				ref1 = shapeList[i ]->getRefPoint();
-				ref2 = shp->getRefPoint();
-				maxy1 = shapeList[i ]->getmaxy();
-				maxy2 = shp->getmaxy();
-				if (abs(ref1.x - ref2.x) < (maxy1 + maxy2) || abs(ref1.y - ref2.y) < (maxy1 + maxy2)) {
-					flag = false;
-					
-					}
+
+				if (abs(shapeList[i]->getRefPoint().x - shp->getRefPoint().x) < (shapeList[i]->getmaxy() + shp->getmaxy()) && abs(shapeList[i]->getRefPoint().y - shp->getRefPoint().y) < (shapeList[i]->getmaxy() + shp->getmaxy())) flag= false;
+
+
 			}
 
 		}
@@ -209,9 +205,10 @@ void grid::randshapes()
 		}
 
 
-		
+
 	}
 }
+
 
 void grid::setshapecount(int n)
 {
@@ -222,7 +219,6 @@ shape** grid::getRandShapes()
 {
 	return shapeList;
 }
-
 void grid::Match()
 {
 	if (!activeShape)return;
@@ -231,12 +227,12 @@ void grid::Match()
 		double size = shapeList[i]->getUnitlen(), A = shapeList[i]->getAngle(), angle = activeShape->getAngle();
 		point R_ref = shapeList[i]->getRefPoint(), A_ref = activeShape->getRefPoint();
 
-		if (activeShape->getType() == T && abs(A_ref.x - R_ref.x) < 100 && abs(A_ref.y - R_ref.y) < 100 && activeShape->getUnitlen() == size && sin(angle) == sin(A)) {
+		if (activeShape->getType() == T && abs(A_ref.x - R_ref.x) < 100 && abs(A_ref.y - R_ref.y) < 100 && activeShape->getUnitlen() == size && (round(sin(angle)) == round(sin(A)) ||(T==6 && sin(angle)*sin(A)!=0)) ) {
 			pGame->changeScore(2);
-			
+
 			delete shapeList[i];
 			shapeList[i] = nullptr;
-			for (int i = 0; i < shapeCount ; i++) {
+			for (int i = 0; i < shapeCount; i++) {
 
 				if (shapeList[i] == nullptr) {
 					shapeList[i] = shapeList[i + 1];
@@ -246,9 +242,12 @@ void grid::Match()
 			}
 			deleteActiveShape();
 			shapeCount--;
+			if (shapeCount == 0) {
+				pGame->inc_level();
+			}
 			return;
 		}
-		
+
 	}
 	pGame->changeScore(-1);
 }

@@ -25,10 +25,12 @@ public:
 	~game();
 	string getSrting() const;	 //Returns a string entered by the user
 	int getlevels();
+	void inc_level();
 	int getscores();
 	void setscore(int s);
 	void changeScore(int ds);
 	int getlives();
+	void dec_lives();
 	void setlives(int l);
 	void setlevels(int l);
 	void createWind(int, int, int, int); //creates the game window

@@ -24,12 +24,18 @@ game::~game()
 {
 	delete pWind;
 	delete shapesGrid;
+	delete gameToolbar;
 }
 
 
 int game::getlives()
 {
 	return lives;
+}
+
+void game::dec_lives()
+{
+	lives--;
 }
 
 void game::setlives(int l)
@@ -219,6 +225,12 @@ int game::getlevels()
 	return level;
 }
 
+void game::inc_level()
+{
+	level++;
+	shapesGrid->randshapes();
+}
+
 int game::getscores()
 {
 	return score;
@@ -263,12 +275,14 @@ void game::run()
 	
 	//Change the title
 	pWind->ChangeTitle("- - - - - - - - - - SHAPE HUNT (CIE 101 / CIE202 - project) - - - - - - - - - -");
-
+	
 	shapesGrid->randshapes();
 	toolbarItem clickedItem=ITM_CNT;
 	do
 	{
+		
 		while (pWind->GetKeyPress(key)) {
+			pWind->FlushKeyQueue();
 			handleKeyPress(key);
 			
 		}
