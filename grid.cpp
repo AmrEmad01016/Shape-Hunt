@@ -3,6 +3,7 @@
 #include "gameConfig.h"
 #include <time.h>
 
+
 grid::grid(point r_uprleft, int wdth, int hght, game* pG)
 {
 	uprLeft = r_uprleft;
@@ -96,27 +97,32 @@ shape* grid::getActiveShape()
 
 void grid::randshapes()
 {
+	srand(time(0));
 
 	while ( this->getshapecount() < (2*pGame->getlevels() -1)) {
 
 
 
 		shape* shp;
-		int x, y, unit, r, type;
-		//srand(time(0));
-		x = rand() % (400) + config.RefX % config.gridSpacing;
-		 y = 80 + rand() % (config.windHeight - 80 + 1) + config.RefX % config.gridSpacing;
+		int x, y, unit, a, type;
+		
+		x = rand() % 12;
+		 y =  rand() % 12;
 		
 
-		point ref = { x,y };
+		point ref = { x*30,10+y*30 };
 
 		unit = rand() % 2;
-		r = 1 + rand() % 2;
+		a = 1 + rand() % 2;
 
 		type = rand() % 6;
 
+		int r, g, b;
 
 
+		r = rand() % 255;
+		g = rand() % 255;
+		b = rand() % 255;
 
 		switch (type)
 		{
@@ -146,7 +152,7 @@ void grid::randshapes()
 		}
 
 
-		switch (r)
+		switch (a)
 		{
 		case(1):
 			for (int i = 0; i < unit; i++)
@@ -160,8 +166,10 @@ void grid::randshapes()
 			break;
 		}
 
+		if (pGame->getlevels() < 3) {
 
-
+			shp->setcolor(r, g, b);
+		}
 
 		this->addShape(shp);
 		shp = nullptr;
@@ -188,9 +196,20 @@ void grid::Match()
 
 		if (activeShape->getType() == T && A_ref.x == R_ref.x && A_ref.y == R_ref.y && activeShape->getUnitlen() == size && sin(angle) == sin(A)) {
 			pGame->changeScore(2);
+			
 			delete shapeList[i];
-			shapeList[i] = 0;
+			shapeList[i] = nullptr;
+			for (int i = 0; i < shapeCount - 1; i++) {
+
+				if (shapeList[i] == nullptr) {
+					shapeList[i] = shapeList[i + 1];
+					shapeList[i + 1] = nullptr;
+				}
+
+			}
 			deleteActiveShape();
+			shapeCount--;
+			
 		}
 		else {
 			pGame->changeScore(-1);

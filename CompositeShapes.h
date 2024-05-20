@@ -39,11 +39,14 @@ public:
 	virtual void rotate();
 	virtual void resizeup();
 	virtual void resizedown();
-	bool checkboundries() const;
+	bool checkboundries() ;
 	//void move(int x , int y);
 	void save(ofstream& f);
 	/*void load(ifstream& f);*/
 	//void Match() override;
+
+	void setcolor(int r, int g, int b) ;
+
 };
 
 
@@ -65,12 +68,12 @@ public:
 	virtual void rotate();
 	virtual void resizeup();
 	virtual void resizedown();
-	bool checkboundries() const;
+	bool checkboundries() ;
 	//void move(int x, int y);
 	void save(ofstream& f);
 	//void load(ifstream& f);
 	//void Match() override;
-
+	void setcolor(int r, int g, int b);
 };
 
 class car :public shape {
@@ -92,13 +95,13 @@ public:
 	virtual void rotate();
 	virtual void resizeup();
 	virtual void resizedown();
-	bool checkboundries() const;
+	bool checkboundries() ;
 	//void move(int x, int y);
 	void save(ofstream& f);
 	/*void load(ifstream& f);*/
 	//void Match() override;
 	void move(int x, int y);
-
+	void setcolor(int r, int g, int b);
 
 };
 
@@ -119,12 +122,12 @@ public:
 	virtual void rotate();
 	virtual void resizeup();
 	virtual void resizedown();
-	bool checkboundries() const;
+	bool checkboundries() ;
 	//void move(int x, int y);
 	void save(ofstream& f);
 	/*void load(ifstream& f);*/
 	//void Match() override;
-
+	void setcolor(int r, int g, int b);
 };
 
 class key :public shape {
@@ -149,7 +152,8 @@ public:
 	void save(ofstream& f);
 	/*void load(ifstream& f);*/
 	//void Match() override;
-
+	void setcolor(int r, int g, int b);
+	bool checkboundries();
 };
 
 class arrow :public shape {
@@ -169,13 +173,13 @@ public:
 	virtual void rotate();
 	virtual void resizeup();
 	virtual void resizedown();
-	bool checkboundries() const;
+	bool checkboundries() ;
 
 	//void move(int x, int y);
 	void save(ofstream& f);
 	/*void load(ifstream& f);*/
 	//void Match() override;
-
+	void setcolor(int r, int g, int b);
 };
 
 class tree :public shape {
@@ -195,11 +199,11 @@ public:
 	virtual void rotate();
 	virtual void resizeup();
 	virtual void resizedown();
-	bool checkboundries() const;
+	bool checkboundries() ;
 
 	//void move(int x, int y);
 	void save(ofstream& f);
 	/*void load(ifstream& f);*/
 	//void Match() override;
-
+	void setcolor(int r, int g, int b);
 };

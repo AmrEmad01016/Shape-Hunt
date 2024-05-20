@@ -83,11 +83,11 @@ void game::handleKeyPress(char key)
 	case's':                    // move down 
 		activeshape->move(0, step);
 		break;
-	case'a':                    // move left
-		activeshape->move(step, 0);
-		break;
-	case'd':                    // move right
+	case'd':                    // move left
 		activeshape->move(-step, 0);
+		break;
+	case'a':                    // move right
+		activeshape->move(step, 0);
 		break;
 	case'm':
 		shapesGrid->Match();
@@ -252,6 +252,8 @@ void game::run()
 	
 	//Change the title
 	pWind->ChangeTitle("- - - - - - - - - - SHAPE HUNT (CIE 101 / CIE202 - project) - - - - - - - - - -");
+
+	shapesGrid->randshapes();
 	toolbarItem clickedItem=ITM_CNT;
 	do
 	{
@@ -259,18 +261,9 @@ void game::run()
 			handleKeyPress(key);
 			
 		}
-		/*if (shapesGrid->getActiveShape()) {
-			pWind->GetKeyPress(key);
-			handleKeyPress(key);
-			shapesGrid->draw();
-			createToolBar();
-		}*/
+	
+
 		
-
-
-
-		//printMessage("Ready...");
-		//1- Get user click
 			
 		if (pWind->GetMouseClick(x, y)) {	//Get the coordinates of the user click
 			//2-Explain the user click
@@ -285,11 +278,11 @@ void game::run()
 					op->Act();
 
 
-				shapesGrid->randshapes();
+				
 
 				shapesGrid->draw();         //4-Redraw the grid after each action
 
-				//createToolBar(); //phase 1 only
+				createToolBar();
 
 			}
 		}

@@ -328,6 +328,7 @@ void selectgamelevel::Act()
 
 	pGame->setlevels(n);
 	pGame->printMessage("the level was entered successfully");
+	pgird->randshapes();
 }
 
 

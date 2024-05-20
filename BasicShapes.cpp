@@ -16,8 +16,8 @@ Rect::Rect(game* r_pGame, point ref, double r_hght, double r_wdth):shape(r_pGame
 void Rect::draw() const
 {
 	window* pW = pGame->getWind();	//get interface window
-	pW->SetPen(config.penColor, config.penWidth);
-	pW->SetBrush(config.fillColor);
+	pW->SetPen(borderColor, config.penWidth);
+	pW->SetBrush(fillColor);
 	point upperLeft, lowerBottom;
 	upperLeft.x = RefPoint.x - wdth / 2;
 	upperLeft.y = RefPoint.y - hght / 2;
@@ -118,8 +118,8 @@ EquiTri::EquiTri(game* r_pGame, point ref, double r_sidelen):shape(r_pGame, ref)
 void EquiTri::draw() const
 {
 	window* pW = pGame->getWind();	//get interface window
-	pW->SetPen(config.penColor, config.penWidth);
-	pW->SetBrush(config.fillColor);
+	pW->SetPen(borderColor, config.penWidth);
+	pW->SetBrush(fillColor);
 	point uppervertex, rightvertex, leftvertex;
 	uppervertex.x = RefPoint.x- round(cos(angle)) * (sqrt(3) / 3) * sidelen;
 	uppervertex.y = RefPoint.y - round(sin(angle)) *(sqrt(3)/3)*sidelen;

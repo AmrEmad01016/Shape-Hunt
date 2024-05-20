@@ -32,11 +32,16 @@ protected:
 	color fillColor;	//shape fill color
 	color borderColor;	//shape border color
 	double unitlen = 10;    //all dimensions of shapes are calculated related to that unit length
+
+	int rc, gc, bc;
+
+	double maxy;
 public:
 	virtual double getAngle() { return 0; };
 	double getUnitlen();
 	virtual int getType() { return 0; };
 	point getRefPoint();
+	virtual void setcolor(int r, int g, int b);
     shape(game* r_pGame, point ref);
     virtual void draw() const=0;//for a shape to draw itself on the screen
 	void setRefPoint(point p);
@@ -47,7 +52,7 @@ public:
 	void save(ofstream &f);
 	/*virtual void load(ifstream& f) =0;*/
 								  
-							  
+	double getmaxy(){ return maxy; }
 	//-- The following functions should be supported by the shape class
 	//-- It should be overridden by each inherited shape
 	//-- Decide the parameters that you should pass to each function	
@@ -55,7 +60,7 @@ public:
 	virtual void rotate()=0;	//Rotate the shape
 
 	
-	virtual bool checkboundries() const;
+	virtual bool checkboundries() ;
 	//virtual void resize() = 0;	//Resize the shape
 	//virtual void move() = 0;		//Move the shape
 	//virtual void save(ofstream &OutFile) = 0;	//Save the shape parameters to the file

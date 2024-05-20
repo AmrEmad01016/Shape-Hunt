@@ -15,6 +15,17 @@ point shape::getRefPoint()
 	return RefPoint;
 }
 
+void shape::setcolor(int r, int g, int b)
+{
+
+	fillColor = color(r, g, b);
+
+	borderColor = fillColor;
+
+	rc = r; gc = g; bc = b;
+
+}
+
 shape::shape(game* r_pGame, point ref)
 {
 	RefPoint = ref;
@@ -52,7 +63,7 @@ void shape::save(ofstream& f)
 
 
 
-bool shape::checkboundries() const
+bool shape::checkboundries() 
 {
 	return false;
 }

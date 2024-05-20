@@ -72,15 +72,22 @@ void Sign::resizedown()
 	base->setRefPoint({ RefPoint.x - int(round(sin(angle)) * (top_h / 2 + base_h / 2)),RefPoint.y + int(round(cos(angle)) * (top_h / 2 + base_h / 2)) });
 	base->resizedown(); top->resizedown();
 }
-bool Sign::checkboundries() const
+bool Sign::checkboundries() 
 {
-	double maxy = 10.5 * unitlen;
+	 maxy = 10.5 * unitlen;
 
 	if (RefPoint.y < 60 + maxy || RefPoint.y > config.windHeight - maxy || RefPoint.x < maxy || RefPoint.x > config.windWidth - maxy) return false;
 
 	else return true;
 
 
+}
+
+void Sign::setcolor(int r, int g, int b)
+{
+	top->setcolor(r, g, b);
+
+	base->setcolor(r, g, b);
 }
 
 //void Sign::move(int x, int y)
@@ -206,15 +213,22 @@ void dumbel::resizedown()
 	Rcircle->resizedown(); Lcircle->resizedown(); handle->resizedown();
 }
 
-bool dumbel::checkboundries() const
+bool dumbel::checkboundries() 
 {
-	double maxy = 7*unitlen;
+	 maxy = 7*unitlen;
 
 	if (RefPoint.y < 60 + maxy || RefPoint.y > config.windHeight - maxy || RefPoint.x < maxy || RefPoint.x > config.windWidth - maxy) return false;
 
 	else return true;
 
 	
+}
+
+void dumbel::setcolor(int r, int g, int b)
+{
+	Rcircle->setcolor(r, g, b);
+	Lcircle->setcolor(r, g, b);
+	handle->setcolor(r, g, b);
 }
 
 //void dumbel::move(int x, int y)
@@ -359,15 +373,27 @@ void car::resizedown()
 	uprBody->resizedown(); lwrBody->resizedown(); backWheel->resizedown(); frontWheel->resizedown(); tri1->resizedown(); tri2->resizedown();
 }
 
-bool car::checkboundries() const
+bool car::checkboundries() 
 {
-	double maxy = 5 * unitlen;
+	 maxy = 5 * unitlen;
 
 	if (RefPoint.y < 60 + maxy || RefPoint.y > config.windHeight - maxy || RefPoint.x < maxy || RefPoint.x > config.windWidth - maxy) return false;
 
 	else return true;
 
 	return false;
+}
+
+void car::setcolor(int r, int g, int b)
+{
+	uprBody->setcolor(r, g, b);
+	frontWheel->setcolor(r, g, b);
+	backWheel->setcolor(r, g, b);
+	lwrBody->setcolor(r, g, b);
+	tri1->setcolor(r, g, b);
+	tri2->setcolor(r, g, b);
+
+
 }
 
 //void car::move(int x, int y)
@@ -484,16 +510,24 @@ void house::resizedown()
 	top->resizedown(); Rbuild->resizedown(); Lbuild->resizedown(); Mbuild->resizedown();
 }
 
-bool house::checkboundries() const
+bool house::checkboundries() 
 {
 
-	double maxy = (1+3*sqrt(3))*unitlen;
+	 maxy = (1+3*sqrt(3))*unitlen;
 
 	if (RefPoint.y < 60+maxy || RefPoint.y > config.windHeight - maxy || RefPoint.x < maxy || RefPoint.x > config.windWidth - maxy) return false;
 
 	else return true;
 
 	return false;
+}
+
+void house::setcolor(int r, int g, int b)
+{
+	top->setcolor(r, g, b);
+	Rbuild->setcolor(r, g, b);
+	Lbuild->setcolor(r, g, b);
+	Mbuild->setcolor(r, g, b);
 }
 
 //void house::move(int x, int y)
@@ -613,6 +647,14 @@ void key::resizedown()
 	Btooth->setRefPoint({ RefPoint.x + int(round(cos(angle)) * (2 * 8.5 * unitlen + circle_r / 2)) - int(round(sin(angle)) * 2 * unitlen),RefPoint.y + int(round(sin(angle)) * (2 * 8.5 * unitlen + circle_r / 2)) + int(round(cos(angle)) * 2 * unitlen) });
 
 	main->resizedown(); Btooth->resizedown(); Stooth->resizedown(); hand->resizedown();
+}
+
+void key::setcolor(int r, int g, int b)
+{
+	main->setcolor(r, g, b);
+	Stooth->setcolor(r, g, b);
+	Btooth->setcolor(r, g, b);
+	main->setcolor(r, g, b);
 }
 
 //void key::move(int x, int y)
@@ -738,15 +780,23 @@ void tree::resizedown()
 	root->resizedown(); tri1->resizedown(); tri2->resizedown(); tri3->resizedown();
 }
 
-bool tree::checkboundries() const
+bool tree::checkboundries() 
 {
-	double maxy = (4 + 2 * sqrt(3)) * unitlen;
+	 maxy = (4 + 2 * sqrt(3)) * unitlen;
 
 	if (RefPoint.y <config.toolBarHeight + maxy|| RefPoint.y > config.windHeight - maxy|| RefPoint.x < maxy|| RefPoint.x > config.windWidth - maxy) return false;
 
 	else return true;
 
 	
+}
+
+void tree::setcolor(int r, int g, int b)
+{
+	root->setcolor(r, g, b);
+	tri1->setcolor(r, g, b);
+	tri2->setcolor(r, g, b);
+	tri3->setcolor(r, g, b);
 }
 
 //void tree::move(int x, int y)
@@ -855,15 +905,21 @@ void arrow::resizedown()
 	head->resizedown(); tail->resizedown();
 }
 
-bool arrow::checkboundries() const
+bool arrow::checkboundries() 
 {
-	double maxy = (5 + sqrt(3) * 2) * unitlen;
+	 maxy = (5 + sqrt(3) * 2) * unitlen;
 
 	if (RefPoint.y < 60+maxy || RefPoint.y > config.windHeight - maxy || RefPoint.x < maxy || RefPoint.x > config.windWidth - maxy) return false;
 
 	else return true;
 
 	return true;
+}
+
+void arrow::setcolor(int r, int g, int b)
+{
+	head->setcolor(r, g, b);
+	tail->setcolor(r, g, b);
 }
 
 //void arrow::move(int x, int y)
