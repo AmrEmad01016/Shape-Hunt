@@ -81,7 +81,7 @@ bool Sign::checkboundries()
 {
 	 maxy = 10.5 * unitlen;
 
-	if (RefPoint.y < 60 + maxy || RefPoint.y > config.windHeight - maxy || RefPoint.x < maxy || RefPoint.x > config.windWidth - maxy) return false;
+	if (RefPoint.y < 60 + maxy || RefPoint.y > config.windHeight -80 - maxy || RefPoint.x < maxy || RefPoint.x > config.windWidth - maxy) return false;
 
 	else return true;
 
@@ -226,7 +226,7 @@ bool dumbel::checkboundries()
 {
 	 maxy = 7*unitlen;
 
-	if (RefPoint.y < 60 + maxy || RefPoint.y > config.windHeight - maxy || RefPoint.x < maxy || RefPoint.x > config.windWidth - maxy) return false;
+	if (RefPoint.y < 60 + maxy || RefPoint.y > config.windHeight -80- maxy || RefPoint.x < maxy || RefPoint.x > config.windWidth - maxy) return false;
 
 	else return true;
 
@@ -393,7 +393,7 @@ bool car::checkboundries()
 {
 	 maxy = 5 * unitlen;
 
-	if (RefPoint.y < 60 + maxy || RefPoint.y > config.windHeight - maxy || RefPoint.x < maxy || RefPoint.x > config.windWidth - maxy) return false;
+	if (RefPoint.y < 60 + maxy || RefPoint.y > config.windHeight -80- maxy || RefPoint.x < maxy || RefPoint.x > config.windWidth - maxy) return false;
 
 	else return true;
 
@@ -537,7 +537,7 @@ bool house::checkboundries()
 
 	 maxy = (1+3*sqrt(3))*unitlen;
 
-	if (RefPoint.y < 60+maxy || RefPoint.y > config.windHeight - maxy || RefPoint.x < maxy || RefPoint.x > config.windWidth - maxy) return false;
+	if (RefPoint.y < 60+maxy || RefPoint.y > config.windHeight -80- maxy || RefPoint.x < maxy || RefPoint.x > config.windWidth - maxy) return false;
 
 	else return true;
 
@@ -603,6 +603,8 @@ key::key(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
 	unitlen /= 1.5;
 
+	
+
 	int circle_r = 6 * unitlen, main_h = circle_r/3, main_w = 20 * unitlen;
 	point handRef = ref,
 		mainRef = { ref.x +(circle_r+ main_w)/2 , ref.y},
@@ -614,6 +616,7 @@ key::key(game* r_pGame, point ref) :shape(r_pGame, ref)
 	Btooth = new EquiTri(pGame, BtoothRef,  unitlen/(sqrt(3)/6));
 	Stooth = new EquiTri(pGame, StoothRef,  unitlen / (sqrt(3) / 6));
 
+	maxy = 26 * unitlen;
 }
 
 void key::draw() const
@@ -649,6 +652,11 @@ void key::resizeup()
 {
 	unitlen *= 2;
 
+	if (!key::checkboundries()) {
+		unitlen / 2;
+		return;
+	}
+
 	int circle_r = 6 * unitlen, main_w = 20 * unitlen;
 
 	main->setRefPoint({ RefPoint.x + int(round(cos(angle))) * (circle_r + main_w) / 2,RefPoint.y + int(round(sin(angle))) * (circle_r + main_w) / 2 });
@@ -669,6 +677,8 @@ void key::resizedown()
 	Btooth->setRefPoint({ RefPoint.x + int(round(cos(angle)) * (2 * 8.5 * unitlen + circle_r / 2)) - int(round(sin(angle)) * 2 * unitlen),RefPoint.y + int(round(sin(angle)) * (2 * 8.5 * unitlen + circle_r / 2)) + int(round(cos(angle)) * 2 * unitlen) });
 
 	main->resizedown(); Btooth->resizedown(); Stooth->resizedown(); hand->resizedown();
+
+	maxy = 26 * unitlen;
 }
 
 void key::setcolor(int r, int g, int b)
@@ -681,7 +691,10 @@ void key::setcolor(int r, int g, int b)
 
 bool key::checkboundries()
 {
-	return false;
+
+	if (RefPoint.y < 60 + maxy || RefPoint.y > config.windHeight-80 - maxy || RefPoint.x < maxy || RefPoint.x > config.windWidth - maxy) return false;
+
+	else return true;
 }
 
 //void key::move(int x, int y)
@@ -813,9 +826,9 @@ bool tree::checkboundries()
 {
 	 maxy = (4 + 2 * sqrt(3)) * unitlen;
 
-	if (RefPoint.y <config.toolBarHeight + maxy|| RefPoint.y > config.windHeight - maxy|| RefPoint.x < maxy|| RefPoint.x > config.windWidth - maxy) return false;
+	 if (RefPoint.y < 60 + maxy || RefPoint.y > config.windHeight-80 - maxy || RefPoint.x < maxy || RefPoint.x > config.windWidth - maxy) return false;
 
-	else return true;
+	 else return true;
 
 	
 }
@@ -941,7 +954,7 @@ bool arrow::checkboundries()
 {
 	 maxy = (5 + sqrt(3) * 2) * unitlen;
 
-	if (RefPoint.y < 60+maxy || RefPoint.y > config.windHeight - maxy || RefPoint.x < maxy || RefPoint.x > config.windWidth - maxy) return false;
+	if (RefPoint.y < 60+maxy || RefPoint.y > config.windHeight-80 - maxy || RefPoint.x < maxy || RefPoint.x > config.windWidth - maxy) return false;
 
 	else return true;
 
