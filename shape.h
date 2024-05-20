@@ -42,6 +42,7 @@ public:
 	virtual int getType() { return 0; };
 	point getRefPoint();
 	virtual void setcolor(int r, int g, int b);
+	virtual int  getColor();
     shape(game* r_pGame, point ref);
     virtual void draw() const=0;//for a shape to draw itself on the screen
 	void setRefPoint(point p);
@@ -50,7 +51,7 @@ public:
 	void setunitlen(int n);
 	void move(int x , int y );
 	void save(ofstream &f);
-	/*virtual void load(ifstream& f) =0;*/
+	void load(ifstream& f);
 								  
 	double getmaxy(){ return maxy; }
 	//-- The following functions should be supported by the shape class

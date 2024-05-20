@@ -102,30 +102,30 @@ void grid::randshapes()
 {
 	srand(time(0));
 
-	while ( this->getshapecount() < (2*pGame->getlevels() -1)) {
+	while (this->getshapecount() < (2 * pGame->getlevels() - 1)) {
 
 
 
 		shape* shp;
-		int x, y, unit, a, type;
-		
-		x = rand() % 12;
-		 y =  rand() % 12;
-		
+		int x, y, unit, resizetype, type, a;
 
-		point ref = { x*30,10+y*30 };
+		x = rand() % 12;
+		y = rand() % 12;
+
+
+		point ref = { x * 30,10 + y * 30 };
 
 		unit = rand() % 2;
-		a = 1 + rand() % 2;
+		resizetype = 1 + rand() % 2;
 
-		type = rand() % 6;
+		type = rand() % 7;
 
 		int r, g, b;
 
-
-		r = rand() % 255;
-		g = rand() % 255;
-		b = rand() % 255;
+		a = rand() % 3;
+		r = rand() % 256;
+		g = rand() % 256;
+		b = rand() % 256;
 
 		switch (type)
 		{
@@ -147,15 +147,15 @@ void grid::randshapes()
 		case(6):
 			shp = new tree(pGame, ref);
 			break;
-			case(4):
-				shp = new key(pGame, ref);
-				break;
+		case(4):
+			shp = new key(pGame, ref);
+			break;
 		default:
 			break;
 		}
 
 
-		switch (a)
+		switch (resizetype)
 		{
 		case(1):
 			for (int i = 0; i < unit; i++)
@@ -174,19 +174,22 @@ void grid::randshapes()
 			shp->setcolor(r, g, b);
 		}
 
+		for (int i = 0; i < a; i++) {
+			shp->rotate();
+
+		}
+
 		bool flag = true;
-		if (pGame->getlevels()==2 ) {
-			
+		if (pGame->getlevels() == 2) {
+
 			point ref1, ref2; double maxy1, maxy2;
 			for (int i = 0; i < shapeCount; i++) {
-				ref1 = shapeList[i ]->getRefPoint();
+				ref1 = shapeList[i]->getRefPoint();
 				ref2 = shp->getRefPoint();
-				maxy1 = shapeList[i ]->getmaxy();
+				maxy1 = shapeList[i]->getmaxy();
 				maxy2 = shp->getmaxy();
-				if (abs(ref1.x - ref2.x) < (maxy1 + maxy2) || abs(ref1.y - ref2.y) < (maxy1 + maxy2)) {
-					flag = false;
-					
-					}
+
+
 			}
 
 		}
@@ -203,9 +206,10 @@ void grid::randshapes()
 		}
 
 
-		
+
 	}
 }
+
 
 void grid::setshapecount(int n)
 {
@@ -216,38 +220,37 @@ shape** grid::getRandShapes()
 {
 	return shapeList;
 }
-
 void grid::Match()
 {
-	if (!activeShape) return;
-	int c = 0;
+	if (!activeShape)return;
 	for (int i = 0; i < shapeCount; i++) {
 		int T = shapeList[i]->getType();
 		double size = shapeList[i]->getUnitlen(), A = shapeList[i]->getAngle(), angle = activeShape->getAngle();
 		point R_ref = shapeList[i]->getRefPoint(), A_ref = activeShape->getRefPoint();
 
-		if (activeShape->getType() == T && A_ref.x == R_ref.x && A_ref.y == R_ref.y && activeShape->getUnitlen() == size && sin(angle) == sin(A)) {
-			
+		if (activeShape->getType() == T && abs(A_ref.x - R_ref.x) < 100 && abs(A_ref.y - R_ref.y) < 100 && activeShape->getUnitlen() == size && (round(sin(angle)) == round(sin(A)) ||(T==6 && sin(angle)*sin(A)!=0)) ) {
 			pGame->changeScore(2);
+
 			delete shapeList[i];
 			shapeList[i] = nullptr;
+			for (int i = 0; i < shapeCount; i++) {
 
-			// Shift remaining elements
-			for (int j = i; j < shapeCount - 1; ++j) {
-				shapeList[j] = shapeList[j + 1];
+				if (shapeList[i] == nullptr) {
+					shapeList[i] = shapeList[i + 1];
+					shapeList[i + 1] = nullptr;
+				}
+
 			}
-			shapeList[shapeCount - 1] = nullptr; // Ensure the last element is null
+			deleteActiveShape();
 			shapeCount--;
-			
-			//deleteActiveShape(); //activeshape = null crashes the program
 			if (shapeCount == 0) {
 				pGame->inc_level();
 			}
-			c++;
+			return;
 		}
-		
-	}
 
+	}
+	pGame->changeScore(-1);
 }
 
 

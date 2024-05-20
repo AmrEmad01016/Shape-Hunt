@@ -33,6 +33,16 @@ int game::getlives()
 	return lives;
 }
 
+void game::dec_lives()
+{
+	lives--;
+}
+
+void game::setlives(int l)
+{
+	lives = l;
+}
+
 void game::setlevels(int l)
 {
 	 level = l;
@@ -296,6 +306,7 @@ void game::run()
 		}
 		
 	} while (clickedItem!=ITM_EXIT);
+	 
 
 
 

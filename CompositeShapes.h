@@ -64,6 +64,7 @@ public:
 	double getUnitlen();
 	int getType();
 	dumbel(game* r_pGame,point ref);
+	~dumbel();
 	virtual void draw() const;
 	virtual void rotate();
 	virtual void resizeup();
@@ -91,6 +92,7 @@ public:
 	double getUnitlen();
 	int getType();
 	car(game* r_pGame, point ref);
+	~car();
 	virtual void draw() const;
 	virtual void rotate();
 	virtual void resizeup();
@@ -118,6 +120,7 @@ public:
 	double getUnitlen();
 	int getType();
 	house(game* r_pGame, point ref);
+	~house();
 	virtual void draw() const;
 	virtual void rotate();
 	virtual void resizeup();
@@ -144,6 +147,7 @@ public:
 	double getUnitlen();
 	int getType();
 	key(game* r_pGame, point ref);
+	~key();
 	virtual void draw() const;
 	virtual void rotate();
 	virtual void resizeup();
@@ -169,6 +173,7 @@ public:
 	double getUnitlen();
 	int getType();
 	arrow(game* r_pGame, point ref);
+	~arrow();
 	virtual void draw() const;
 	virtual void rotate();
 	virtual void resizeup();
@@ -195,6 +200,7 @@ public:
 	double getUnitlen();
 	int getType();
 	tree(game* r_pGame, point ref);
+	~tree();
 	virtual void draw() const;
 	virtual void rotate();
 	virtual void resizeup();

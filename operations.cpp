@@ -213,9 +213,13 @@ operLoad::operLoad(game* r_pGame) : operation(r_pGame)
 void operLoad::Act() {
 	pGame->printMessage("you have clicked Load");
 	ifstream data ;
-	int x;
-	while(data>>x)
-		data >> x;
+	int x , y , z;
+	while (data >> x) {
+		pGame->setlevels(x);
+		break;
+	} while (data >> y)
+		pGame->setlives(y);
+
 
 }
 
@@ -266,7 +270,8 @@ operRefresh::operRefresh(game* r_pGame) : operation(r_pGame)
 }
 void operRefresh::Act() {
 	pGame->printMessage("you have clicked refresh");
-	
+	pGame->getGrid()->randshapes();
+	pGame->dec_lives();
 	
 }
 
@@ -331,4 +336,11 @@ void selectgamelevel::Act()
 	pgird->randshapes();
 }
 
+operExit::operExit(game* r_pGame) : operation(r_pGame)
+{
+}
 
+void operExit::Act()
+{
+	delete pGame;
+}

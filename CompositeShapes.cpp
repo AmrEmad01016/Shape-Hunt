@@ -158,6 +158,14 @@ dumbel::dumbel(game* r_pGame, point ref) :shape(r_pGame, ref)
 
 }
 
+dumbel::~dumbel()
+{
+	delete handle;
+	delete Rcircle;
+	delete Lcircle;
+
+}
+
 void dumbel::draw() const
 {
 	int handle_h = 2 * unitlen, handle_w = 8 * unitlen, circle_r = 3 * unitlen;
@@ -297,6 +305,16 @@ car::car(game* r_pGame, point ref) :shape(r_pGame, ref)
 	tri2= new EquiTri(pGame, Tri2, uprbody_h * (2 / sqrt(3)));
 
 
+}
+
+car::~car()
+{
+	delete lwrBody;
+	delete uprBody;
+	delete frontWheel;
+	delete backWheel;
+	delete tri1;
+	delete tri2;
 }
 
 void car::draw() const
@@ -456,6 +474,14 @@ house::house(game* r_pGame, point ref) :shape(r_pGame, ref)
 	top = new EquiTri(pGame, topRef, RLbuild_h);
 }
 
+house::~house()
+{
+	delete Mbuild;
+	delete Rbuild;
+	delete Lbuild;
+	delete top;
+}
+
 void house::draw() const
 {
 	int build_w = 2 * unitlen, RLbuild_h = 3 * build_w;
@@ -594,6 +620,15 @@ key::key(game* r_pGame, point ref) :shape(r_pGame, ref)
 
 }
 
+key::~key()
+{
+	delete hand;
+	delete main;
+	delete Btooth;
+	delete Stooth;
+
+}
+
 void key::draw() const
 {
 	int circle_r = 6 * unitlen, main_h = circle_r / 3, main_w = 20 * unitlen;
@@ -722,6 +757,15 @@ tree::tree(game* r_pGame, point ref) :shape(r_pGame, ref)
 
 
 
+
+}
+
+tree::~tree()
+{
+	delete root;
+	delete tri1;
+	delete tri2;
+	delete tri3;
 
 }
 
@@ -861,6 +905,12 @@ arrow::arrow(game* r_pGame, point ref) :shape(r_pGame, ref)
 	tail->rotate();
 	
 
+}
+
+arrow::~arrow()
+{
+	delete tail;
+	delete head;
 }
 
 void arrow::draw() const

@@ -26,6 +26,11 @@ void shape::setcolor(int r, int g, int b)
 
 }
 
+int shape::getColor()
+{
+	return rc ,gc , bc ;
+}
+
 shape::shape(game* r_pGame, point ref)
 {
 	RefPoint = ref;
@@ -57,8 +62,15 @@ void shape::move(int x, int y)
 void shape::save(ofstream& f)
 {
 	
-		f << getType() << "\t" << RefPoint.x << "," << RefPoint.y << "\t" << getAngle() << "\t" << unitlen <<"\t\n";
+		f << getType() << "\t\t" << RefPoint.x <<"\t" << RefPoint.y << "\t\t" << getAngle() << "\t\t" << unitlen << getColor()<< "\t\n";
 	
+}
+
+void shape::load(ifstream& f)
+{
+	/*int levels , lives , score, type ,x,y,angle ,color1 , color2; 
+	while(f)
+		Ref*/
 }
 
 
