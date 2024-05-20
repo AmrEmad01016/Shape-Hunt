@@ -218,7 +218,7 @@ shape** grid::getRandShapes()
 
 void grid::Match()
 {
-
+	if (!activeShape)return;
 	for (int i = 0; i < shapeCount; i++) {
 		int T = shapeList[i]->getType();
 		double size = shapeList[i]->getUnitlen(), A = shapeList[i]->getAngle(), angle = activeShape->getAngle();
@@ -229,7 +229,7 @@ void grid::Match()
 			
 			delete shapeList[i];
 			shapeList[i] = nullptr;
-			for (int i = 0; i < shapeCount - 1; i++) {
+			for (int i = 0; i < shapeCount ; i++) {
 
 				if (shapeList[i] == nullptr) {
 					shapeList[i] = shapeList[i + 1];
@@ -239,14 +239,11 @@ void grid::Match()
 			}
 			deleteActiveShape();
 			shapeCount--;
-			
+			return;
 		}
-		else {
-			pGame->changeScore(-1);
-			
-		}
+		
 	}
-
+	pGame->changeScore(-1);
 }
 
 
