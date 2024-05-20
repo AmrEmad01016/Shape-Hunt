@@ -224,6 +224,11 @@ int game::getscores()
 	return score;
 }
 
+void game::setscore(int s)
+{
+	score = s;
+}
+
 void game::changeScore(int ds)
 {
 	score += ds;
@@ -294,6 +299,8 @@ void game::run()
 		}
 		
 	} while (clickedItem!=ITM_EXIT);
+	      operation* op = new operExit(this);
+	
 }
 
 

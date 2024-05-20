@@ -147,6 +147,14 @@ public:
 
 
 };
+class operExit : public operation
+{
+public:
+	operExit(game* r_pGame);
+	void Act();
+
+
+};
 
 
 

@@ -191,19 +191,19 @@ operSave::operSave(game* r_pGame) : operation(r_pGame)
 {
 }
 void operSave::Act() {
-	
+
 	grid* pGrid = pGame->getGrid();
 	shape** shp = pGrid->getRandShapes();
 	ofstream Datafile;
 	Datafile.open("saveddata\\data.txt");
-    Datafile<< pGame->getlevels() << "\t\t" << pGame->getlives() << "\t\t" << pGame->getscores() << "\t\t\n" ;
+	Datafile << pGame->getlevels() << "\t\t" << pGame->getlives() << "\t\t" << pGame->getscores() << "\t\t"<<pGrid->getshapecount()<<"\n";
 	for (int i = 0; i < pGrid->getshapecount(); i++) {
 		shp[i]->save(Datafile);
+		Datafile << shp[i]->getColor1()  <<"\t"<< shp[i]->getColor2() <<"\t" << shp[i]->getColor3() << "\n";
 	}
 	Datafile.close();
-	
-	pGame->printMessage("you have clicked save");
 
+	pGame->printMessage("you have clicked save");
 }
 operLoad::operLoad(game* r_pGame) : operation(r_pGame)
 {
@@ -211,16 +211,68 @@ operLoad::operLoad(game* r_pGame) : operation(r_pGame)
 }
 
 void operLoad::Act() {
+
+	int typ, color1, color2, color3;  double x, y, angl, unit;
+
+	
+
+	grid* pGrid = pGame->getGrid();
+
+	pGrid->~grid();
+
+	shape** shp = pGrid->getRandShapes();
 	pGame->printMessage("you have clicked Load");
-	ifstream data ;
-	int x , y , z;
-	while (data >> x) {
-		pGame->setlevels(x);
-		break;
-	} while (data >> y)
-		pGame->setlives(y);
+	ifstream data;
+	data.open("saveddata\\data.txt");
+	int le, li, z,c;
+	data >> le >> li >> z>>c;
+	pGame->setlevels(le); pGame->setlives(li); pGame->setscore(z); pGrid->setshapecount(c);
+	for (int i = 0; i < pGrid->getshapecount(); i++) {
+		
+		data >> typ >> x >> y >> angl >> unit >> color1 >> color2 >> color3;
+		
+		switch (typ)
+		{
+		case(0):
+			shp[i] = new Sign(pGame, { x,y });
+			break;
+		case(1):
+			shp[i] = new dumbel(pGame, { x,y });
+			break;
+		case(3):
+			shp[i] = new house(pGame, { x,y });
+			break;
+		case(2):
+			shp[i] = new car(pGame, { x,y });
+			break;
+		case(5):
+			shp[i] = new arrow(pGame, { x,y });
+			break;
+		case(6):
+			shp[i] = new tree(pGame, { x,y });
+			break;
+		case(4):
+			shp[i] = new key(pGame, { x,y });
+			break;
+		default:
+			break;
+		}
+		for (int x = 0; x < angl/(3.14 / 2); x++) {
+			shp[i]->rotate();
+		}
+		for (int z = 0; z < unit; z++) {
+			if (unit<1)
+			shp[i]->resizedown();
+			else if(unit >1)
+				shp[i]->resizeup();
 
+		}
+		shp[i]->setcolor(color1, color2, color3);
+		
+	}
 
+		
+	data.close();
 }
 
 
@@ -335,4 +387,24 @@ void selectgamelevel::Act()
 	pgird->randshapes();
 }
 
+operExit::operExit(game* r_pGame): operation(r_pGame)
+{
+}
+
+void operExit::Act()
+{
+	grid* pGrid = pGame->getGrid();
+	shape** shp = pGrid->getRandShapes();
+	ofstream Datafile;
+	Datafile.open("saveddata\\data.txt");
+	Datafile << pGame->getlevels() << "\t\t" << pGame->getlives() << "\t\t" << pGame->getscores() << "\t\t" << pGrid->getshapecount() << "\n";
+	for (int i = 0; i < pGrid->getshapecount(); i++) {
+		shp[i]->save(Datafile);
+		Datafile << shp[i]->getColor1() << "\t" << shp[i]->getColor2() << "\t" << shp[i]->getColor3() << "\n";
+	}
+	Datafile.close();
+
+	pGame->printMessage("you have clicked exit and if y didnot save , it is auto sava");
+}
+	
 

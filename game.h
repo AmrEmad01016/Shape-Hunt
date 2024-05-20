@@ -24,9 +24,9 @@ public:
 	game();
 	~game();
 	string getSrting() const;	 //Returns a string entered by the user
-	//int gettrails();
 	int getlevels();
 	int getscores();
+	void setscore(int s);
 	void changeScore(int ds);
 	int getlives();
 	void setlives(int l);

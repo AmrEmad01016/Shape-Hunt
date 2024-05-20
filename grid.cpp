@@ -2,7 +2,9 @@
 #include "game.h"
 #include "gameConfig.h"
 #include <time.h>
+#include <iostream>
 
+using namespace std;
 
 grid::grid(point r_uprleft, int wdth, int hght, game* pG)
 {
@@ -101,26 +103,27 @@ void grid::randshapes()
 {
 	srand(time(0));
 
-	while ( this->getshapecount() < (2*pGame->getlevels() -1)) {
+	while (this->getshapecount() < (2 * pGame->getlevels() - 1)) {
 
 
 
 		shape* shp;
-		int x, y, unit, a, type;
-		
-		x = rand() % 12;
-		 y =  rand() % 12;
-		
+		int x, y, unit, resize, type, a;
 
-		point ref = { x*30,10+y*30 };
+		x = rand() % 12;
+		y = rand() % 12;
+
+
+		point ref = { x * 30,10 + y * 30 };
 
 		unit = rand() % 2;
-		a = 1 + rand() % 2;
+		resize = 1 + rand() % 2;
 
 		type = rand() % 6;
 
 		int r, g, b;
 
+		a = rand() % 3;
 
 		r = rand() % 255;
 		g = rand() % 255;
@@ -147,14 +150,14 @@ void grid::randshapes()
 			shp = new tree(pGame, ref);
 			break;
 		case(4):
-				shp = new key(pGame, ref);
-				break;
+			shp = new key(pGame, ref);
+			break;
 		default:
 			break;
 		}
 
 
-		switch (a)
+		switch (resize)
 		{
 		case(1):
 			for (int i = 0; i < unit; i++)
@@ -173,6 +176,10 @@ void grid::randshapes()
 			shp->setcolor(r, g, b);
 		}
 
+		for (int i = 0; i < a; i++){
+			shp->rotate();
+	}
+		
 		bool flag = true;
 		if (pGame->getlevels()==2 ) {
 			

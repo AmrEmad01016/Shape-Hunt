@@ -17,18 +17,33 @@ point shape::getRefPoint()
 
 void shape::setcolor(int r, int g, int b)
 {
+	rc = r; gc = g; bc = b;
 
 	fillColor = color(r, g, b);
 
 	borderColor = fillColor;
-
-	rc = r; gc = g; bc = b;
-
 }
 
-int shape::getColor()
+
+void shape::setAngle(double a) {
+
+	angle = a;
+}
+
+
+int shape::getColor2()
 {
-	return rc ,gc , bc ;
+	return gc;
+}
+
+int shape::getColor3()
+{
+	return bc;
+}
+
+int shape::getColor1()
+{
+	return rc ;
 }
 
 shape::shape(game* r_pGame, point ref)
@@ -39,6 +54,11 @@ shape::shape(game* r_pGame, point ref)
 	borderColor = config.penColor;
 }
 
+double shape::getAngle()
+{
+	return angle;
+}
+
 void shape::setRefPoint(point p)
 {
 	RefPoint = p;
@@ -46,7 +66,7 @@ void shape::setRefPoint(point p)
 
 void shape::setunitlen(int n)
 {
-	unitlen *= n;
+	unitlen = n;
 }
 
 void shape::move(int x, int y)
@@ -61,16 +81,19 @@ void shape::move(int x, int y)
 
 void shape::save(ofstream& f)
 {
-	
-		f << getType() << "\t\t" << RefPoint.x <<"\t" << RefPoint.y << "\t\t" << getAngle() << "\t\t" << unitlen << getColor()<< "\t\n";
-	
+	f << getType() << "\t\t" << RefPoint.x << "\t" << RefPoint.y << "\t\t" << getAngle() << "\t\t" << unitlen << "\t\t" ;
 }
 
 void shape::load(ifstream& f)
 {
-	/*int levels , lives , score, type ,x,y,angle ,color1 , color2; 
-	while(f)
-		Ref*/
+	
+	/*int typ, color1, color2, color3;  double x, y, angl, unit;
+	while (f >> typ >> x >> y >> angl >>unit >>color1 >> color2 >> color3) {
+		   setRefPoint({ x,y });
+		   setAngle(angl);
+		   setunitlen(unit);
+		   setcolor(color1, color2, color3);
+	}*/
 }
 
 

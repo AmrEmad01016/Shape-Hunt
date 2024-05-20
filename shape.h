@@ -36,13 +36,17 @@ protected:
 	int rc, gc, bc;
 
 	double maxy;
+	double angle=0;
 public:
-	virtual double getAngle() { return 0; };
+	virtual double getAngle();
 	double getUnitlen();
 	virtual int getType() { return 0; };
 	point getRefPoint();
 	virtual void setcolor(int r, int g, int b);
-	virtual int  getColor();
+	 int  getColor1();
+	 int  getColor2();
+	 int  getColor3();
+	 void setAngle( double a);
     shape(game* r_pGame, point ref);
     virtual void draw() const=0;//for a shape to draw itself on the screen
 	void setRefPoint(point p);

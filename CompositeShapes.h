@@ -25,14 +25,15 @@ class Sign :public shape
 {
 	Rect* base;
 	Rect* top;
-	double angle=0;
+	/*double angle=0;*/
 	const int type = 0;
+	
 public:
 	//void calculations();
 
 	double getAngle();
 	double getUnitlen();
-	int getType();
+	int getType(); 
 	Sign(game* r_pGame, point ref);
 	~Sign();
 	virtual void draw() const;
@@ -54,8 +55,9 @@ class dumbel :public shape
 {
 	circle *Rcircle, *Lcircle;
 	Rect *handle;
-	double angle=0;
+	/*double angle=0;*/
 	const int type = 1;
+	double angle = 0;
 
 public:
 	//void calculations();
@@ -108,7 +110,7 @@ public:
 class house :public shape {
 	Rect* Rbuild, * Lbuild, *Mbuild;
 	EquiTri* top;
-	double angle=0;
+	double angle = 0;
 	const int type = 3;
 
 public:
@@ -190,7 +192,7 @@ class tree :public shape {
 
 public:
 	//void calculations();
-
+	
 	double getAngle();
 	double getUnitlen();
 	int getType();

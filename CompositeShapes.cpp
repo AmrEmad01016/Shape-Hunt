@@ -85,6 +85,8 @@ bool Sign::checkboundries()
 
 void Sign::setcolor(int r, int g, int b)
 {
+	rc = r; gc = g; bc = b;
+
 	top->setcolor(r, g, b);
 
 	base->setcolor(r, g, b);
@@ -226,6 +228,9 @@ bool dumbel::checkboundries()
 
 void dumbel::setcolor(int r, int g, int b)
 {
+
+	rc = r; gc = g; bc = b;
+
 	Rcircle->setcolor(r, g, b);
 	Lcircle->setcolor(r, g, b);
 	handle->setcolor(r, g, b);
@@ -276,8 +281,9 @@ double car::getUnitlen()
 
 int car::getType()
 {
-	return type;
+	return 2;
 }
+
 
 car::car(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
@@ -386,6 +392,8 @@ bool car::checkboundries()
 
 void car::setcolor(int r, int g, int b)
 {
+	rc = r; gc = g; bc = b;
+
 	uprBody->setcolor(r, g, b);
 	frontWheel->setcolor(r, g, b);
 	backWheel->setcolor(r, g, b);
@@ -524,6 +532,8 @@ bool house::checkboundries()
 
 void house::setcolor(int r, int g, int b)
 {
+	rc = r; gc = g; bc = b;
+
 	top->setcolor(r, g, b);
 	Rbuild->setcolor(r, g, b);
 	Lbuild->setcolor(r, g, b);
@@ -651,6 +661,7 @@ void key::resizedown()
 
 void key::setcolor(int r, int g, int b)
 {
+	rc = r; gc = g; bc = b;
 	main->setcolor(r, g, b);
 	Stooth->setcolor(r, g, b);
 	Btooth->setcolor(r, g, b);
@@ -798,6 +809,8 @@ bool tree::checkboundries()
 
 void tree::setcolor(int r, int g, int b)
 {
+	rc = r; gc = g; bc = b;
+
 	root->setcolor(r, g, b);
 	tri1->setcolor(r, g, b);
 	tri2->setcolor(r, g, b);
@@ -923,6 +936,8 @@ bool arrow::checkboundries()
 
 void arrow::setcolor(int r, int g, int b)
 {
+	rc = r; gc = g; bc = b;
+
 	head->setcolor(r, g, b);
 	tail->setcolor(r, g, b);
 }
