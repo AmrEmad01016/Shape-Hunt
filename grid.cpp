@@ -146,7 +146,7 @@ void grid::randshapes()
 		case(6):
 			shp = new tree(pGame, ref);
 			break;
-			case(4):
+		case(4):
 				shp = new key(pGame, ref);
 				break;
 		default:

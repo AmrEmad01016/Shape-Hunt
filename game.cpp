@@ -32,6 +32,11 @@ int game::getlives()
 	return lives;
 }
 
+void game::setlives(int l)
+{
+	lives = l;
+}
+
 void game::setlevels(int l)
 {
 	 level = l;
