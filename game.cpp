@@ -84,6 +84,9 @@ void game::handleKeyPress(char key)
 		activeshape->move(0, step);
 		break;
 	case'd':                    // move left
+		activeshape->move(step, 0);
+		break;
+	case'a':                    // move right
 		activeshape->move(-step, 0);
 		break;
 	case'a':                    // move right
@@ -96,6 +99,7 @@ void game::handleKeyPress(char key)
 	}
 
 	shapesGrid->draw();
+	createToolBar();
 }
 
 
@@ -282,7 +286,7 @@ void game::run()
 
 				shapesGrid->draw();         //4-Redraw the grid after each action
 
-				createToolBar();
+				createToolBar(); //phase 1 only
 
 			}
 		}

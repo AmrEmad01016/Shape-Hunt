@@ -194,7 +194,7 @@ void grid::Match()
 		double size = shapeList[i]->getUnitlen(), A = shapeList[i]->getAngle(), angle = activeShape->getAngle();
 		point R_ref = shapeList[i]->getRefPoint(), A_ref = activeShape->getRefPoint();
 
-		if (activeShape->getType() == T && A_ref.x == R_ref.x && A_ref.y == R_ref.y && activeShape->getUnitlen() == size && sin(angle) == sin(A)) {
+		if (activeShape->getType() == T && abs(A_ref.x - R_ref.x) < 100 && abs(A_ref.y - R_ref.y) < 100 && activeShape->getUnitlen() == size && sin(angle) == sin(A)) {
 			pGame->changeScore(2);
 			
 			delete shapeList[i];
@@ -213,7 +213,7 @@ void grid::Match()
 		}
 		else {
 			pGame->changeScore(-1);
-
+			
 		}
 	}
 

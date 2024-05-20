@@ -40,7 +40,11 @@ toolbar::toolbar(game* pG)
 	//Draw toolbar item one image at a time
 	for (int i = 0; i < ITM_CNT; i++)
 		pWind->DrawImage(toolbarItemImages[i], i * config.toolbarItemWidth, 0, config.toolbarItemWidth, height);
-
+	
+	
+	pWind->SetBrush(WHITE);
+	pWind->SetPen(WHITE);
+	pWind->DrawRectangle(ITM_CNT * config.toolbarItemWidth + 5, 5, config.windWidth,config.toolBarHeight);
 	pWind->SetPen(config.penColor, 5);
 	pWind->SetFont(15, BOLD, BY_NAME, "Arial");
 	pWind->DrawString(ITM_CNT*config.toolbarItemWidth + 5,5,"lives = "+ std::to_string(pG->getlives()));
