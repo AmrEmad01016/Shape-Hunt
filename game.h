@@ -26,6 +26,7 @@ public:
 	string getSrting() const;	 //Returns a string entered by the user
 	//int gettrails();
 	int getlevels();
+	void inc_level();
 	int getscores();
 	void changeScore(int ds);
 	int getlives();
