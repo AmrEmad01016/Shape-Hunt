@@ -106,7 +106,7 @@ void grid::randshapes()
 
 
 		shape* shp;
-		int x, y, unit, a, type;
+		int x, y, unit, resizetype, type,a;
 		
 		x = rand() % 12;
 		 y =  rand() % 12;
@@ -115,7 +115,7 @@ void grid::randshapes()
 		point ref = { x*30,10+y*30 };
 
 		unit = rand() % 2;
-		a = 1 + rand() % 2;
+		resizetype = 1 + rand() % 2;
 
 		type = rand() % 6;
 
@@ -154,7 +154,7 @@ void grid::randshapes()
 		}
 
 
-		switch (a)
+		switch (resizetype)
 		{
 		case(1):
 			for (int i = 0; i < unit; i++)
@@ -176,16 +176,11 @@ void grid::randshapes()
 		bool flag = true;
 		if (pGame->getlevels()==2 ) {
 			
-			point ref1, ref2; double maxy1, maxy2;
 			for (int i = 0; i < shapeCount; i++) {
-				ref1 = shapeList[i ]->getRefPoint();
-				ref2 = shp->getRefPoint();
-				maxy1 = shapeList[i ]->getmaxy();
-				maxy2 = shp->getmaxy();
-				if (abs(ref1.x - ref2.x) < (maxy1 + maxy2) || abs(ref1.y - ref2.y) < (maxy1 + maxy2)) {
-					flag = false;
-					
-					}
+
+				if (abs(shapeList[i]->getRefPoint().x - shp->getRefPoint().x) < (shapeList[i]->getmaxy() + shp->getmaxy()) && abs(shapeList[i]->getRefPoint().y - shp->getRefPoint().y) < (shapeList[i]->getmaxy() + shp->getmaxy())) flag= false;
+
+
 			}
 
 		}

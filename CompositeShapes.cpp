@@ -29,6 +29,8 @@ Sign::Sign(game* r_pGame, point ref):shape(r_pGame, ref)
 	point baseRef = { ref.x, ref.y + top_h / 2 + base_h / 2 };
 	top = new Rect(pGame, topRef, top_h, top_w);
 	base = new Rect(pGame, baseRef, base_h, base_w);
+
+	maxy = 10.5 * unitlen;
 }
 
 void Sign::draw() const
@@ -48,6 +50,7 @@ void Sign::rotate() {
 	point bas = { RefPoint.x - int(round(sin(angle)) * (top_h / 2 + base_h / 2)),RefPoint.y + int(round(cos(angle)) * (top_h / 2 + base_h / 2)) };
 	base->setRefPoint(bas);
 	top->rotate(); base->rotate();
+
 
 }
 void Sign::resizeup()
@@ -71,6 +74,8 @@ void Sign::resizedown()
 
 	base->setRefPoint({ RefPoint.x - int(round(sin(angle)) * (top_h / 2 + base_h / 2)),RefPoint.y + int(round(cos(angle)) * (top_h / 2 + base_h / 2)) });
 	base->resizedown(); top->resizedown();
+
+	maxy = 10.5 * unitlen;
 }
 bool Sign::checkboundries() 
 {
@@ -156,6 +161,8 @@ dumbel::dumbel(game* r_pGame, point ref) :shape(r_pGame, ref)
 	Rcircle = new circle(pGame, RcircleRef, circle_r);
 	Lcircle = new circle(pGame, LcircleRef, circle_r);
 
+	maxy = 7 * unitlen;
+
 }
 
 void dumbel::draw() const
@@ -211,6 +218,8 @@ void dumbel::resizedown()
 	Rcircle->setRefPoint(RcircleRef); Lcircle->setRefPoint(LcircleRef);
 
 	Rcircle->resizedown(); Lcircle->resizedown(); handle->resizedown();
+
+	maxy = 7 * unitlen;
 }
 
 bool dumbel::checkboundries() 
@@ -281,6 +290,8 @@ int car::getType()
 
 car::car(game* r_pGame, point ref) :shape(r_pGame, ref)
 {
+	maxy = 5 * unitlen;
+
 	unitlen *= 1.5;
 	int uprbody_h = 2 * unitlen, lwrbody_w = 5 * uprbody_h, uprbody_w = lwrbody_w / 2, wheel_r = unitlen;
 	point lwrBodyRef = ref,
@@ -315,6 +326,8 @@ void car::draw() const
 	backWheel->draw();
 	tri1->draw();
 	tri2->draw();
+
+	
 
 }
 
@@ -354,6 +367,7 @@ void car::resizeup()
 
 	uprBody->resizeup(); lwrBody->resizeup(); backWheel->resizeup(); frontWheel->resizeup(); tri1->resizeup(); tri2->resizeup();
 
+	maxy = 5 * unitlen;
 }
 
 void car::resizedown()
@@ -371,6 +385,8 @@ void car::resizedown()
 
 
 	uprBody->resizedown(); lwrBody->resizedown(); backWheel->resizedown(); frontWheel->resizedown(); tri1->resizedown(); tri2->resizedown();
+
+	maxy = 5 * unitlen;
 }
 
 bool car::checkboundries() 
@@ -454,6 +470,8 @@ house::house(game* r_pGame, point ref) :shape(r_pGame, ref)
 	Rbuild = new Rect(pGame, RbuildRef, RLbuild_h, build_w);
 	Lbuild = new Rect(pGame, LbuildRef, RLbuild_h, build_w);
 	top = new EquiTri(pGame, topRef, RLbuild_h);
+
+	maxy = (1 + 3 * sqrt(3)) * unitlen;
 }
 
 void house::draw() const
@@ -496,6 +514,8 @@ void house::resizeup()
 	Lbuild->setRefPoint({ RefPoint.x - int(round(cos(angle)) * build_w) - int(round(sin(angle)) * build_w), RefPoint.y + int(round(cos(angle)) * build_w) - int(round(sin(angle)) * build_w) });
 
 	top->resizeup(); Rbuild->resizeup(); Lbuild->resizeup(); Mbuild->resizeup();
+
+
 }
 
 void house::resizedown()
@@ -508,6 +528,8 @@ void house::resizedown()
 	Lbuild->setRefPoint({ RefPoint.x - int(round(cos(angle)) * build_w) - int(round(sin(angle)) * build_w), RefPoint.y + int(round(cos(angle)) * build_w) - int(round(sin(angle)) * build_w) });
 
 	top->resizedown(); Rbuild->resizedown(); Lbuild->resizedown(); Mbuild->resizedown();
+
+	maxy = (1 + 3 * sqrt(3)) * unitlen;
 }
 
 bool house::checkboundries() 
@@ -721,7 +743,7 @@ tree::tree(game* r_pGame, point ref) :shape(r_pGame, ref)
 	tri3 = new EquiTri(pGame, tri3Ref, tri_s);
 
 
-
+	maxy = (4 + 2 * sqrt(3)) * unitlen;
 
 }
 
@@ -783,6 +805,8 @@ void tree::resizedown()
 	tri3->setRefPoint({ RefPoint.x + int(round(sin(angle)) * (root_h / 2 - 4 * unitlen)) ,RefPoint.y - int(round(cos(angle)) * (root_h / 2 - 4 * unitlen)) });
 
 	root->resizedown(); tri1->resizedown(); tri2->resizedown(); tri3->resizedown();
+
+	maxy = (4 + 2 * sqrt(3)) * unitlen;
 }
 
 bool tree::checkboundries() 
@@ -860,6 +884,7 @@ arrow::arrow(game* r_pGame, point ref) :shape(r_pGame, ref)
 	head->rotate();
 	tail->rotate();
 	
+	maxy = (5 + sqrt(3) * 2) * unitlen;
 
 }
 
@@ -908,6 +933,8 @@ void arrow::resizedown()
 	head->setRefPoint({ RefPoint.x + int(round(sin(angle))) * tail_h / 2,RefPoint.y - int(round(cos(angle))) * tail_h / 2 });
 
 	head->resizedown(); tail->resizedown();
+
+	maxy = (5 + sqrt(3) * 2) * unitlen;
 }
 
 bool arrow::checkboundries() 

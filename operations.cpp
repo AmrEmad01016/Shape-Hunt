@@ -325,8 +325,9 @@ void selectgamelevel::Act()
 		return;
 	}
 
-	pgird->setshapecount(0);
+	
 	pgird->~grid();
+	pgird->setshapecount(0);
 
 	int n = int(c) - 48;
 
