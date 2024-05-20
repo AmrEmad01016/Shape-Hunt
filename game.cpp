@@ -306,7 +306,7 @@ void game::run()
 		}
 		
 	} while (clickedItem!=ITM_EXIT);
-	 
+	  
 
 
 

@@ -180,14 +180,11 @@ void grid::randshapes()
 		}
 
 		bool flag = true;
-		if (pGame->getlevels() == 2) {
-
-			point ref1, ref2; double maxy1, maxy2;
+		if (pGame->getlevels()==2 ) {
+			
 			for (int i = 0; i < shapeCount; i++) {
-				ref1 = shapeList[i]->getRefPoint();
-				ref2 = shp->getRefPoint();
-				maxy1 = shapeList[i]->getmaxy();
-				maxy2 = shp->getmaxy();
+
+				if (abs(shapeList[i]->getRefPoint().x - shp->getRefPoint().x) < (shapeList[i]->getmaxy() + shp->getmaxy()) && abs(shapeList[i]->getRefPoint().y - shp->getRefPoint().y) < (shapeList[i]->getmaxy() + shp->getmaxy())) flag= false;
 
 
 			}
