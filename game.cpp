@@ -270,12 +270,14 @@ void game::run()
 	
 	//Change the title
 	pWind->ChangeTitle("- - - - - - - - - - SHAPE HUNT (CIE 101 / CIE202 - project) - - - - - - - - - -");
-
+	
 	shapesGrid->randshapes();
 	toolbarItem clickedItem=ITM_CNT;
 	do
 	{
+		
 		while (pWind->GetKeyPress(key)) {
+			pWind->FlushKeyQueue();
 			handleKeyPress(key);
 			
 		}
