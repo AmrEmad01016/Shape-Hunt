@@ -213,9 +213,13 @@ operLoad::operLoad(game* r_pGame) : operation(r_pGame)
 void operLoad::Act() {
 	pGame->printMessage("you have clicked Load");
 	ifstream data ;
-	int x;
-	while(data>>x)
-		data >> x;
+	int x , y , z;
+	while (data >> x) {
+		pGame->setlevels(x);
+		break;
+	} while (data >> y)
+		pGame->setlives(y);
+
 
 }
 

@@ -29,6 +29,7 @@ public:
 	int getscores();
 	void changeScore(int ds);
 	int getlives();
+	void setlives(int l);
 	void setlevels(int l);
 	void createWind(int, int, int, int); //creates the game window
 	void clearStatusBar() const;	//Clears the status bar
