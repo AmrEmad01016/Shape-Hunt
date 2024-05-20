@@ -67,7 +67,9 @@ bool grid::addShape(shape* newShape)
 	// 2- check shape count doesn't exceed maximum count
 	// return false if any of the checks fail
 
-	if (!newShape->checkboundries()) return false;
+	if (!newShape->checkboundries()) { 
+		delete newShape;
+		return false; }
 
 
 
@@ -171,8 +173,36 @@ void grid::randshapes()
 			shp->setcolor(r, g, b);
 		}
 
-		this->addShape(shp);
-		shp = nullptr;
+		bool flag = true;
+		if (pGame->getlevels()==2 ) {
+			
+			point ref1, ref2; double maxy1, maxy2;
+			for (int i = 0; i < shapeCount; i++) {
+				ref1 = shapeList[i ]->getRefPoint();
+				ref2 = shp->getRefPoint();
+				maxy1 = shapeList[i ]->getmaxy();
+				maxy2 = shp->getmaxy();
+				if (abs(ref1.x - ref2.x) < (maxy1 + maxy2) || abs(ref1.y - ref2.y) < (maxy1 + maxy2)) {
+					flag = false;
+					
+					}
+			}
+
+		}
+
+		if (flag == true) {
+			this->addShape(shp);
+			shp = nullptr;
+
+		}
+		else
+		{
+			delete shp;
+			shp = nullptr;
+		}
+
+
+		
 	}
 }
 

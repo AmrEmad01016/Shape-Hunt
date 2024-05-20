@@ -657,6 +657,11 @@ void key::setcolor(int r, int g, int b)
 	main->setcolor(r, g, b);
 }
 
+bool key::checkboundries()
+{
+	return false;
+}
+
 //void key::move(int x, int y)
 //{
 //	setRefPoint({ RefPoint.x + x, RefPoint.y + y });

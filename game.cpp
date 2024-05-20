@@ -89,9 +89,6 @@ void game::handleKeyPress(char key)
 	case'a':                    // move right
 		activeshape->move(-step, 0);
 		break;
-	case'a':                    // move right
-		activeshape->move(step, 0);
-		break;
 	case'm':
 		shapesGrid->Match();
 		break;
