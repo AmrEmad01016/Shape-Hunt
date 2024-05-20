@@ -24,6 +24,7 @@ game::~game()
 {
 	delete pWind;
 	delete shapesGrid;
+	delete gameToolbar;
 }
 
 
@@ -214,6 +215,12 @@ int game::getlevels()
 	return level;
 }
 
+void game::inc_level()
+{
+	level++;
+	shapesGrid->randshapes();
+}
+
 int game::getscores()
 {
 	return score;
@@ -289,6 +296,9 @@ void game::run()
 		}
 		
 	} while (clickedItem!=ITM_EXIT);
+
+
+
 }
 
 

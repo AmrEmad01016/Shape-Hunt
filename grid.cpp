@@ -23,6 +23,7 @@ grid::grid(point r_uprleft, int wdth, int hght, game* pG)
 
 grid::~grid()
 {
+	delete activeShape;
 	for (int i = 0; i < shapeCount; i++)
 		delete shapeList[i];
 }
@@ -89,7 +90,7 @@ void grid::setActiveShape(shape* actShape)
 void grid::deleteActiveShape()
 {
 	delete activeShape;
-	activeShape = 0;
+	activeShape = nullptr;
 }
 
 shape* grid::getActiveShape()
@@ -218,33 +219,33 @@ shape** grid::getRandShapes()
 
 void grid::Match()
 {
-
+	if (!activeShape) return;
+	int c = 0;
 	for (int i = 0; i < shapeCount; i++) {
 		int T = shapeList[i]->getType();
 		double size = shapeList[i]->getUnitlen(), A = shapeList[i]->getAngle(), angle = activeShape->getAngle();
 		point R_ref = shapeList[i]->getRefPoint(), A_ref = activeShape->getRefPoint();
 
-		if (activeShape->getType() == T && abs(A_ref.x - R_ref.x) < 100 && abs(A_ref.y - R_ref.y) < 100 && activeShape->getUnitlen() == size && sin(angle) == sin(A)) {
-			pGame->changeScore(2);
+		if (activeShape->getType() == T && A_ref.x == R_ref.x && A_ref.y == R_ref.y && activeShape->getUnitlen() == size && sin(angle) == sin(A)) {
 			
+			pGame->changeScore(2);
 			delete shapeList[i];
 			shapeList[i] = nullptr;
-			for (int i = 0; i < shapeCount - 1; i++) {
 
-				if (shapeList[i] == nullptr) {
-					shapeList[i] = shapeList[i + 1];
-					shapeList[i + 1] = nullptr;
-				}
-
+			// Shift remaining elements
+			for (int j = i; j < shapeCount - 1; ++j) {
+				shapeList[j] = shapeList[j + 1];
 			}
-			deleteActiveShape();
+			shapeList[shapeCount - 1] = nullptr; // Ensure the last element is null
 			shapeCount--;
 			
+			//deleteActiveShape(); //activeshape = null crashes the program
+			if (shapeCount == 0) {
+				pGame->inc_level();
+			}
+			c++;
 		}
-		else {
-			pGame->changeScore(-1);
-			
-		}
+		
 	}
 
 }
