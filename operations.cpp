@@ -287,7 +287,7 @@ void operIncrease::Act() {
 	shape* shp;
 	grid* pGrid = pGame->getGrid();
 	shp = pGrid->getActiveShape();
-	pGame->printMessage("you have clicked rotate");
+	pGame->printMessage("you have clicked resize up");
 
 
 	if (shp) shp->resizeup();
@@ -301,7 +301,7 @@ void operDecrease::Act() {
 	shape* shp;
 	grid* pGrid = pGame->getGrid();
 	shp = pGrid->getActiveShape();
-	pGame->printMessage("you have clicked rotate");
+	pGame->printMessage("you have clicked resize down");
 
 	
 	if(shp) shp->resizedown();
