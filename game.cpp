@@ -153,11 +153,11 @@ operation* game::createRequiredOperation(toolbarItem clickedItem)
 	case ITM_HINT:
 		op = new operHint(this);
 		break;
-	//case ITM_LEVELS:
-	//	/*op = new operLevels(this);*/
+	case ITM_LEVELS:
+		op = new operLevels(this);
 
-	//	op = new selectgamelevel(this);
-	//	break;
+		op = new selectgamelevel(this);
+		break;
 	case ITM_REFRESH:
 		op = new operRefresh(this);
 		break;

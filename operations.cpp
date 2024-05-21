@@ -322,8 +322,28 @@ operRefresh::operRefresh(game* r_pGame) : operation(r_pGame)
 {
 }
 void operRefresh::Act() {
+
+	if (pGame->getlives() == 1) {
+		pGame->printMessage("you can't refresh any more");
+		return;
+
+	}
+
 	pGame->printMessage("you have clicked refresh");
-	pGame->getGrid()->randshapes();
+
+	grid* pgird = pGame->getGrid();
+
+	shape** shp = pgird->getRandShapes();
+
+	for (int i = 0; i < pgird->getshapecount(); i++) {
+		delete shp[i];
+		shp[i] = nullptr;
+	}
+
+	pgird->setshapecount(0);
+
+	pgird->randshapes();
+
 	pGame->dec_lives();
 	
 }
@@ -354,35 +374,38 @@ void operDelete::Act() {
 
 
 
-//selectgamelevel::selectgamelevel(game* r_pGame): operation (r_pGame)
-//{
-//}
-//
-//void selectgamelevel::Act()
-//{
-//	pGame->printMessage("Enter valid level: ");
-//	window *pwind = pGame->getWind();
-//	grid* pgird = pGame->getGrid();
-//	char c;
-//
-//	pwind->WaitKeyPress(c);
-//	
-//
-//	if ('1' > c || c > '9') {
-//		pGame->printMessage("unvalid level number");
-//		return;
-//	}
-//
-//
-//	pgird->~grid();
-//	pgird->setshapecount(0);
-//
-//	int n = int(c) - 48;
-//
-//	pGame->setlevels(n);
-//	pGame->printMessage("the level was entered successfully");
-//	pgird->randshapes();
-//}
+selectgamelevel::selectgamelevel(game* r_pGame): operation (r_pGame)
+{
+}
+
+void selectgamelevel::Act()
+{
+	pGame->printMessage("Enter valid level: ");
+	window *pwind = pGame->getWind();
+	grid* pgird = pGame->getGrid();
+	char c;
+
+	pwind->WaitKeyPress(c);
+	
+
+	if ('1' > c || c > '9') {
+		pGame->printMessage("unvalid level number");
+		return;
+	}
+
+	shape** shp = pgird->getRandShapes();
+
+	for (int i = 0; i < pgird->getshapecount(); i++)
+		delete shp[i];
+
+	pgird->setshapecount(0);
+
+	int n = int(c) - 48;
+
+	pGame->setlevels(n);
+	pGame->printMessage("the level was entered successfully");
+	pgird->randshapes();
+}
 
 operExit::operExit(game* r_pGame): operation(r_pGame)
 {

@@ -732,7 +732,7 @@ void key::setcolor(int r, int g, int b)
 	main->setcolor(r, g, b);
 	Stooth->setcolor(r, g, b);
 	Btooth->setcolor(r, g, b);
-	main->setcolor(r, g, b);
+	hand->setcolor(r, g, b);
 }
 
 bool key::checkboundries()
