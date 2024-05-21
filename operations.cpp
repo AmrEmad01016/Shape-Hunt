@@ -260,12 +260,13 @@ void operLoad::Act() {
 		for (int x = 0; x < angl/(3.14 / 2); x++) {
 			shp[i]->rotate();
 		}
-		for (int z = 0; z < unit; z++) {
-			if (unit<1)
-			shp[i]->resizedown();
-			else if(unit >1)
+		for (int z = 0; z < (unit/10); z++) {
+			if((unit/10) >1)
 				shp[i]->resizeup();
 
+			else if ((unit / 10) <1)
+			shp[i]->resizedown();
+			 
 		}
 		shp[i]->setcolor(color1, color2, color3);
 		
@@ -351,43 +352,37 @@ void operDelete::Act() {
 
 }
 
-//randshap::randshap(game* r_pGame):operation(r_pGame)
+
+
+//selectgamelevel::selectgamelevel(game* r_pGame): operation (r_pGame)
 //{
+//}
+//
+//void selectgamelevel::Act()
+//{
+//	pGame->printMessage("Enter valid level: ");
+//	window *pwind = pGame->getWind();
+//	grid* pgird = pGame->getGrid();
+//	char c;
+//
+//	pwind->WaitKeyPress(c);
 //	
 //
+//	if ('1' > c || c > '9') {
+//		pGame->printMessage("unvalid level number");
+//		return;
+//	}
 //
+//
+//	pgird->~grid();
+//	pgird->setshapecount(0);
+//
+//	int n = int(c) - 48;
+//
+//	pGame->setlevels(n);
+//	pGame->printMessage("the level was entered successfully");
+//	pgird->randshapes();
 //}
-
-
-selectgamelevel::selectgamelevel(game* r_pGame): operation (r_pGame)
-{
-}
-
-void selectgamelevel::Act()
-{
-	pGame->printMessage("Enter valid level: ");
-	window *pwind = pGame->getWind();
-	grid* pgird = pGame->getGrid();
-	char c;
-
-	pwind->WaitKeyPress(c);
-	
-
-	if ('1' > c || c > '9') {
-		pGame->printMessage("unvalid level number");
-		return;
-	}
-
-	
-	pgird->~grid();
-	pgird->setshapecount(0);
-
-	int n = int(c) - 48;
-
-	pGame->setlevels(n);
-	pGame->printMessage("the level was entered successfully");
-	pgird->randshapes();
-}
 
 operExit::operExit(game* r_pGame): operation(r_pGame)
 {
@@ -410,7 +405,4 @@ void operExit::Act()
 }
 	
 
-void operExit::Act()
-{
-	delete pGame;
-}
+

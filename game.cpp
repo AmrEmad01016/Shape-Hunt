@@ -153,11 +153,11 @@ operation* game::createRequiredOperation(toolbarItem clickedItem)
 	case ITM_HINT:
 		op = new operHint(this);
 		break;
-	case ITM_LEVELS:
-		/*op = new operLevels(this);*/
+	//case ITM_LEVELS:
+	//	/*op = new operLevels(this);*/
 
-		op = new selectgamelevel(this);
-		break;
+	//	op = new selectgamelevel(this);
+	//	break;
 	case ITM_REFRESH:
 		op = new operRefresh(this);
 		break;
@@ -271,12 +271,30 @@ void game::run()
 	
 
 	char key;
+	char c;
 
+	pWind->WaitKeyPress(c);
+
+	printMessage("unvalid level number");
+	if ('1' > c || c > '9') {
+		printMessage("unvalid level number");
+		return;
+	}
+
+
+	shapesGrid->~grid();
+	shapesGrid->setshapecount(0);
+
+	int n = int(c) - 48;
+
+	setlevels(n);
+	printMessage("the level was entered successfully");
+	shapesGrid->randshapes();
 	
 	//Change the title
 	pWind->ChangeTitle("- - - - - - - - - - SHAPE HUNT (CIE 101 / CIE202 - project) - - - - - - - - - -");
 	
-	shapesGrid->randshapes();
+	/*shapesGrid->randshapes();*/
 	toolbarItem clickedItem=ITM_CNT;
 	do
 	{
@@ -312,9 +330,9 @@ void game::run()
 			}
 		}
 		
-	} while (clickedItem!=ITM_EXIT);
+	} while (clickedItem!=ITM_EXIT); 
 	      operation* op = new operExit(this);
-	
+		  op->Act();
 }
 
 
