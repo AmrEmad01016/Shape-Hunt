@@ -59,6 +59,10 @@ double shape::getAngle()
 	return angle;
 }
 
+shape::~shape()
+{
+}
+
 void shape::setRefPoint(point p)
 {
 	RefPoint = p;

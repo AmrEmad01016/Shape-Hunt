@@ -226,6 +226,7 @@ void operLoad::Act() {
 	data.open("saveddata\\data.txt");
 	int le, li, z,c;
 	data >> le >> li >> z>>c;
+
 	pGame->setlevels(le); pGame->setlives(li); pGame->setscore(z); pGrid->setshapecount(c);
 	for (int i = 0; i < pGrid->getshapecount(); i++) {
 		
@@ -268,8 +269,9 @@ void operLoad::Act() {
 			shp[i]->resizedown();
 			 
 		}
+	
+
 		shp[i]->setcolor(color1, color2, color3);
-		
 	}
 
 		
@@ -309,7 +311,18 @@ operHint::operHint(game* r_pGame) : operation(r_pGame)
 }
 void operHint::Act() {
 	pGame->printMessage("you have clicked hint");
+	pGame->printMessage("you have clicked hint");
+	pGame->setHint(clock());
+	pGame->setHintFlag(true);
+	pGame->changeScore(-1);
 
+	if (pGame->getlevels() > 2) {
+		shape** shapeList = pGame->getGrid()->getRandShapes();
+		if (!shapeList)return;
+
+		shapeList[pGame->getGrid()->getshapecount() - 1]->setcolor(200, 150, 100);
+		pGame->getGrid()->draw();
+	}
 }
 operLevels::operLevels(game* r_pGame) : operation(r_pGame)
 {
@@ -380,6 +393,12 @@ selectgamelevel::selectgamelevel(game* r_pGame): operation (r_pGame)
 
 void selectgamelevel::Act()
 {
+	if (pGame->getlives() == 1) {
+		pGame->printMessage("you can't set game level any more");
+		return;
+
+	}
+
 	pGame->printMessage("Enter valid level: ");
 	window *pwind = pGame->getWind();
 	grid* pgird = pGame->getGrid();
@@ -396,7 +415,11 @@ void selectgamelevel::Act()
 	shape** shp = pgird->getRandShapes();
 
 	for (int i = 0; i < pgird->getshapecount(); i++)
+	{
 		delete shp[i];
+		shp[i] = nullptr;
+	}
+
 
 	pgird->setshapecount(0);
 
@@ -405,6 +428,8 @@ void selectgamelevel::Act()
 	pGame->setlevels(n);
 	pGame->printMessage("the level was entered successfully");
 	pgird->randshapes();
+
+	pGame->dec_lives();
 }
 
 operExit::operExit(game* r_pGame): operation(r_pGame)
@@ -425,6 +450,8 @@ void operExit::Act()
 	Datafile.close();
 
 	pGame->printMessage("you have clicked exit and if y didnot save , it is auto sava");
+
+	Sleep(2000);
 }
 	
 

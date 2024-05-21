@@ -9,9 +9,13 @@ private:
 	int height, width;	
 	string toolbarItemImages[ITM_CNT]; //array to hold paths to images of diffrent items in the toolbar
 	game* pGame;
+	int time;
 
 public:
 	toolbar(game* r_pGame);
 	toolbarItem getItemClicked(int x);	//handles clicks on toolbar icons, returns the "enum" of the clicekd item
+	void updatescore();
+	void inc_time();
+	void setTime(int t);
 };
 

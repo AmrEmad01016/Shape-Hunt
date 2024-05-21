@@ -75,3 +75,43 @@ toolbarItem toolbar::getItemClicked(int x)
 
 }
 
+void toolbar::updatescore()
+{
+	
+	window* pWind = pGame->getWind();
+
+	pWind->SetBrush(WHITE);
+	pWind->SetPen(WHITE);
+	pWind->DrawRectangle(ITM_CNT * config.toolbarItemWidth + 5, 5, 18* config.toolbarItemWidth, config.toolBarHeight);
+	pWind->SetPen(config.penColor, 5);
+	pWind->SetFont(15, BOLD, BY_NAME, "Arial");
+	pWind->DrawString(ITM_CNT * config.toolbarItemWidth + 5, 5, "lives = " + std::to_string(pGame->getlives()));
+	pWind->DrawString(ITM_CNT * config.toolbarItemWidth + 5, 20, "score = " + std::to_string(pGame->getscores()));
+	pWind->DrawString(ITM_CNT * config.toolbarItemWidth + 5, 35, "level = " + std::to_string(pGame->getlevels()));
+
+	pWind->SetPen(DARKBLUE, 3);
+	pWind->DrawLine(0, height, width, height);
+
+}
+
+void toolbar::inc_time()
+{
+	window* pWind = pGame->getWind();
+
+	pWind->SetPen(config.bkGrndColor, 1);
+	pWind->SetBrush(ANTIQUEWHITE);
+	pWind->DrawRectangle(1120, 3, 1220, 58);
+
+	pWind->SetPen(config.penColor, 15);
+	pWind->SetFont(15, BOLD, BY_NAME, "Arial");
+	pWind->DrawInteger(1150, 35, time);
+
+}
+
+void toolbar::setTime(int t)
+{
+	time = t;
+}
+
+
+

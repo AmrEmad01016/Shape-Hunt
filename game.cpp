@@ -1,6 +1,6 @@
 #include "game.h"
 #include "gameConfig.h"
-
+#include <ctime>
 
 
 game::game()
@@ -36,6 +36,15 @@ int game::getlives()
 void game::dec_lives()
 {
 	lives--;
+	if (lives == 0) {
+
+
+		setlives(5);
+		setscore(0);
+		setlevels(1);
+		cnt = 100;
+
+	}
 }
 
 void game::setlives(int l)
@@ -83,31 +92,43 @@ void game::createGrid()
 
 void game::handleKeyPress(char key)
 {
-	if (!shapesGrid) return;
+	if (!shapesGrid->getActiveShape()) return;
 	int step = config.gridSpacing;
 	shape* activeshape = shapesGrid->getActiveShape();
 	switch (key) {
 	case'w':               //move up
 		activeshape->move(0, -step);
-
+		shapesGrid->draw();
+		gameToolbar->updatescore();
 		break;
 	case's':                    // move down 
 		activeshape->move(0, step);
+
+		shapesGrid->draw();
+		gameToolbar->updatescore();
 		break;
 	case'd':                    // move left
 		activeshape->move(step, 0);
+
+		shapesGrid->draw();
+		gameToolbar->updatescore();
 		break;
 	case'a':                    // move right
 		activeshape->move(-step, 0);
+
+		shapesGrid->draw();
+		gameToolbar->updatescore();
 		break;
 	case'm':
 		shapesGrid->Match();
+
+		shapesGrid->draw();
+		gameToolbar->updatescore();
 		break;
  
 	}
 
-	shapesGrid->draw();
-	createToolBar();
+	
 }
 
 
@@ -236,9 +257,24 @@ int game::getscores()
 	return score;
 }
 
+int game::get_cnt()
+{
+	return cnt;
+}
+
 void game::setscore(int s)
 {
 	score = s;
+}
+
+void game::setHintFlag(bool b)
+{
+	hint_flag = b;
+}
+
+void game::setHint(double cnt)
+{
+	hint_t = cnt;
 }
 
 void game::changeScore(int ds)
@@ -273,29 +309,55 @@ void game::run()
 	char key;
 	char c;
 
-	pWind->WaitKeyPress(c);
+	bool tim = false;
 
-	printMessage("unvalid level number");
-	if ('1' > c || c > '9') {
-		printMessage("unvalid level number");
-		return;
+
+
+
+	printMessage("press t to add a timer, else press any other key");
+	pWind->WaitKeyPress(key);
+
+	if (key == 't') {
+
+		tim = true;
 	}
 
 
-	shapesGrid->~grid();
-	shapesGrid->setshapecount(0);
+	printMessage("Please enter level between 1 and 9 : ");
+	
+	while (true) {
 
-	int n = int(c) - 48;
+		
 
-	setlevels(n);
-	printMessage("the level was entered successfully");
-	shapesGrid->randshapes();
+		pWind->WaitKeyPress(c);
+
+
+		if ('1' > c || c > '9') {
+			printMessage("unvalid level number, please enter level between 1 and 9 : ");
+			continue;
+		}
+
+
+
+
+		int n = int(c) - 48;
+
+		setlevels(n);
+		printMessage("the level was entered successfully");
+		shapesGrid->randshapes();
+
+		shapesGrid->draw();
+		gameToolbar->updatescore();
+		break;
+	}
 	
 	//Change the title
 	pWind->ChangeTitle("- - - - - - - - - - SHAPE HUNT (CIE 101 / CIE202 - project) - - - - - - - - - -");
 	
 	/*shapesGrid->randshapes();*/
 	toolbarItem clickedItem=ITM_CNT;
+
+	double timer = clock();
 	do
 	{
 		
@@ -305,12 +367,26 @@ void game::run()
 			
 		}
 	
+		if (clock() - timer > 1000 && cnt >= 0 && tim == true) {
+			timer = clock();
+			cnt--;
+			gameToolbar->setTime(cnt);
+			gameToolbar->inc_time();
+			if (cnt == 0) {
+				dec_lives();
+				cnt = 100;
+			}
+
+		}
 
 		
-			
+
 		if (pWind->GetMouseClick(x, y)) {	//Get the coordinates of the user click
 			//2-Explain the user click
 			//If user clicks on the Toolbar, ask toolbar which item is clicked
+			
+			
+
 			if (y >= 0 && y < config.toolBarHeight)
 			{
 				clickedItem = gameToolbar->getItemClicked(x);
@@ -320,19 +396,35 @@ void game::run()
 				if (op)
 					op->Act();
 
-
-				
+				delete op;
+				op = nullptr;
+			
 
 				shapesGrid->draw();         //4-Redraw the grid after each action
 
-				createToolBar(); //phase 1 only
+				gameToolbar->updatescore(); //phase 1 only
 
 			}
+			pWind->FlushMouseQueue();
+		}
+		if (hint_flag&&level>2) {
+			shape** shapeList = getGrid()->getRandShapes();
+				if (clock() - hint_t > 2000) {
+
+					shapeList[shapesGrid->getshapecount() - 1]->setcolor(0, 0, 0);
+					shapesGrid->draw();
+					setHintFlag(false);
+				}
+			
 		}
 		
 	} while (clickedItem!=ITM_EXIT); 
+
 	      operation* op = new operExit(this);
 		  op->Act();
+
+		  delete op; 
+		  op = nullptr;
 }
 
 

@@ -698,7 +698,7 @@ void key::resizeup()
 	unitlen *= 2;
 
 	if (!key::checkboundries()) {
-		unitlen / 2;
+		unitlen /= 2;
 		return;
 	}
 
@@ -737,6 +737,7 @@ void key::setcolor(int r, int g, int b)
 
 bool key::checkboundries()
 {
+	maxy = 26 * unitlen;
 
 	if (RefPoint.y < 60 + maxy || RefPoint.y > config.windHeight-80 - maxy || RefPoint.x < maxy || RefPoint.x > config.windWidth - maxy) return false;
 

@@ -25,9 +25,15 @@ grid::grid(point r_uprleft, int wdth, int hght, game* pG)
 
 grid::~grid()
 {
-	delete activeShape;
-	for (int i = 0; i < shapeCount; i++)
+	if (activeShape){
+		delete activeShape;
+	}
+
+
+	for (int i = 0; i < shapeCount; i++) {
 		delete shapeList[i];
+	}
+	
 }
 
 void grid::draw() const
@@ -72,6 +78,7 @@ bool grid::addShape(shape* newShape)
 
 	if (!newShape->checkboundries()) { 
 		delete newShape;
+		newShape = nullptr;
 		return false; }
 
 
@@ -175,6 +182,13 @@ void grid::randshapes()
 
 			shp->setcolor(r, g, b);
 		}
+		else
+		{
+			shp->setcolor(0, 0, 0);
+		}
+
+
+		
 
 		for (int i = 0; i < a; i++) {
 			shp->rotate();
@@ -227,7 +241,7 @@ void grid::Match()
 		double size = shapeList[i]->getUnitlen(), A = shapeList[i]->getAngle(), angle = activeShape->getAngle();
 		point R_ref = shapeList[i]->getRefPoint(), A_ref = activeShape->getRefPoint();
 
-		if (activeShape->getType() == T && abs(A_ref.x - R_ref.x) < 100 && abs(A_ref.y - R_ref.y) < 100 && activeShape->getUnitlen() == size && (round(sin(angle)) == round(sin(A)) ||(T==6 && sin(angle)*sin(A)!=0)) ) {
+		if (activeShape->getType() == T && abs(A_ref.x == R_ref.x)  && abs(A_ref.y == R_ref.y) && activeShape->getUnitlen() == size && (round(sin(angle)) == round(sin(A)) ||(T==6 && sin(angle)*sin(A)!=0)) ) {
 			pGame->changeScore(2);
 
 			delete shapeList[i];

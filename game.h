@@ -19,7 +19,9 @@ protected:
 	int level = 1;
 	int score = 0;
 	int lives = 5;
-
+	int cnt = 100;
+	double hint_t;
+	bool hint_flag = false;
 public:
 	game();
 	~game();
@@ -27,7 +29,10 @@ public:
 	int getlevels();
 	void inc_level();
 	int getscores();
+	int get_cnt();
 	void setscore(int s);
+	void setHintFlag(bool b);
+	void setHint(double cnt);
 	void changeScore(int ds);
 	int getlives();
 	void dec_lives();
@@ -47,7 +52,6 @@ public:
 
 
 
-	void run();	//start the game
-
+	void run();	//start the game
 };
 

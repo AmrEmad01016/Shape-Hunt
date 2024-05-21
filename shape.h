@@ -38,6 +38,8 @@ protected:
 	double maxy;
 	double angle=0;
 public:
+	virtual ~shape(); //
+
 	virtual double getAngle();
 	double getUnitlen();
 	virtual int getType() { return 0; };
